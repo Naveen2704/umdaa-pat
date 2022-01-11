@@ -1,0 +1,529 @@
+
+    <div class="container-fluid mt-3 mat-body overflow">
+      
+        <div class="row mt-2">
+          <div class="col-12 col-md-12 col-xs-6 p-2">
+            <mat-accordion data-step="1" data-intro="Click on down arrow open and add symptom to patients" data-position='right'>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                   Symptoms
+                  </mat-panel-title>
+                 
+                </mat-expansion-panel-header>
+                <form class="example-form p-2"  [formGroup]='usersForm' #formDirective="ngForm" (ngSubmit)="PostSymptoms(usersForm.value,formDirective)">
+                    <!-- <span>Your choice is: {{usersForm.value | json}}</span> -->
+                    
+                
+                    <div class="row mb-2">
+                      <div class="col-12 col-md-6 ">
+                        <mat-form-field class="example-full-width">
+                      
+                          <input type="text"  [matChipInputFor]="chipList" placeholder="Symptoms"  matInput formControlName='Search' [matAutocomplete]="auto" required>
+              
+                         <div>
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" 
+                             value="{{ option.synonym | titlecase }}" (click)="getId(option.synonym,option.form_id)">
+                              {{option.synonym | titlecase}}  
+                            </mat-option>
+                          </mat-autocomplete>
+                         </div>
+  
+                          <!-- <mat-hint>Enter Symptoms</mat-hint> -->
+                          <mat-error *ngIf="isSubmitted && usersForm.get('Search').hasError('required')">
+                            Symptoms is required
+                          </mat-error>
+                      </mat-form-field>
+                      
+                      </div>
+                      <div class="col-4 col-md-2 mt-2">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Span" max="3" formControlName='span' required>
+                          <!-- <mat-hint>Enter Span</mat-hint> -->
+                          <mat-error *ngIf="isSubmitted && usersForm.get('span').hasError('required')">
+                            Span is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-4 col-md-2 mt-2">
+                        <mat-form-field>
+                          <mat-label>Duration</mat-label>
+                          <mat-select formControlName='duration' required>
+                            <mat-option *ngFor="let food of foods" [value]="food.value" >
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                          <!-- <mat-hint>Enter Duration</mat-hint> -->
+                          <mat-error *ngIf=" isSubmitted && usersForm.get('duration').hasError('required')">
+                            Duration is required
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                        <div class="col-4 col-md-2 text-center my-auto">
+                          
+                        <button  mat-raised-button [disabled]="disabled"  class="my_bg_v" ><mat-icon>done</mat-icon></button> 
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                    <div class="d-flex col-12 col-lg-12 ">
+                      <div class="container_more" [class.show]="show">
+                      <div class="class col-12">
+                        <mat-chip-list  [selectable]="true" #chipList [multiple]="true"  >
+
+                          <mat-chip [selectable]="true"  *ngFor="let suggition of suggitions"  (click)="selected(suggition)" >{{suggition.symptom }}
+                            <!-- {{suggition.form_id}} -->
+                          </mat-chip>
+                          
+                        </mat-chip-list>
+                      </div>
+                      
+                      <!-- <button >{{ show ? 'less': 'More' }}</button> -->
+                    </div>
+                    <!-- <div class="new my-auto" *ngIf="suggitions?.length > 0">
+                      <span class="material-icons" (click)="show = !show">
+                        more_vert
+                        </span>
+                      
+                    </div> -->
+                    
+                    </div>
+                    </div>
+                </form>
+                 <div class="table-responsive">
+                <table mat-table [dataSource]="(dataSource)" class="mat-elevation-z8 mt-3" style="width:100%">
+
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element let i = index;"> {{i+1}} </td>
+                  </ng-container>
+                
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Symptom</th>
+                    <td mat-cell *matCellDef="let element"> {{element.symptom_data }}</td>
+                  </ng-container>
+                
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Span </th>
+                    <td mat-cell *matCellDef="let element"> {{element.time_span}} </td>
+                  </ng-container>
+                
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef> Duration </th>
+                    <td mat-cell *matCellDef="let element"> {{element.span_type }} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Delete">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element" (click)="delete(element.pps_line_item_id)"><mat-icon class="fs_D">delete</mat-icon></td>
+                  </ng-container>
+                  <ng-container matColumnDef="Edit">
+                    <th mat-header-cell *matHeaderCellDef>  </th>
+                    <td mat-cell *matCellDef="let element" (click)="updateSymptom(element.pps_line_item_id,element.form_id,element.symptom_data,element.time_span,element.span_type)"> <mat-icon class="fs_E">edit</mat-icon> </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns" class="text-left"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="text-left"></tr>
+                </table>
+              </div> 
+                </mat-expansion-panel>
+                </mat-accordion>
+          </div>
+          <div class="col-12 col-md-12 col-xs-6  p-2">
+            <mat-accordion data-step="2" data-intro="Click on down arrow open symptom related HOPI" data-position='right'>
+                <mat-expansion-panel (opened)="send()">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     HOPI
+                    </mat-panel-title>
+                   
+                  </mat-expansion-panel-header>
+                 <app-hopi></app-hopi>
+                  </mat-expansion-panel>
+            </mat-accordion>
+         </div>
+         <div class="col-12 col-md-12 col-xs-6  p-2" data-step="3" data-intro="Click on down arrow open history of patient and click on pencil icon for hand writing" data-position='right'>
+          <app-past-history></app-past-history>
+          <!-- <mat-accordion>
+              <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                  Past History
+                  </mat-panel-title>
+                 
+                </mat-expansion-panel-header>
+               <app-past-history></app-past-history>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+            
+            <form [formGroup]="pastForm" #past="ngForm"  (ngSubmit)="onSubmitPast(pastForm.value,past)">
+              <div class="row">
+                  <div class="col">
+                     <!-- <b style="color:#10365a;">Other Systems</b> -->
+                      <mat-card class="mt-2">
+                          <!-- <mat-card-header>
+                               <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                          </mat-card-header> -->
+                          <mat-card-content>
+                              <div class="container">
+                                  <div class="row">
+                                    <div class="col-8">
+                                      <mat-form-field class="example-full-width">
+                                        <mat-label>Enter Past History Here</mat-label>
+                                        <input matInput formControlName="pastName" autocomplete="off" required >                                
+                                        <mat-error *ngIf="isSubmittedPast">
+                                          Field is required
+                                        </mat-error>
+                                        </mat-form-field>
+                                     
+                                    </div>
+                                    <div class="col-4 my-auto">                              
+                                      <button  mat-raised-button [disabled]="disabled"  type="submit" class="my_bg_v"> ADD </button>  
+                                 </div>
+                                  </div>
+                              </div>
+                              <div class="container mt-2" >
+                                  <div class="row">
+                                    <div class="col">
+                                      <mat-chip-list aria-label="Fish selection">
+                                          <mat-chip color="primary" selected  *ngFor="let data of pastSList" (click)="sendPastSuggestion(data.suggestion_name)">{{data.suggestion_name}}</mat-chip>
+                                        </mat-chip-list>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="container  mt-2" *ngIf="hidePast">
+                                <div class="row">
+                                  <div class="col-12  table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">S.No</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let data of allPastSList">
+                                          <th scope="row">{{data.No}}</th>
+                                          <td>{{data.suggestion_name}}</td>
+                                          <td>
+                                            <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                            <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deletePastSuggestions(data.id,data.form_type)"></i>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                          </mat-card-content>
+                       
+                      </mat-card>
+                  </div>
+              </div>
+          </form>
+       </div>
+       <div class="col-12 col-md-12 col-xs-6  p-2">
+
+             <app-personal-history></app-personal-history>
+ 
+
+             <form [formGroup]="personalForm" #personal="ngForm"  (ngSubmit)="onSubmitPersonal(personalForm.value,personal)">
+              <div class="row">
+                  <div class="col">
+                     <!-- <b style="color:#10365a;">Other Systems</b> -->
+                      <mat-card class="mt-2">
+                          <!-- <mat-card-header>
+                               <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                          </mat-card-header> -->
+                          <mat-card-content>
+                              <div class="container">
+                                  <div class="row">
+                                    <div class="col-8">
+                                      <mat-form-field class="example-full-width">
+                                        <mat-label>Enter Personal History Here</mat-label>
+                                        <input matInput formControlName="personalName" autocomplete="off" required >                                
+                                        <mat-error *ngIf="isSubmittedPersonal">
+                                          Field is required
+                                        </mat-error>
+                                        </mat-form-field>
+                                     
+                                    </div>
+                                    <div class="col-4 my-auto">                              
+                                      <button  mat-raised-button  [disabled]="disabled"  type="submit" class="my_bg_v"> ADD </button>  
+                                 </div>
+                                  </div>
+                              </div>
+                              <div class="container mt-2" >
+                                  <div class="row">
+                                    <div class="col">
+                                      <mat-chip-list aria-label="Fish selection">
+                                          <mat-chip color="primary" selected  *ngFor="let data of personalSList" (click)="sendPersonalSuggestion(data.suggestion_name)">{{data.suggestion_name}}</mat-chip>
+                                        </mat-chip-list>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="container  mt-2" *ngIf="hidePersonal">
+                                <div class="row">
+                                  <div class="col-12  table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">S.No</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let data of allPersonalSList">
+                                          <th scope="row">{{data.No}}</th>
+                                          <td>{{data.suggestion_name}}</td>
+                                          <td>
+                                            <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                            <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deletePersonalSuggestions(data.id,data.form_type)"></i>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                          </mat-card-content>
+                       
+                      </mat-card>
+                  </div>
+              </div>
+          </form>
+                       
+     </div>
+         <div class="col-12 col-md-12 col-xs-6  p-2">
+
+               <app-treatment-history></app-treatment-history>
+
+               
+             <form [formGroup]="treatmentForm" #treatment="ngForm"  (ngSubmit)="onSubmitTreatment(treatmentForm.value,treatment)">
+              <div class="row">
+                  <div class="col">
+                     <!-- <b style="color:#10365a;">Other Systems</b> -->
+                      <mat-card class="mt-2">
+                          <!-- <mat-card-header>
+                               <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                          </mat-card-header> -->
+                          <mat-card-content>
+                              <div class="container">
+                                  <div class="row">
+                                    <div class="col-8">
+                                      <mat-form-field class="example-full-width">
+                                        <mat-label>Enter Treatment History Here</mat-label>
+                                        <input matInput formControlName="treatmentName" autocomplete="off" required >                                
+                                        <mat-error *ngIf="isSubmittedTreatment">
+                                          Field is required
+                                        </mat-error>
+                                        </mat-form-field>
+                                     
+                                    </div>
+                                    <div class="col-4 my-auto">                              
+                                      <button  mat-raised-button  [disabled]="disabled"  type="submit" class="my_bg_v"> ADD </button>  
+                                 </div>
+                                  </div>
+                              </div>
+                              <div class="container mt-2" >
+                                  <div class="row">
+                                    <div class="col">
+                                      <mat-chip-list aria-label="Fish selection">
+                                          <mat-chip color="primary" selected  *ngFor="let data of treatmentSList" (click)="sendTreatmentSuggestion(data.suggestion_name)">{{data.suggestion_name}}</mat-chip>
+                                        </mat-chip-list>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="container  mt-2" *ngIf="hideTreatment">
+                                <div class="row">
+                                  <div class="col-12  table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">S.No</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let data of allTreatmentSList">
+                                          <th scope="row">{{data.No}}</th>
+                                          <td>{{data.suggestion_name}}</td>
+                                          <td>
+                                            <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                            <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deleteTreatmentSuggestions(data.id,data.form_type)"></i>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                          </mat-card-content>
+                       
+                      </mat-card>
+                  </div>
+              </div>
+          </form>
+
+       </div>
+       <div class="col-12 col-md-12 col-xs-6  p-2">
+
+             <app-family-history></app-family-history>
+
+             <form [formGroup]="familyForm" #family="ngForm"  (ngSubmit)="onSubmitFamily(familyForm.value,family)">
+              <div class="row">
+                  <div class="col">
+                     <!-- <b style="color:#10365a;">Other Systems</b> -->
+                      <mat-card class="mt-2">
+                          <!-- <mat-card-header>
+                               <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                          </mat-card-header> -->
+                          <mat-card-content>
+                              <div class="container">
+                                  <div class="row">
+                                    <div class="col-8">
+                                      <mat-form-field class="example-full-width">
+                                        <mat-label>Enter Family History Here</mat-label>
+                                        <input matInput formControlName="familyName" autocomplete="off" required >                                
+                                        <mat-error *ngIf="isSubmittedFamily">
+                                          Field is required
+                                        </mat-error>
+                                        </mat-form-field>
+                                     
+                                    </div>
+                                    <div class="col-4 my-auto">                              
+                                      <button  mat-raised-button [disabled]="disabled"   type="submit" class="my_bg_v"> ADD </button>  
+                                 </div>
+                                  </div>
+                              </div>
+                              <div class="container mt-2" >
+                                  <div class="row">
+                                    <div class="col">
+                                      <mat-chip-list aria-label="Fish selection">
+                                          <mat-chip color="primary" selected  *ngFor="let data of familySList" (click)="sendFamilySuggestion(data.suggestion_name)">{{data.suggestion_name}}</mat-chip>
+                                        </mat-chip-list>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="container  mt-2" *ngIf="hideFamily">
+                                <div class="row">
+                                  <div class="col-12  table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">S.No</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let data of allFamilySList">
+                                          <th scope="row">{{data.No}}</th>
+                                          <td>{{data.suggestion_name}}</td>
+                                          <td>
+                                            <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                            <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deleteFamilySuggestions(data.id,data.form_type)"></i>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                          </mat-card-content>
+                       
+                      </mat-card>
+                  </div>
+              </div>
+          </form>
+     </div>
+     <div class="col-12 col-md-12 col-xs-6  p-2">
+
+           <app-social-history></app-social-history>
+
+  <form [formGroup]="socialForm" #social="ngForm"  (ngSubmit)="onSubmitSocial(socialForm.value,social)">
+    <div class="row">
+        <div class="col">
+           <!-- <b style="color:#10365a;">Other Systems</b> -->
+            <mat-card class="mt-2">
+                <!-- <mat-card-header>
+                     <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                </mat-card-header> -->
+                <mat-card-content>
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-8">
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Enter Social History Here</mat-label>
+                              <input matInput formControlName="socialName" autocomplete="off" required >                                
+                              <mat-error *ngIf="isSubmittedSocial">
+                                Field is required
+                              </mat-error>
+                              </mat-form-field>
+                           
+                          </div>
+                          <div class="col-4 my-auto">                              
+                            <button  mat-raised-button [disabled]="disabled"  type="submit" class="my_bg_v"> ADD </button>  
+                       </div>
+                        </div>
+                    </div>
+                    <div class="container mt-2" >
+                        <div class="row">
+                          <div class="col">
+                            <mat-chip-list aria-label="Fish selection">
+                                <mat-chip color="primary" selected  *ngFor="let data of socialSList" (click)="sendSocialSuggestion(data.suggestion_name)">{{data.suggestion_name}}</mat-chip>
+                              </mat-chip-list>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="container  mt-2" *ngIf="hideSocial">
+                      <div class="row">
+                        <div class="col-12  table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let data of allSocialSList">
+                                <th scope="row">{{data.No}}</th>
+                                <td>{{data.suggestion_name}}</td>
+                                <td>
+                                  <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                  <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deleteSocialSuggestions(data.id,data.form_type)"></i>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          
+                        </div>
+                      </div>
+                    </div>
+                </mat-card-content>
+             
+            </mat-card>
+        </div>
+    </div>
+</form>
+   </div>
+        </div>
+        <div class="help">
+          <button mat-mini-fab  (click)="help()"><mat-icon>help_outline</mat-icon></button>
+        </div>
+    </div>

@@ -1,0 +1,30 @@
+
+
+<form [formGroup]="Givenon_form" #formDirective="ngForm" (ngSubmit)="setGiven(Givenon_form.value,formDirective)">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="Cal_close text-right">
+                <mat-icon (click)="givenon_close()" class="custom_css_btn_cal">close</mat-icon>
+            </div>
+        </div>
+    </div>
+<div class="row ">
+<div class="col-4 col-md-4 text-center"><p class="mt-4">GIVEN ON</p></div>
+<div class="col-4 col-md-4">
+    <mat-form-field>
+    <input matInput  [matDatepicker]="picker" [max]="maxToDate" 
+    [max]="maxToDate" placeholder="Choose DOB Date"  formControlName="SetDob" [(ngModel)]="SetDob" >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker  ></mat-datepicker>
+  </mat-form-field>
+</div>
+<div class="col-4 col-md-4 mt-2">
+    <button mat-raised-button type="submit"><mat-icon>done</mat-icon></button>
+</div>
+</div>
+<!-- <div class="row ">
+    <div class="col-12 col-md-12 mt-2 text-center">
+        <button mat-raised-button type="submit"  >SUBMIT</button>
+    </div>
+</div> -->
+</form>

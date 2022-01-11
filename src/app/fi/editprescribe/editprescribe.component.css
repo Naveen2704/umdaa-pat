@@ -1,0 +1,35 @@
+.custom_css_btn{
+    color: red;
+    cursor: pointer;
+}
+
+.row.vertical-divider [class*='or']:not(:last-child)::after {
+   
+    width: 1px;
+    content: "Or";
+    display:block;
+    position: absolute;
+    top:35px;
+    bottom: 0;
+    right: 42px;
+    min-height: 70px;
+    font-size: 20px;
+  }
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+@media only screen and (min-width: 320px) and (max-width: 480px) { 
+    .row.vertical-divider [class*='or']:not(:last-child)::after {
+   
+      width: 1px;
+      content: "Or";
+      display:none;
+      position: absolute;
+      top:35px;
+      bottom: 0;
+      right: 42px;
+      min-height: 70px;
+      font-size: 20px;
+    }
+} 

@@ -1,0 +1,8 @@
+.custom_css_btn{
+    color: red;
+    cursor: pointer;
+}
+.chart-wrapper{
+    position: relative;
+    min-height: unset;
+}

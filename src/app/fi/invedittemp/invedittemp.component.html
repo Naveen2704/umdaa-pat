@@ -1,0 +1,35 @@
+<div class="row my-auto">
+      
+    <div class="col-12 text-right">
+        <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+    </div>
+</div>
+<form [formGroup]='TemplateinvForm' #myTemp="ngForm" (ngSubmit)="EditTemp(TemplateinvForm.value,myTemp)">
+<div class="row">
+    <div class="col-4">
+        <div class="mat-subheading-1">
+        TEMPLATE NAME
+        </div>
+    </div>
+    <div class="col-8">
+        
+            <mat-form-field appearance="outline">
+                <input type="text"
+                    aria-label="Number"
+                    matInput
+                    formControlName='tempinvname' 
+                    autocomplete="off" [(ngModel)]="data.name"
+                    >
+                    <input type="hidden" formControlName = "tempinv_id" class="form-control" [(ngModel)]="data.id">
+
+            </mat-form-field>
+    
+    </div>
+    
+</div>
+<div class="row">
+    <div class="m-auto">
+      <button mat-raised-button type="submit" >Save</button>
+    </div>
+  </div>
+</form>

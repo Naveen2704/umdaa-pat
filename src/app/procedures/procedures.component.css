@@ -1,0 +1,17 @@
+.margin{
+    margin-top: 67px;
+}
+::ng-deep .mat-tab-body-wrapper {
+    position: relative !important;
+    margin-top:55px !important;
+}
+.view{
+    cursor: pointer;
+}
+
+.help{
+    bottom:24px;
+    position: fixed;
+    right: 20px;
+    z-index: 1;
+  }

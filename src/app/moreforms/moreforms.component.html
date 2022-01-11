@@ -1,0 +1,100 @@
+<app-forms></app-forms>
+<loading *ngIf="isLoading"></loading>
+<!-- <div class="row mt-5">
+    <div class="col-sm-12 col-md-3">
+      <div class="m-2">
+      <mat-chip-list selectable>
+          <mat-chip class="mychip"   *ngFor="let form of formList" (click)="formId(form.form_id)" [selected]="chips.has(form.form_id)" >{{form.form_name|titlecase}}</mat-chip>
+          </mat-chip-list> 
+          <mat-form-field>
+            <mat-label>Favorite food</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let form of formList" [value]="form.form_id">
+                {{form.form_name|titlecase}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      </div>
+</div> -->
+<div class="">
+<section style="margin-top:56px">
+  <form [formGroup]='MoreForm' #myformpro="ngForm" (ngSubmit)="MoreFormsubmit(MoreForm.value,myformpro)">
+    <div class="row ml-0">
+      <div class="col-10 col-md-3">
+        <mat-form-field>
+          <mat-label>Select Form</mat-label>
+          <mat-select >
+            <mat-option *ngFor="let form of formList" [value]="form.form_id" (click)="changeClient(form.form_id)" >
+              {{form.form_name|titlecase}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+        <div class="col-8 col-md-5 " *ngIf="formData != 0">
+                <mat-form-field >
+                  <input type="text"  #term (ngModelChange)="MoreFormSearch(term.value,formData)"
+                        aria-label="Number"
+                        matInput
+                        id="keyword"
+                        formControlName='queryField'
+                        [matAutocomplete]="auto" placeholder="Search for form type" required>
+                        <!-- <input type="hidden" formControlName ="mform_id" class="form-control" [(ngModel)]="mform_id">
+                        <input type="hidden" formControlName ="mform_id_type" class="form-control" [(ngModel)]="mform_id_type"> -->
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let item of List " [value]="item.name" (click)="getId(item.id,item.type_id)" >
+                                <span >{{item.name}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                  <!-- <mat-error *ngIf="isSubmitted && CdForm.get('queryField').hasError('required')">
+                    Please Select diagnosis name 
+                  </mat-error> -->
+                </mat-form-field>
+              
+        </div>
+        <div class="col-4  col-md-4 p-0 my-auto">
+              
+          <button mat-raised-button  [disabled]="disable"  type="submit"  class=" mt-1 my_bg_v" >ADD</button> 
+        </div>
+  
+    </div>
+   </form>
+</section>
+    
+       <!-- <form [formGroup]='EditForm' #myformpro="ngForm""> -->
+     <div class="row" >
+        <div class="col-12" >
+            <div class="m-2" *ngFor="let item of AddedList">
+              <mat-expansion-panel (opened)="getaddedId(item.id,item.name)" >
+              <mat-expansion-panel-header class="right-aligned-header">
+              <mat-panel-title>
+                {{item.name}}
+              </mat-panel-title>
+              <mat-panel-description>
+                <mat-icon >visibility</mat-icon>  VIEW FORM
+              </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="editor">
+                <input type="hidden"  [(ngModel)]="desc_id">
+                <angular-editor   [(ngModel)]="htmlContent"  [config]="config"></angular-editor>
+              </div>
+                <div class="col-12 d-flex">
+                  <div class="text-center mt-2 mr-2">
+                    <button mat-raised-button  [disabled]="disable"   type="submit" class="my_bg_v"  (click)=" EditFormsubmit()" >SAVE FOR THIS PATIENT</button>
+                  </div>
+                  <div class="text-center mt-2 mr-2">
+                    <button mat-raised-button  [disabled]="disable"   type="submit" class="my_bg_v"  (click)=" saveastemp()" >SAVE AS TEMPLATE</button>
+                  </div>
+                  <div class="text-center mt-2">
+                    <button mat-button  *ngIf="print_enable" type="submit" class="my_bg_v"  (click)="print()" >PRINT</button>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+              <!-- <mat-card (click)="getaddedId(item.id)">{{item.name}}</mat-card> -->
+            </div>
+            
+        </div>
+        
+    </div>
+  </div>
+    <!-- </form> -->

@@ -1,0 +1,47 @@
+.custom_css_btn{
+    color: red;
+    cursor: pointer;
+}
+.custom_css_btn_cal{
+    cursor: pointer;
+}
+.calculator_section{
+    margin: 0 auto;
+    padding:10px 0px;
+   
+}
+.immuene_section{
+    margin: 0 auto;
+    padding:10px 0px;
+   
+}
+.imu_header{
+    background:rgb(228, 226, 226);
+    color: #0c0606f5;
+}
+.imu_header h6{
+    line-height:50px;
+    height: 50px;
+    padding: 10px;
+    font-size:14px;
+}
+.imu_main p{
+    font-size:12px;
+}
+.imu_main span{
+    font-size:14px;
+}
+.class_bg p{
+    vertical-align: middle
+}
+/* .class_bg{
+    background:rgb(228, 226, 226);
+} */
+
+::ng-deep .swal2-html-container{
+    text-align: left !important;
+    font-size: 16px !important; 
+}
+::ng-deep  .swal2-styled{
+    padding: 3px 10px !important;
+}

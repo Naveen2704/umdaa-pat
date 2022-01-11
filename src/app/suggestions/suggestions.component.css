@@ -1,0 +1,13 @@
+.form_header{
+    padding:12px;
+    /* width:150px; */
+}
+.fs {
+    cursor: pointer !important;
+    color: #B00020;
+}
+.custom_css_btn {
+    background: #10367a;
+    color: #f5f5f5;
+}
+

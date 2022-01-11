@@ -1,0 +1,12 @@
+.custom_css_btn{
+    color: red;
+    cursor: pointer;
+}
+.attached_reports_list img{
+    margin:10px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+.file_section{
+    cursor: pointer;
+}

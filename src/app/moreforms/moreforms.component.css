@@ -1,0 +1,11 @@
+ .mychip > .mat-standard-chip   {
+    background: #10366ba6  !important;
+   
+  }
+  .my-chip .mat-chip-selected {
+    background: #10366ba6  !important;
+    color: #fff;
+  }
+
+  
+

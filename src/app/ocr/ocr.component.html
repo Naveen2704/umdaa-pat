@@ -1,0 +1,27 @@
+<!-- <p>ocr works!</p> -->
+<!-- {{image}} -->
+<div class="container">
+    <div class="row col-12 col-md-12">
+        <div class="col-12 col-md-6 col-xl-6 col-lg-6">
+          <img [src]="image" alt="OCR Front Side Image" style="width:100%">
+        </div>
+        <div class="col-12 col-md-6 col-xl-6 col-lg-6">
+          <img [src]="image2" alt="Ocr Back Side Image" style="width:100%">
+        </div>
+      </div>
+      
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <img [src]="image">
+        </div>
+        <div class="col-md-6">
+            <img [src]="image2">
+        </div>
+    </div> -->
+    <div class="upload" *ngIf="show">
+        <button mat-stroked-button class="my_bg_v" (click)="translate()">Translate</button>
+      </div>
+      <div class="upload" *ngIf="hide">
+        <button mat-stroked-button class="my_bg_v">Please wait...Data is Loading</button>
+      </div>
+</div>

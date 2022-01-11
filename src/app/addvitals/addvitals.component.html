@@ -1,0 +1,382 @@
+
+
+<mat-dialog-content class="mat-typography">
+<div class="m-0 bgcolor mat-body">
+    <div class="row">
+        <!-- <div class="col-7">
+            <p class="text-right vitalstitle py-2">VITALS</p>
+        </div> -->
+        <!-- <div class="col-12 text-right">
+            <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <button mat-raised-button [matMenuTriggerFor]="menu"><i class="fa fa-calculator fa-md fa-1x" aria-hidden="true"></i> Calculator</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="AddCalculator()" *ngIf="department_id == '3'"> OBSTETRIC (LMP)</button>
+              <button mat-menu-item (click)="addimmune()">IMMUNIZATION TIME TABLE</button>
+            </mat-menu>
+        </div>
+    </div>
+ <form [formGroup]="phaseform" #formDirective="ngForm" (ngSubmit)="submit(phaseform.value,formDirective)" > 
+     
+        <div  class="calculator_section" *ngIf="hide">
+            <mat-card>
+            <form [formGroup]="cal_form" #formDirective="ngForm" (ngSubmit)="cal_submit(cal_form.value,formDirective)">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="Cal_close text-right">
+                            <mat-icon (click)="cal_close()" class="custom_css_btn_cal">close</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            <div class="row ">
+            <div class="col-4 col-md-4"><p class="mt-4">LMP</p></div>
+            <div class="col-8 col-md-8">
+                <mat-form-field >
+                <input matInput [matDatepicker]="picker" [min]="minFromDate" 
+                [max]="maxToDate" name="date" placeholder="Choose LMP date"  formControlName="datePick" [(ngModel)]="datePick" (dateChange)="addEvent('change', $event)" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker  disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 col-md-4"><p class="mt-4">EDD</p></div>
+                <div class="col-8 col-md-8">
+                    <mat-form-field>
+                        <input matInput placeholder="EDD" formControlName="EDD" [(ngModel)]="EDD" required disabled>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-4 col-md-4"><p class="mt-4">POG</p></div>
+                <div class="col-8 col-md-8">
+                    <mat-form-field>
+                        <input matInput placeholder="Input"  formControlName="pod" [(ngModel)]="pod" required>
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-12 mt-2 text-center">
+                    <button mat-raised-button type="submit" [disabled]="!formDirective.valid" >SUBMIT</button>
+                </div>
+            </div>
+            </form>
+            </mat-card>
+        </div>
+
+        <div class="immuene_section" *ngIf="immune_hide">
+            <mat-card>
+                <form [formGroup]="dob_form" #formDirective="ngForm" (ngSubmit)="submit_dob(dob_form.value,formDirective)">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="Cal_close text-right">
+                                <mat-icon (click)="imu_close()" class="custom_css_btn_cal">close</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                <div class="col-2 col-md-4 text-center"><p class="mt-4">DOB</p></div>
+                <div class="col-6 col-md-4">
+                    <mat-form-field>
+                    <input matInput  [matDatepicker]="picker" 
+                    [max]="maxToDate" placeholder="Choose DOB Date"  formControlName="dob" [(ngModel)]="dob" (dateChange)="AddDob('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker  ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-4 col-md-4 mt-2">
+                    <!-- <button mat-raised-button type="submit"><mat-icon>done</mat-icon></button> -->
+                    <button type="button" class="btn" type="submit">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                </div>
+                
+                </div>
+                <!-- <div class="row ">
+                    <div class="col-12 col-md-12 mt-2 text-center">
+                        <button mat-raised-button type="submit"  >SUBMIT</button>
+                    </div>
+                </div> -->
+                </form>
+                <div class="imu_main mt-2"><!--- *ngIf="immune_tabel" -->
+                    <div class="imu_header">
+                        <div class="row">
+                            <div class="col-2 col-md-4"> <h6>AGE</h6> </div>
+                            <div class="col-5 col-md-4"> <h6>VACCINE</h6> </div>
+                            <div class="col-5 col-md-4"><h6>GIVEN ON</h6> </div>
+                        </div>
+                    </div>
+                    <div class="imu_main p-2">
+                        <div class="row mb-2" *ngFor = "let im_list of imu_list;">
+                            <div class="col-2">
+                                <div class="class_bg"  >
+                                    <p class="text-center">{{im_list.age}}</p>
+                                </div>
+                            </div>
+                            <div class="col-10" >
+                                <div class="row"  *ngFor = "let vaccine_list of im_list.vaccine_list">
+                                    <div class="col-6">
+                                        <mat-checkbox color="primary" (change)="openCheck($event,vaccine_list.vaccine_id,vaccine_list.due_on)" id="{{vaccine_list.vaccine_id}}" [checked]="vaccine_list.status == 'Completed' ? 'true':''"></mat-checkbox>
+                                        <span> {{vaccine_list.vaccine}}</span>
+                                    </div>
+                                    <!-- <div class="col-4 p-0">
+                                        <p class="text-center">{{vaccine_list.due_on}}</p>
+                                    </div> -->
+                                    <div class="col-6">
+                                        <p class="text-center" >DUE ON: {{vaccine_list.due_on | date: 'dd-MM-yyyy'}}</p>
+                                        <p class="text-center"  [style.color]="vaccine_list.status == 'Completed' ? 'green': (vaccine_list.status == 'Pending') ? 'red':(vaccine_list.status == 'Upcoming') ? 'orange':''" >{{vaccine_list.status == 'Completed'?(vaccine_list.given_on | date: 'dd-MM-yyyy') :vaccine_list.status}}</p>
+                                       
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+            </mat-card>
+        </div>
+
+        <div class="row mt-3">  
+            <div class="col-3 ">
+                <p>PR </p>
+            </div> 
+            <div class="col-5 p-0 mr-1 ">
+                <input type="number" min="0"  max="300" [(ngModel)]="pulse" formControlName="pulse" [style.color]="prcolor" (ngModelChange)="valuepr($event)"  class="form-control text-center" onkeyup="if(this.value > 300) this.value = 300;" onkeydown="return event.keyCode !== 69">
+
+            </div><small class="mt-3">PER MIN</small>  
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-3 ">
+                <p>BP</p>
+            </div>
+            <div class="col-3 p-0 mr-2">
+                <input type="number" min="0"  class="form-control text-center" formControlName="bp2"
+                 [(ngModel)]="bph" [style.color]="bphcolor" (ngModelChange)="valuebph($event)" 
+                 max="250" onkeyup="if(this.value > 250) this.value = 250;" 
+                 onkeydown="return event.keyCode !== 69">
+
+            </div>
+            <div class="col-3 p-0 mr-2">
+                <input type="number" min="0"  class="form-control text-center" 
+                formControlName="bp1" [(ngModel)]="bpl" 
+                [style.color]="bplcolor" (ngModelChange)="valuebpl($event)" 
+                max="250" onkeyup="if(this.value > 250) this.value = 250;"
+                onkeydown="return event.keyCode !== 69">
+
+            </div><small class="mt-2"> MMHG</small>
+        </div>
+
+    <div class="row  mt-2">
+        <div class="col-3 ">
+                <p>RR</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2">
+            <input type="number" min="0" class="form-control text-center"  
+            formControlName="rr" [(ngModel)]="rr" (ngModelChange)="valuerr($event)" 
+            [style.color]="rrcolor" max="60" onkeyup="if(this.value > 60) this.value = 60;"
+            onkeydown="return event.keyCode !== 69" >
+        </div> <small class="mt-2">PER MIN</small>
+    </div>
+    <div class="row  mt-2">
+        <div class="col-3  ">
+            <p>TEMP</p>
+        </div>
+        <div class="col-5 p-0 m-0 mr-2">
+            <input type="number" min="0" class="form-control text-center"
+             formControlName="temp" [(ngModel)]="temp" 
+             (ngModelChange)="valuetemp($event)"[style.color]="tempcolor" 
+             max="110" onkeyup="if(this.value > 110) this.value = 110;" 
+             onkeydown="return event.keyCode !== 69"> 
+        </div><small class="mt-2">F</small>
+    </div>
+    <div class="row  mt-2">
+        <div class="col-3  ">
+            <p>SaO2</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2">
+            <input type="number" min="0" class="form-control text-center" 
+            formControlName="sao2" [(ngModel)]="sao2" (ngModelChange)="valuesao2($event)"
+            [style.color]="sao2color" max="100" 
+            onkeyup="if(this.value > 100) this.value = 100;" 
+            onkeydown="return event.keyCode !== 69">
+        </div><small class="mt-2">%</small>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3 ">
+            <p>HEIGHT</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2"> 
+            <input type="number" min="0" [(ngModel)]="height" formControlName="height" 
+            (ngModelChange)="valueheight($event)" [style.color]="heightcolor" 
+            class="form-control text-center" max="250" 
+            onkeyup="if(this.value > 250) this.value = 250;" 
+            onkeydown="return event.keyCode !== 69">
+        </div><small class="mt-2">CM</small> 
+    </div>
+    <div class="row  mt-2">
+        <div class="col-3  ">
+            <p>WEIGHT</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2">
+            <input type="number" min="0" [(ngModel)]="weight"  
+            formControlName="weight" (ngModelChange)="valueweight($event)" 
+            [style.color]="weightcolor" class="form-control text-center" 
+            max="500" onkeyup="if(this.value > 500) this.value = 500;" 
+            onkeydown="return event.keyCode !== 69">
+        </div><small class="mt-2">KG</small>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3  ">
+            <p>BMI</p>
+        </div>
+        <div class="col-5 p-0 m-0 mr-2">
+            <input class="form-control text-center inputcolor"  formControlName="bmi" 
+             readonly="true" >
+        </div><small class="mt-2">KG/M SQ</small>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3  ">
+            <p>BSA</p>
+        </div>
+        <div class="col-5 p-0 mr-2">
+            <input class="form-control text-center inputcolor"  formControlName="bsa" 
+            readonly="true">
+        </div><small class="mt-2">M SQ</small>
+    </div>
+
+    <div  formArrayName="cal">
+              
+        <div *ngFor="let Eguop of getuops(); let i = index" formGroupName="{{i}}">
+            <div class="row mb-0 mt-2">
+                <div class="col-3 ">
+                    <p>LMP</p>
+                </div>
+                <div class="col-5 p-0 m-0 mr-2">
+                    <input class="form-control text-center inputcolor" [(ngModel)]="DataDate" value="{{DataDate}}" formControlName="LMP" 
+                     >
+
+                </div>
+                <div class="col-3  ">
+                    <button type="button" class="btn"  (click)="remove_cal(i)"><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+
+                </div>
+            </div>
+            <div class="row mb-0">
+                <div class="col-3 mt-2">
+                    <p>EDD</p>
+                </div>
+                <div class="col-5 p-0 m-0 mr-2">
+                    <input class="form-control text-center inputcolor"  [(ngModel)]="DataEdd" value="{{DataEdd}}" formControlName="EDD" 
+                     >
+                </div>
+            </div>
+            <div class="row mb-0">
+                <div class="col-3  mt-2">
+                    <p>POG</p>
+                </div>
+                <div class="col-5 p-0 m-0 mr-2">
+                    <input class="form-control text-center inputcolor" [(ngModel)]="Datapod" value="{{Datapod}}" formControlName="POD" 
+                     >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-3  mt-2">
+            <p>WH</p>
+        </div>
+        <div class="col-5 p-0 m-0 ">
+            <input type="number" min="0" [(ngModel)]="wh" formControlName="wh" 
+            (ngModelChange)="valuewh($event)" 
+            [style.color]="whcolor" class="form-control text-center" max="99999" 
+            onkeyup="if(this.value > 999999) this.value = 999999;" 
+            onkeydown="return event.keyCode !== 69">
+        </div> 
+    </div>
+        <div class="row mt-2">
+            <div class="col-4 ">
+                <input type="text" class="form-control" placeholder="Eg.UOP" formControlName="default1">
+            </div>
+            <div class="col-4 p-0 m-0 mr-2">
+                <input type="text" class="form-control" formControlName="default2">
+            </div>  
+        <button type="button" class="btn" (click)="addMorePhase()">
+            <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+    <form [formGroup]="phaseform"  >
+        <div formGroupName="addRow" >
+            <div formArrayName="Array">
+                <div *ngFor="let phase of phaseArray.controls; let i = index;" [formGroupName]="i">
+                    <div class="row my-3">
+                        <div class="col-4 ">
+                            <input type="text" class="form-control" formControlName="phaseType">
+                        </div>
+                        <div class="col-4 p-0 m-0 mr-2">
+                            <input type="text" class="form-control" formControlName="phaseValue">
+                        </div> 
+                        <button type="button" class="btn"  (click)="remove(i)"><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+                    </div>  
+                    <div *ngIf="hasPhaseValue1At(i)">
+                        <label class="col-sm-1"></label>  
+                        <input type="text" class="form-control col-sm-2" formControlName="phaseValue1">   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <div class="col-4 p-0 ml-3">
+            <p>Drug Allergy?</p>
+        </div>
+        <div class="col-6 p-0">
+            <div class="row">
+                <div class="col-4">  
+                    <!-- <mat-radio-button type="radio" value="yes"  color="primary" >Yes</mat-radio-button> -->
+
+                    <mat-radio-button type="radio" formControlName="Allergy"  (click)="setradio('New')" required  color="primary" >Yes</mat-radio-button>
+                 </div>  
+                 <div class="col-4">  
+                    <!-- <mat-radio-button type="radio" value="no"  color="primary" >NO</mat-radio-button> -->
+                    <mat-radio-button type="radio" formControlName="Allergy"    (click)="setradio('Renewal')" required color="primary" value="NO" >No</mat-radio-button>
+                </div>
+                <mat-error *ngIf="isSubmitted && phaseform.get('Allergy').hasError('required')"> 
+                   Please Select Patient Allergetic or not.
+              </mat-error> 
+            </div>
+            <div *ngIf="isselectedLink === true" >  
+                <textarea class="form-control" rows="2"  formControlName="drugallergy" required></textarea>
+                <mat-error *ngIf="isSubmitted && phaseform.get('drugallergy').hasError('required')"> Drugallergy is required</mat-error>
+            </div> 
+           
+
+        </div>
+    </div>
+
+    <div class="button-row text-center mt-2 p-0">
+        <button mat-raised-button color="primary"  [disabled] ="disabled" type="submit"  class="my-3 m-0 p-0" style="width : 15em;" >SUBMIT</button>
+     </div>  
+     <div class="text-center mt-2 p-0">
+
+        <!-- <mat-error *ngIf="phaseform.get('pulse').value == '' || phaseform.get('rr').value == ''"> At atLeastOneRequired</mat-error> -->
+        <small *ngIf="phaseform.hasError('atLeastOneRequired')" class="mat-text-warn data_light">hello
+        </small>
+    </div> 
+
+   
+</form>
+</div> 
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button (click)="openHelp()"><mat-icon>help</mat-icon>Help</button>
+  </mat-dialog-actions>
+
+
+
+

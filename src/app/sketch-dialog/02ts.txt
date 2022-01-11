@@ -1,0 +1,379 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
+import {  ElementRef, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
+import { resetFakeAsyncZone } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
+import { ServiceService } from '../services/service.service';
+
+
+declare global  {
+  interface Window {
+    PointerEvent: typeof PointerEvent;
+  }
+}
+declare global  {
+  interface Window {
+    MSPointerEvent: typeof MSPointerEvent;
+  }
+}
+
+@Component({
+  selector: 'app-sketch-dialog',
+  templateUrl: './sketch-dialog.component.html',
+  styleUrls: ['./sketch-dialog.component.css'],
+  providers: [ServiceService]
+})
+export class SketchDialogComponent implements OnInit {
+
+  @ViewChild('screen', {static: false}) screen: ElementRef;
+  @ViewChild('canvas', {static: false}) canvas: ElementRef;
+  @ViewChild('canvass', {static: false}) canvass: ElementRef;
+  @ViewChild('downloadLink', {static: false}) downloadLink: ElementRef;
+  // @ViewChild('myname') input:any;
+  capturedImage: string;
+  canvasImageUrl: string;
+  text: string;
+  count: number = 0;
+  show:boolean = false;
+  showw: boolean= false;
+  abc: number;
+  previewOne: any;
+  previewTwo: any;
+  selectedFile : File = null;
+  dataImage: {};
+  constructor(public dialogRef: MatDialogRef<SketchDialogComponent>,
+    private _dataService:ServiceService,private http:HttpClient) { }
+
+  ngOnInit() {
+// this.loadImage();
+ (function() {
+  
+   // document.getElementById('userAgent').textContent = navigator.userAgent;
+ 
+   var isActive = false;
+ 
+   var canvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
+   var ctx = canvas.getContext('2d');
+
+  //  var canvass = <HTMLElement>document.getElementById('download');
+  //  var canvass = this.loadImage();
+   
+   // Media-queries
+  //  if (window.matchMedia('(min-width: 420px)').matches) {
+  //    canvas.width = 850;
+  //    canvas.height = 850;
+  //    }
+  //     else {
+  //      canvas.width = 800;
+  //      canvas.height = 800;
+  //    }
+         
+         const lineWidthRange = <HTMLElement> document.querySelector( '.js-line-range' );
+         const lineWidthLabel = document.querySelector( '.js-range-value' );
+     
+     lineWidthRange.addEventListener( 'input', event => {
+       console.log(((event.target) as HTMLInputElement).value);
+        var elementt = event.target as HTMLInputElement;
+          const widthh = elementt.value; 
+         lineWidthLabel.innerHTML =  widthh;
+         ctx.lineWidth = parseInt(elementt.value); 
+     });
+
+     
+   // ctx.lineWidth = 3;
+   // ctx.strokeStyle = document.querySelector(':checked').value;
+   
+   // document.getElementById('colorSwatch').addEventListener('click', function() {
+   // 	ctx.strokeStyle = document.querySelector(':checked').value;
+   // }, false);
+   
+      const colorPicker = document.querySelector( '.js-color-picker');
+     
+     colorPicker.addEventListener( 'change', event => {
+     
+         ctx.strokeStyle = ((event.target) as HTMLTextAreaElement).value ; 
+     });
+     
+   
+   var isTouchSupported = 'ontouchstart' in window;
+   var isPointerSupported = window.PointerEvent;
+   var isMSPointerSupported =  window.MSPointerEvent;
+   
+   var downEvent = isTouchSupported ? 'touchstart' : (isPointerSupported ? 'pointerdown' : (isMSPointerSupported ? 'MSPointerDown' : 'mousedown'));
+   var moveEvent = isTouchSupported ? 'touchmove' : (isPointerSupported ? 'pointermove' : (isMSPointerSupported ? 'MSPointerMove' : 'mousemove'));
+   var upEvent = isTouchSupported ? 'touchend' : (isPointerSupported ? 'pointerup' : (isMSPointerSupported ? 'MSPointerUp' : 'mouseup'));
+    
+   // document.getElementById('eventType').textContent = downEvent + ', ' + moveEvent + ', ' + upEvent;
+     
+   canvas.addEventListener(downEvent, startDraw, false);
+   canvas.addEventListener(moveEvent, draw, false);
+   canvas.addEventListener(upEvent, endDraw, false);
+   
+   var img = new Image();
+   img.onload = function() {
+     ctx.drawImage(img, 0, 0);
+   };
+ 
+   function draw(e) {
+
+
+
+    // alert("Can't Drawwwww");
+    // if('apple' == 'apple')
+    // {
+    //   alert("Only Two Images");
+    // }
+    // else
+    // {
+      e.preventDefault();
+      if(isActive) {
+        var x = isTouchSupported ? (e.targetTouches[0].pageX - canvas.offsetLeft) : (e.offsetX || e.layerX - canvas.offsetLeft);
+        var y = isTouchSupported ? (e.targetTouches[0].pageY - canvas.offsetTop) : (e.offsetY || e.layerY - canvas.offsetTop);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+    // }
+
+   }
+   
+   function startDraw(e) {
+    // console.log(e.targetTouches[0].pageX);
+    // console.log(e.targetTouches[0].pageY);
+    // console.log(canvas.offsetLeft);
+    // console.log(canvas.offsetTop);
+    // console.log(e.targetTouches[0].pageX);
+    // console.log(e.targetTouches[0].pageY);
+    // console.log(canvas.offsetLeft);
+    // console.log(canvas.offsetTop);
+    //  alert("Can't Draw"+this.count);
+    // if('apple' == 'apple')
+    // {
+    //   alert("Only Two Images");
+    // }
+    // else{
+      e.preventDefault();
+      isActive = true;
+      ctx.beginPath();
+    // }
+
+   }
+   
+   function endDraw(e) {
+     e.preventDefault();
+     isActive = false;
+   }
+     const clearButton = document.getElementById('clear-button');
+     const eraser = document.getElementById('eraser-button');
+     const draw_AfterErase = document.getElementById('draw-button');
+     const previeww = document.getElementById('preview');
+     
+     clearButton.addEventListener('click', handleClearButtonClick);
+     eraser.addEventListener('click', eraseButtonClick);
+     draw_AfterErase.addEventListener('click', drawButtonClick);
+     previeww.addEventListener('click', preview);
+     
+     function handleClearButtonClick(event) {
+       event.preventDefault();
+       
+       clearCanvas();
+     }
+     
+     function clearCanvas() {
+       ctx.clearRect(0, 0, canvas.width, canvas.height);
+     }
+      
+     function eraseButtonClick()
+     {
+       ctx.globalCompositeOperation="destination-out";
+       // ctx.lineWidth = 5;
+     }
+     
+     function drawButtonClick()
+     {
+       ctx.globalCompositeOperation="source-over";
+     }
+   
+     function preview()
+     {
+      const imgConverted =<HTMLImageElement> document.getElementById('imgConverted');
+      // imgConverted.src = canvas.toDataURL();
+      // console.log(canvas.toDataURL());
+      const dataURI = canvas.toDataURL("");
+      imgConverted.src = dataURI;
+     }
+
+     function DownloadCanvasAsImage(){
+      let downloadLink = document.createElement('a');
+      downloadLink.setAttribute('download', 'CanvasAsImage.png');
+      let canvas =  <HTMLCanvasElement>document.getElementById('drawCanvas');
+      let dataURL = canvas.toDataURL('image/png');
+      console.log(dataURL);
+      // let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+      // downloadLink.setAttribute('href',url);
+      // downloadLink.click();
+    }
+     
+   
+ 
+   // if (window.matchMedia('(min-width: 420px)').matches) {
+   // 	img.src = 'assets/images/lines.png'
+ 
+   // 	} else {
+   // 		img.src = 'assets/images/lines.png'
+   // 	}
+   
+ })();
+ 
+        }
+ 
+
+  close() {
+    this.dialogRef.close();
+  }
+
+  
+
+  downloadImage(data, filename = 'untitled.jpeg') {
+    var a = document.createElement('a');
+    a.href = data;
+    a.download = filename;
+  
+    document.body.appendChild(a);
+    console.log(document.body.appendChild(a));
+     a.click();
+     localStorage.setItem('dataSource', a.download );
+     localStorage.setItem('dataSource1', a.href );
+  }
+  
+  clickme(a) {
+    if(a == 0)
+    {
+      this.show = true;
+      html2canvas(this.screen.nativeElement).then(canvas => {
+        if(this.canvas.nativeElement.src == '')
+        {
+          this.canvas.nativeElement.src = canvas.toDataURL('image/jpeg');
+          console.log(this.canvas.nativeElement.src);
+          this.count = 1;
+          this.ngOnInit();
+        }
+      });
+    }
+    else if(a == 1)
+    {
+        this.showw = true;
+        html2canvas(this.screen.nativeElement).then(canvas => {
+          if(this.canvass.nativeElement.src == '')
+          {
+            this.canvass.nativeElement.src = canvas.toDataURL('image/jpeg');
+            this.count = 2;
+            this.ngOnInit();
+          }
+          else{
+            alert("Only Two Images Bro!!!");
+            this.ngOnInit();
+          }
+        });
+    }
+    else{
+      alert("Only two Images");
+      this.ngOnInit();
+    }
+      
+        }
+
+
+    imgDelete()
+    {
+      html2canvas(this.screen.nativeElement).then(canvas => {
+        this.canvas.nativeElement.src ='';
+        this.show = false;
+         this.count = 0;
+         localStorage.removeItem('SEPreview1');
+      });
+    }
+  
+    imgDeletee()
+    {
+      html2canvas(this.screen.nativeElement).then(canvas => {
+        this.canvass.nativeElement.src ='';
+        this.showw = false;
+         if( this.canvas.nativeElement.src == '')
+         {
+          this.count = 0;
+         }
+         else{
+          this.count = 1;
+         }
+      });
+    }
+
+    saveImage()
+    {
+      html2canvas(this.screen.nativeElement).then(canvas => {
+        alert(this.canvas.nativeElement.src);
+        console.log(this.canvas.nativeElement.src);
+        localStorage.setItem('SEPreview1', this.canvas.nativeElement.src);
+        // this._dataService.setOption('size', this.canvas.nativeElement.src);  
+        // this.dataImage = this._dataService.getOption(); 
+        // console.log(this.dataImage);
+        // console.log(this.dataImage[0].preview1);
+        // console.log(this.dataImage[size]);
+      });
+    }
+
+     urltoFile(url, filename, mimeType){
+      return (fetch(url)
+          .then(function(res){return res.arrayBuffer();})
+          .then(function(buf){return new File([buf], filename,{type:mimeType});})
+      );
+  }
+
+  onselect(e)
+  {
+    console.log(e.target.files[0]);
+  }
+  
+
+loadImage()
+{
+  // this.show=true;
+  console.log(localStorage.getItem('SEPreview1'));
+  var SEPreviews = localStorage.getItem('SEPreview1');
+  var elem = document.createElement("img");
+elem.setAttribute("src", SEPreviews);
+elem.setAttribute("height", "80%");
+elem.setAttribute("width", "50%");
+elem.setAttribute("alt", "Flower");
+document.getElementById("placehere").appendChild(elem);
+  // this.show = true;
+  // console.log(localStorage.getItem('SEPreview1'));
+  // var SEPreviews = localStorage.getItem('SEPreview1');
+  // console.log(SEPreviews);
+
+  // html2canvas(this.screen.nativeElement).then(canvas => {
+  //     this.canvas.nativeElement.src = SEPreviews;
+  // });
+
+}
+
+  
+
+    // onFileSelected(event){
+    //   this.selectedFile = <File> event.target.files[0];
+    //   console.log(this.selectedFile);
+    // }
+
+    // onUpload(){
+    //   const fd = new FormData();
+    //   fd.append('image', this.selectedFile, this.selectedFile.name);
+    //   this.http.post('assets/Aggi/', fd)
+    //     .subscribe(res => {
+    //       console.log(res);
+    //     });
+
+    // }
+
+}

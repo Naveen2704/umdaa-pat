@@ -1,0 +1,105 @@
+<div class="mat-body">
+    <div class="form_header">
+        <div class="row">
+          <div class=" col-6">
+            <h5 class="color">Sketch Image</h5>
+    
+          </div>
+          <div class="col-6 text-right">
+            <i class="material-icons fs" (click)="close()">close</i>
+    
+          </div>
+        </div>
+    </div>
+  <div class="container ">
+   <div class="row">
+    <div class="tools ">
+        <div class="sidebar-social">
+          <ul>
+          <li>
+          <a>
+            <span>Line Width</span>
+            <!-- <button id="eraser-button">Erase</button> -->
+            <input type="range" class="js-line-range" min="1" max="30" style="width:55px;" value="1">
+            <label class="js-range-value"  style="color:black">1</label>
+          </a>
+        </li>
+          
+          <li>
+            <a>
+              <span>Colors </span>
+              <input type="color"  id="color" class="js-color-picker  color-picker">
+            </a>
+          </li>
+          <li>
+            <a>
+              <span>Draw </span>
+              <i class="fa fa-pencil" aria-hidden="true" id="draw-button"></i>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span>Erase </span>
+              <i class="fa fa-eraser" aria-hidden="true"  id="eraser-button"></i>   
+            </a>
+          </li>
+          <li>
+            <a>
+              <span>Delete </span>
+              <i class="fa fa-trash" aria-hidden="true" id="clear-button"></i>       
+            </a>
+          </li>
+  
+          </ul>
+          </div>
+    </div>
+  <section id="main" #screen>
+    <div>
+      <canvas id="drawCanvas"  class="image123" ></canvas>
+    </div>
+  </section>
+  
+  
+  
+    <button (click)="clickme(count)" class="btn btn-primary">Preview</button>
+    
+   </div>
+  
+   <div class="row">
+     <!-- <div class="col-md-6"> -->
+      <div id="download" *ngIf="show">
+        <b>Preview One</b>
+        <img #canvas style="width:50%;height:80%">
+        <button (click)="saveImage()">Save</button>
+        <button type="submit" (click)="imgDelete()">Delete</button>
+      </div>
+  
+  
+      <div id="download" *ngIf="showw">
+        <b>Preview Two</b>
+        <img #canvass  style="width:50%;height:80%">
+        <button>Save</button>
+        <button type="submit" (click)="imgDeletee()">Delete</button>
+      </div>
+      
+      <!-- <div >
+        <b>Preview One</b>
+        <div id="placehere"></div>
+        <button type="submit" (click)="imgDeletee()">Delete</button>
+        <div id="placehere">
+  
+        </div>
+      </div> -->
+      
+      
+     <!-- </div> -->
+     <!-- <div class="col-md-6">
+      <div id="download">
+        <img #canvas style="width:50%;height:80%">
+      </div>
+     </div> -->
+    
+   </div>
+    
+  </div>
+    </div>

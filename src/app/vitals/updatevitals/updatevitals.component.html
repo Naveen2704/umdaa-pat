@@ -1,0 +1,195 @@
+<!-- <div class="m-0 bgcolor mat-body">
+    <div class="row">
+        <!-- <div class="col-7">
+            <p class="text-right vitalstitle py-2">VITALS</p>
+        </div> 
+        <div class="col-12 text-right">
+            <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+        </div>
+    </div>
+ <form [formGroup]="phaseform" #formDirective="ngForm" (ngSubmit)="submit(phaseform.value,formDirective)" novalidate> 
+
+    <div >
+        <div class="row mt-3">  
+            <div class="col-3 ">
+                <p>PR </p>
+            </div> 
+            <div class="col-5 p-0 mr-1 ">
+                <input type="number" min="0"  max="300"  [(ngModel)]="updateVitals.value" formControlName="pulse" [style.color]="updateVitals.value >100 || updateVitals.value <60 ?'red':''"   class="form-control text-center" onkeyup="if(this.value > 300) this.value = 300;" required>
+            </div><small class="mt-3">PER MIN</small>  
+        </div>
+        <div class="row mt-2">
+            <div class="col-3 ">
+                <p>BP</p>
+            </div>
+            <div class="col-3 p-0 mr-2">
+                <input type="number" min="0"  class="form-control text-center"  formControlName="bp1" [(ngModel)]="updateVitals.value" [style.color]="bplcolor" (ngModelChange)="valuebpl($event)" max="250" onkeyup="if(this.value > 250) this.value = 250;" required>
+            </div>
+            <div class="col-3 p-0 mr-2">
+                <input type="number" min="0"  class="form-control text-center" formControlName="bp2"[(ngModel)]="bph" [style.color]="bphcolor" (ngModelChange)="valuebph($event)" max="250" onkeyup="if(this.value > 250) this.value = 250;" required>
+            </div><small class="mt-2"> MMHG</small>
+        </div>
+
+    <div class="row  mt-2">
+        <div class="col-3 ">
+                <p>RR</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2">
+            <input type="number" min="0" class="form-control text-center"  formControlName="rr" [(ngModel)]="rr" (ngModelChange)="valuerr($event)" [style.color]="rrcolor" max="60" onkeyup="if(this.value > 60) this.value = 60;" required>
+        </div> <small class="mt-2">PER MIN</small>
+    </div>
+    <div class="row  mt-2">
+        <div class="col-3  ">
+            <p>TEMP</p>
+        </div>
+        <div class="col-5 p-0 m-0 mr-2">
+            <input type="number" min="0" class="form-control text-center" formControlName="temp" [(ngModel)]="temp" (ngModelChange)="valuetemp($event)"[style.color]="tempcolor" max="110" onkeyup="if(this.value > 110) this.value = 110;" required> 
+        </div><small class="mt-2">F</small>
+    </div>
+    <div class="row  mt-2">
+        <div class="col-3  ">
+            <p>SAO2</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2">
+            <input type="number" min="0" class="form-control text-center" formControlName="sao2" [(ngModel)]="sao2" (ngModelChange)="valuesao2($event)" [style.color]="sao2color" max="100" onkeyup="if(this.value > 100) this.value = 100;" required>
+        </div><small class="mt-2">%</small>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3 ">
+            <p>HEIGHT</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2"> 
+            <input type="number" min="0" [(ngModel)]="height" formControlName="height" (ngModelChange)="valueheight($event)" [style.color]="heightcolor" class="form-control text-center" max="250" onkeyup="if(this.value > 250) this.value = 250;" required>
+        </div><small class="mt-2">CM</small> 
+    </div>
+    <div class="row  mt-2">
+        <div class="col-3  ">
+            <p>WEIGHT</p>
+        </div>
+        <div class="col-5  p-0 m-0 mr-2">
+            <input type="number" min="0" [(ngModel)]="weight" required formControlName="weight" (ngModelChange)="valueweight($event)" [style.color]="weightcolor" class="form-control text-center" max="500" onkeyup="if(this.value > 500) this.value = 500;" required>
+        </div><small class="mt-2">KG</small>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3  ">
+            <p>BMI</p>
+        </div>
+        <div class="col-5 p-0 m-0 mr-2">
+            <input class="form-control text-center inputcolor"  formControlName="bmi" 
+             readonly="true">
+        </div><small class="mt-2">KG/M SQ</small>
+    </div>
+    <div class="row mt-2">
+        <div class="col-3  ">
+            <p>BSA</p>
+        </div>
+        <div class="col-5 p-0 mr-2">
+            <input class="form-control text-center inputcolor"  formControlName="bsa" 
+            readonly="true">
+        </div><small class="mt-2">M SQ</small>
+    </div>
+
+    <div  formArrayName="cal">
+              
+        <div *ngFor="let Eguop of getuops(); let i = index" formGroupName="{{i}}">
+            <div class="row mb-0 mt-2">
+                <div class="col-3 ">
+                    <p>LMP</p>
+                </div>
+                <div class="col-5 p-0 m-0 mr-2">
+                    <input class="form-control text-center inputcolor" [(ngModel)]="DataDate" value="{{DataDate}}" formControlName="LMP" 
+                     >
+
+                </div>
+                <div class="col-3  ">
+                    <button type="button" class="btn"  (click)="remove_cal(i)"><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+
+                </div>
+            </div>
+            <div class="row mb-0">
+                <div class="col-3 mt-2">
+                    <p>EDD</p>
+                </div>
+                <div class="col-5 p-0 m-0 mr-2">
+                    <input class="form-control text-center inputcolor"  [(ngModel)]="DataEdd" value="{{DataEdd}}" formControlName="EDD" 
+                     >
+                </div>
+            </div>
+            <div class="row mb-0">
+                <div class="col-3  mt-2">
+                    <p>POD</p>
+                </div>
+                <div class="col-5 p-0 m-0 mr-2">
+                    <input class="form-control text-center inputcolor" [(ngModel)]="Datapod" value="{{Datapod}}" formControlName="POD" 
+                     >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-3  mt-2">
+            <p>WH</p>
+        </div>
+        <div class="col-5 p-0 m-0 ">
+            <input type="number" min="0" [(ngModel)]="wh" formControlName="wh" (ngModelChange)="valuewh($event)" [style.color]="whcolor" class="form-control text-center"max="99999" onkeyup="if(this.value > 999999) this.value = 999999;">
+        </div> 
+    </div>
+        <div class="row mt-2">
+            <div class="col-4 ">
+                <input type="text" class="form-control" placeholder="Eg.UOP" formControlName="default1">
+            </div>
+            <div class="col-4 p-0 m-0 mr-2">
+                <input type="text" class="form-control" formControlName="default2">
+            </div>  
+        <button type="button" class="btn" (click)="addMorePhase()">
+            <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+    <form [formGroup]="phaseform" novalidate >
+        <div formGroupName="addRow" >
+            <div formArrayName="Array">
+                <div *ngFor="let phase of phaseArray.controls; let i = index;" [formGroupName]="i">
+                    <div class="row my-3">
+                        <div class="col-4 ">
+                            <input type="text" class="form-control" formControlName="phaseType">
+                        </div>
+                        <div class="col-4 p-0 m-0 mr-2">
+                            <input type="text" class="form-control" formControlName="phaseValue">
+                        </div> 
+                        <button type="button" class="btn"  (click)="remove(i)"><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+                    </div>  
+                    <div *ngIf="hasPhaseValue1At(i)">
+                        <label class="col-sm-1"></label>  
+                        <input type="text" class="form-control col-sm-2" formControlName="phaseValue1">   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <div class="col-4 p-0 ml-3">
+            <p>Drug Allergy?</p>
+        </div>
+        <div class="col-6 p-0">
+            <div class="row">
+                <div class="col-4">  
+                    <mat-radio-button type="radio" value="New" (click)="setradio('New')" [checked]='true'>Yes</mat-radio-button>
+                 </div>  
+                 <div class="col-4">  
+                    <mat-radio-button type="radio" value="Renewal" (click)="setradio('Renewal')" >No</mat-radio-button>
+                </div>
+            </div>
+            <div *ngIf="isSelected('New')" >  
+                <textarea class="form-control" rows="2"  formControlName="drugallergy" required></textarea>
+            </div> 
+        </div>
+    </div>
+
+    <div class="button-row text-center mt-2 p-0">
+        <button mat-raised-button color="primary" type="submit" [disabled]='checkValid()' class="my-3 m-0 p-0" style="width : 15em;" >SUBMIT</button>
+     </div>  
+</div>
+   
+</form>
+</div>  -->

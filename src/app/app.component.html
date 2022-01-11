@@ -1,0 +1,40 @@
+<div *ngIf="show">
+  <ng-container *ngTemplateOutlet="template1"></ng-container>
+</div>
+
+<div *ngIf="!show">
+  <ng-container *ngTemplateOutlet="template"></ng-container>
+</div>
+
+<ng-template #template>
+  <router-outlet></router-outlet>
+</ng-template>
+      
+      
+<ng-template #template1>
+  <mat-sidenav-container class="example-container" autosize>
+    <mat-sidenav mode="side"   #sidenav opened="true">
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <button type="button" mat-button  class="my_bg-v custom"(click)="sidenav.toggle(sideNavState = !sideNavState)">
+        <mat-icon *ngIf="sideNavState">arrow_left</mat-icon>
+        <mat-icon *ngIf="!sideNavState">arrow_right</mat-icon>
+      </button>
+      
+        <router-outlet></router-outlet>
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-template>
+      
+      
+     
+
+      <!-- <div *ngIf="hide"> -->
+        <!-- <router-outlet ></router-outlet> -->
+      <!-- </div> -->
+     
+
+      <!-- <router-outlet></router-outlet> -->

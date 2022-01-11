@@ -1,0 +1,96 @@
+<div class="mat-body overflow m-2">
+  <div class="text-center" *ngIf="toppingList == 0">
+    FOLLOWUP DATA NOT AVAILABLE 
+  </div>
+  <div class="class" *ngIf="toppingList !=0">
+    <form class="m-1" [formGroup]='FuForm' #myformfu="ngForm"(ngSubmit)="Fusubmit(FuForm.value)">
+      <div class="row " data-step="1" data-intro="Select template and add to followup " data-position='right'>
+        <div class="col-12 col-md-4 col-lg-2  my-auto">
+          <div >ADD FOLLOW UP TEMPLATE</div>
+        </div>
+        <div class="col-8 col-md-4  col-lg-4  pr-0 my-auto">
+          <div class="followup">
+            <!-- {{}} -->
+              <mat-form-field >
+                  <mat-select formControlName = "templatename" multiple  >
+                    <mat-option *ngFor="let topping of toppingList" [value]="topping.template_id">{{topping.template_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+               
+          </div>
+        </div>
+        <div class="col-4 col-md-4  col-lg-4  my-1">
+          <div class="btn_done">
+            <!-- <button mat-mini-fab type="submit"  class=" mt-1 custom_css_btn" ><mat-icon>add</mat-icon></button>  -->
+            <button mat-raised-button [disabled]="disabled" type="submit" color="primary" >ADD</button>
+          </div>
+        </div>
+      </div>
+   </form>
+  </div>
+   
+
+  <div class="row m-1" data-step="2" data-intro="Click on Explore then u can see previous vitals values in charts" data-position='right' >
+        <div class="header_section ">
+            <button mat-stroked-button (click)="openCharts()"  class="my_bg_v">EXPLORE CHARTS</button>
+        </div>
+</div>
+
+    
+    <div class="row m-1" >
+        <div class="example-container mat-elevation-z8 tableFixHead" >
+          <table class="table responsive" >
+          <thead>
+            <tr>
+              <th *ngFor="let column of tempcolmns">{{column.title}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let temprowdata of temprows">
+              <td *ngFor="let rowdata of temprowdata.row_data" >
+                <div *ngIf = "rowdata.column_id == '0'">
+                  <div>
+                    <p>{{rowdata.title}}</p>
+                  </div>
+                  <!-- <button mat-raised-button color="primary" *ngIf="rowdata.title =='View'; else elseSpan" >{{rowdata.column_id}}  {{rowdata.title }}</button> -->
+                  <!-- <ng-template #elseSpan> 
+                    <div class="custom" *ngIf="rowdata.title !=''; else elseSpann">
+                     <p   > {{rowdata.column_id}}{{rowdata.title}}</p> 
+                    </div>
+                   </ng-template>
+                   <ng-template #elseSpann> 
+                    <div class="custom" *ngIf="rowdata.title ==''">
+                      <button mat-raised-button   >ADD</button>
+                    </div>
+                   </ng-template> -->
+                </div>
+             <div *ngIf = "rowdata.column_id != '0'">
+              <button mat-raised-button color="primary" *ngIf="rowdata.title =='View' && latestcolumn == rowdata.column_id ; else elseSpan" (click)="openFi(rowdata.column_id)">{{rowdata.title }}</button>
+              <ng-template #elseSpan> 
+                <div class="custom" *ngIf="rowdata.title !=''; else elseSpann">
+                 <p (click)="openemptyrow(rowdata.column_id)" >{{rowdata.title }}</p> 
+                </div>
+             </ng-template> 
+               <ng-template #elseSpann> 
+                <div class="custom" *ngIf="rowdata.title =='' && latestcolumn == rowdata.column_id; else elseSpannn">
+                  <button mat-raised-button  (click)="openemptyrow(rowdata.column_id)">ADD</button>
+                </div>
+               </ng-template>
+               <ng-template #elseSpannn> 
+                <div class="custom" *ngIf="rowdata.title === null && latestcolumn == rowdata.column_id">
+                  <button mat-raised-button  (click)="openemptyrow(rowdata.column_id)">ADD</button>
+                </div>
+               </ng-template>
+              </div>
+              
+              </td>
+              
+           </tr>
+          </tbody>
+          </table>
+          </div>
+    </div>
+    <div class="help">
+      <button mat-mini-fab  (click)="help()"><mat-icon>help_outline</mat-icon></button>
+    </div>
+</div>

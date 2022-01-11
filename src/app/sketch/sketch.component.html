@@ -1,0 +1,20 @@
+
+    <section id="main">
+        <div id="dummy">
+            <div id="container" #screenn [ngStyle]="{'background': 'url(' + backgroundUrl +') no-repeat 0 0 / cover'}"  [style.width.px]="width" [style.height.px]="height"></div>
+       </div>
+    
+  
+      <div class="buttons mt-3 p-3" style="text-align: center;">
+        <button mat-mini-fab  (click)="save()"><mat-icon>save</mat-icon></button>
+     
+           <button mat-mini-fab class=" ml-2" id="eraser-button"><i class="fa fa-eraser fa-2x" aria-hidden="true" style="font-size: 22px;" ></i></button>
+   
+           <button mat-mini-fab class=" ml-2" id="draw-button"><mat-icon>edit</mat-icon></button>
+   
+        <button mat-mini-fab class="" *ngIf="hideAdd" (click)="add()"><mat-icon>add</mat-icon></button>
+        <button mat-mini-fab class=" ml-2" (click)="previousData()"><mat-icon>arrow_back</mat-icon></button>
+      </div>
+
+      </section>
+     

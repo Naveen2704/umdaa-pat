@@ -1,0 +1,23 @@
+<div class="container m-2">
+    <p *ngIf="noList == 0" style="text-align:center;">No Data Found!!</p>
+    <div class="row">
+        <div class="col-md-12 mb-2" *ngFor="let data of listData">
+                <mat-card bg-primary>
+                <div class="row">
+                    <div class="col-8 col-md-8 col-lg-10">
+                
+                        {{data.form_name}}   -   {{data.date |date:'dd/MM/yyyy'}} {{data.date |date:'shortTime'}}
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-2 text-sm-right"> 
+                            <i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 19px;"
+                            (click)="getPdf(data.form_id,data.patient_form_id,
+                            data.form_type,data.doctor_id,data.patient_id)"></i>
+                            <i class="fa fa-trash" aria-hidden="true" style="color:red;padding-left:25px;font-size: 19px;"
+                            (click)="deletePdff(id,data.form_id,data.patient_form_id,
+                            data.form_type,data.doctor_id,data.patient_id)"></i>
+                    </div>
+                </div>
+               </mat-card>        
+        </div>
+    </div>
+</div> 

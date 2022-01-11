@@ -1,0 +1,55 @@
+
+ <app-forms></app-forms>
+
+
+<div class="">
+  <section style="margin-top:56px">
+    <form [formGroup]='cForm' #CForm="ngForm" (ngSubmit)="Csearchadd(CForm.value,CForm)">
+        <div class="row ml-0">
+            <div class="col-8 col-md-5">
+                    <mat-form-field >
+                      <input type="text"  #term (ngModelChange)="CFormSearch(term.value)"
+                            placeholder="Select ConsernForm here.."
+                            aria-label="Number"
+                            matInput
+                            id="keyword"
+                            formControlName='queryField'
+                            [matAutocomplete]="auto" required>
+                            <input type="hidden" formControlName ="c_id" class="form-control">
+                            <mat-hint>Please enter Minimum 3 letters</mat-hint>
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let item of Cformlist " [value]="item.consent_form_title"  (click)="getId(item.consent_form_id)" >
+                                  <span >{{item.consent_form_title}}</span>
+                                 </mat-option>
+                            </mat-autocomplete>
+                      <!-- <mat-error *ngIf="isSubmitted && CdForm.get('queryField').hasError('required')">
+                        Please Select diagnosis name 
+                      </mat-error> -->
+                    </mat-form-field>
+                  
+            </div>
+            <div class="col-4  col-md-4 p-0 my-auto">
+              
+              <button mat-raised-button [disabled]="disabled" type="submit"  class=" mt-1 my_bg_v" >ADD</button> 
+            </div>
+      
+        </div>
+       </form>
+</section>
+<div class="class" >
+    <div class="row" >
+        <div class="col-12" >
+            <div class="m-2" *ngFor="let item of CList">
+              <mat-card (click) ="CId(item.consent_form_id)">
+                <div class="title">
+                  {{item.consent_form_title}}
+                  <span class="pull-right view d-flex"><mat-icon >visibility</mat-icon> View</span>
+                </div>
+                
+              </mat-card>
+            </div>
+        </div>
+    </div>
+  </div> 
+</div>
+

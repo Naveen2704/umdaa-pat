@@ -1,0 +1,80 @@
+<div class="mat-body srinu" >
+    <div class="container">
+      <div class="row" style="background-color: #10365a;height:50px;">
+        <div class="col-2"  style="color: white;margin-top:10px;"> <i class="fa fa-pencil" aria-hidden="true" id="draw-buttonnn"></i></div>
+       
+        <div class="col-2"  style="color:white;margin-top:10px;"> 
+          <i class="fa fa-eraser" aria-hidden="true"  id="eraser-buttonnn"></i>  </div>
+          <div class="col-2"  style="color:white;margin-top:10px;"><i class="fa fa-trash" aria-hidden="true" id="clear-buttonnn"></i>     </div>
+          <div class="col-2"  style="color: white;margin-top:10px;">  <input type="color"  id="color" class="js-color-pickerrr  color-picker"></div>
+          <div class="col-2"  style="color:white;margin-top:10px;"> 
+           <input type="range" style="width:80px;" class="js-line-rangeee" min="1" max="30"  value="1">
+          <label class="js-range-valueee" style="font-size: 14px;">1</label></div>
+  
+        <div class="col-2 text-right"  style="color:white;margin-top:10px;">
+          <i class="material-icons fs" (click)="close()">close</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-12">
+          <section  #screen>
+            <!-- <div *ngIf="aggi"> -->
+              <!-- <canvas id="drawCanvas" 
+              style="background-image: url('assets/images/lines.png');"></canvas> -->
+              <canvas id="drawCanvasss" [ngStyle]="{'background': 'url(' + backgroundUrll +') no-repeat 0 0 / cover'}"
+              ></canvas>
+            <!-- </div> -->
+            <!-- <div *ngIf="fire"> -->
+              <!-- <img #canvas> -->
+            <!-- </div> -->
+          </section>
+         
+        </div>
+      </div>
+  
+      <!-- <div class="row">
+        <div class="col">
+          <div class="row">
+          <div class="col-4"> <span>Draw </span></div>
+          <div class="col-8"><i class="fa fa-pencil" aria-hidden="true" id="draw-button"></i>
+            <a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">Top</a>
+          </div>
+        
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <div class="col-4"><span>Colors </span></div>
+            <div class="col-8"> <input type="color"  id="color" class="js-color-picker  color-picker"> </div>
+          
+            </div>
+      
+              
+        </div>
+        <div class="col">
+          <div class="row">
+            <div class="col-2"><span>Width</span> </div>
+            <div class="col-10"> <input type="range" class="js-line-range" min="1" max="30"  value="1">
+              <label class="js-range-value"  style="color:black">1</label></div>
+          
+            </div>      
+        </div>
+      
+      </div> -->
+  <div style="text-align:center;">
+    <!-- <i class="fa fa-arrow-circle-left" style="font-size:19px;margin-right:5px;float:left;" (click)="leftArrow()" aria-hidden="true" *ngIf="hideLeftArrow"></i> -->
+    <button (click)="clickme()" class="btn btn-primary"  style="margin-right:5px;" >save</button>
+    <!-- <button (click)="saveImage()">Save</button> -->
+    <button type="submit" class="btn btn-danger" (click)="imgDelete()" *ngIf="hideDelete">Delete</button>
+    <!-- <i class="fa fa-plus" aria-hidden="true" style="font-size:19px;" (click)="check()" *ngIf="hideAdd"></i> -->
+    <!-- <i class="fa fa-plus" aria-hidden="true" style="font-size:19px;" (click)="check()" *ngIf="hideAdd"></i> -->
+    <!-- <i class="fa fa-arrow-circle-right" style="font-size:19px;"  (click)="rightArrow()" aria-hidden="true" *ngIf="hideRightArrow" ></i> -->
+    <!-- <button (click)="saveImage()" class="btn btn-primary">Preview</button> -->
+  </div>
+    </div>
+  
+  </div>
+  
+  
+  
+  

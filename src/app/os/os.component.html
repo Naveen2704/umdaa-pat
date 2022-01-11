@@ -1,0 +1,899 @@
+<app-examins></app-examins>
+
+<!-- <div class="container-fluid"> -->
+
+    
+   <!-- <div class="row mat-body mt-5">
+    <div class="container-fluid">
+       <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-10">
+          </div>
+          <div class="col-md-2">
+            <mat-chip-list aria-label="Fish selection">
+              <mat-chip color="primary" *ngIf="listName"
+               selected (click)="verifyList()">
+               Find CheckList
+               </mat-chip>
+         </mat-chip-list>
+          </div>
+
+        </div>
+        
+     
+          </div>
+     
+     </div>
+ </div>  -->
+
+ <section  class="mat-body" style="margin-top: 55px;">
+   <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-7 col-lg-7 col-xl-10 my-auto">
+        <!-- <div class="row">
+          <div class="col-md-10"> -->
+            <h5  style="font-size: 16px; font-weight:semibold;">
+              {{form_name |uppercase}}
+           
+         
+          </h5>
+          </div>
+          <!-- </div> -->
+          <div class="col-6 col-md-5 col-lg-5 col-xl-2  d-flex my-auto " style="justify-content: flex-end;">
+           <div class="icon my-auto" data-step="1" data-intro="click on pencil icon for hand writing" data-position='left'>
+            <i class="fa fa-pencil fa-1x" aria-hidden="true"  (click)="openDialog()"></i> 
+           </div>
+           <div class="list ml-3">
+            <mat-chip-list aria-label="Fish selection">
+              <mat-chip color="primary" *ngIf="listName"
+               selected (click)="verifyList()">
+                CHECKLIST
+               </mat-chip>
+         </mat-chip-list>
+           </div>
+            <!-- <i class="fa fa-bars" aria-hidden="true"  (click)="openDialog()"></i>  -->
+            <!-- <i class="fa fa-pencil" aria-hidden="true"  (click)="open('OS')"></i>  -->
+           
+            
+          </div>
+
+          
+        <!-- </div> -->
+
+        <!-- <i class="fa fa-bars" aria-hidden="true"></i> -->
+      
+    </div> 
+    
+   </div>
+     
+    
+    <!-- Section Data Start -->
+    <div>
+      <div class="container">
+
+          <div class="row">
+            <div class="col-12 col-md-12 col-xs-6  p-2" *ngFor="let data of heading">
+             <div class="row">
+               <div class="col-12 ">
+                 <mat-accordion data-step="2" data-intro="click on down arrow then add OS to patient" data-position='left'>
+                   <mat-expansion-panel (opened)="addCreds(data.form_id,data.section_id)"
+                                       (closed)="removeArrayData(data.form_id,data.section_id)">
+                   <mat-expansion-panel-header>
+                       <mat-panel-title>       
+               <div class="font-weight-semibold">
+                {{data.title |titlecase}}
+               </div>    
+                <div *ngIf="data.image_path != ''" style="padding-left: 30px;">
+                  <!-- <i class="fa fa-picture-o" aria-hidden="true"></i> -->
+                  <i class="fa fa-picture-o" aria-hidden="true" (click)="checkImage(data.image,data.section_id)"></i>
+                <!-- <i class="fa fa-pencil" aria-hidden="true" (click)="form_images(data.image,data.section_id)"></i> -->
+                </div>
+                       </mat-panel-title>
+  
+                     </mat-expansion-panel-header>
+  
+                      <!-- Inner Main text Box -->
+                      <!-- <input type="text" class="form-control main" autocomplete="off" 
+                      id="myInput{{data.section_id}}"
+                      (change)="mainTwo(data.section_id,data.title,$event)">    -->
+                      <!-- Inner Main text Box -->
+  
+                      <!-- Inner Section Data Start-->
+  
+                      <div *ngFor="let dataa of sub_heading">
+                          <div *ngIf="dataa.id == data.section_id">
+                            <div *ngFor="let dataa of dataa.data">
+                              <div class="mb-4">
+                                <p class="fontText">{{dataa.title}}</p>
+                              </div>
+                    
+                              <div *ngFor="let dataaa of dataa.field_name;let i = index;">
+                                
+                                  <div class="row">
+                                      <div class="col-md-4 mb-3">
+                                          {{dataaa.field_name}}
+                                      </div>
+                  
+                                          <!-- text boxes -->
+                                          <div class="col-md-6 col-12" *ngIf="dataaa.field_type == 'text'">
+                                          <div class="mb-3">
+                                              <input type="text" #myForm  autocomplete="off" 
+                                              class="form-control mainn" name="filterName"
+                                              (change)="abcdef(removeformId,0,dataaa.format_type,dataaa.field_id,
+                                              dataaa.field_name,dataaa.option_id,dataaa.parent_section_id,$event)">
+                                          </div>
+                                          
+                                          </div>
+                                          <!-- text boxes end-->
+                  
+                                      
+                                      <!-- radio buttons -->
+                                      <div class="col-md-6 col-12"  *ngIf="dataaa.field_type === 'radio'">
+                                          <div class=" row">
+                                              <div *ngFor="let dataaaa of dataaa.field_option,let z =index;" >
+                                              
+                                              <div class="radio_btn col-4">
+                                              
+                                              <mat-radio-group aria-label="Select an option" 
+                                                  name="{{dataaa.field_id}}" 
+                                                  (change)="checkbox(data.section_id,removeformId,dataaa.format_type,
+                                                  0,dataaa.r_number,dataaa.field_type,
+                                                  dataaaa.section_id,
+                                                  dataaaa.field_id,dataaaa.option_id)"
+                                                  (change)="abcde(dataaa.field_id,removeformId,dataaaa.parent_section_id,
+                                                  dataa.format_type,dataaaa.field_id,
+                                                  dataaaa.option_id,dataaa.field_name,dataaaa.option_name)" 
+                                      >
+                                                  <mat-radio-button color="primary" [value]="dataaaa.option_id" [checked]="dataaaa.option_default == 1 ?true:false"> {{dataaaa.option_name}}</mat-radio-button> 
+                                                  </mat-radio-group>
+                                              </div>       
+                                              
+                                              
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!-- radio buttons end-->
+                  
+                                      <!-- checkbox -->
+                                      <div class="col-md-6 col-12"  *ngIf="dataaa.field_type === 'checkbox'">
+                                          <div class=" row">
+                                          <div *ngFor="let dataaaa of dataaa.field_option,let z =index;" >
+                                              
+                                          <div class="radio_btn col-4">
+                                              <mat-checkbox  color="primary"  
+                                              (change)="checkbox(data.section_id,removeformId,dataaa.format_type,0,dataaa.r_number,
+                                              dataaa.field_type,dataaaa.section_id,dataaaa.field_id,dataaaa.option_id)"
+                                              (change)="ab(removeformId,dataa.parent_section_id,dataaa.format_type,
+                                              dataaa.field_id,
+                                              dataaa.field_name,dataaaa.option_id,
+                                              dataaaa.option_name,$event)" [value]="dataaaa.optionText"> {{dataaaa.option_name}} </mat-checkbox>
+                                              </div>                           
+                                          </div>
+                                      </div>
+                                      </div>
+                                      <!-- checkbox end -->
+                                  </div>
+  
+                      <!-- radio buttons dependencies -->
+                        <div class="row">
+                          <div class="col-md-12"> 
+                            <!-- radio button text dependencies -->
+                            <div *ngFor="let k of dd">
+                              <div *ngFor="let a of k.name">
+                                  <div *ngIf="a.parent_field_type == 'radio'">
+                                    <div class="col-md-12" *ngIf="a.field_name != ''  && a.parent_field_id==dataaa.field_id && a.field_type == 'text'">
+                                      <div >
+                                        <b>{{a.field_name }} </b>
+                                        <input type="text" class="form-control mainn mb-3" autocomplete="off" 
+                                        (change)="abcdef(removeformId,a.parent_field_id,dataaa.format_type,a.field_id,
+                                    a.field_name,dataaa.option_id,dataaa.parent_section_id,$event)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                </div>
+                                
+                            </div>
+                            <!-- radio button text dependencies -->
+            
+                            <!-- radio button radio dependencies -->
+                            
+                            <div *ngFor="let k of dd">
+                              <div *ngFor="let a of k.name">
+                                
+                                <div *ngIf="a.parent_field_type == 'radio'">
+      
+                                  <div *ngIf="a.field_name != ''  && a.parent_field_id==dataaa.field_id &&  a.field_type == 'radio'">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <div class="mb-3">
+                                          <b>{{a.field_name }} </b>
+                                        </div>
+                                        
+                                      </div>
+            
+                                      <div  *ngFor="let x of a.radio_list"  class="d-inline-flex mr-3">
+                                        <div class="col-md-6">
+                                          <div  class="mb-3">
+                                            <mat-radio-group aria-label="Select an option" 
+                                            name="{{x.field_id}}" 
+                                            *ngIf="x.field_id==a.field_id"
+                                            (change)="checkbox(data.section_id,removeformId,dataa.format_type,0,
+                                            dataaa.r_number,a.field_type,x.section_id,x.field_id,x.option_id)"
+                                            
+                                            (change)="abcde(dataaa.field_id,removeformId,dataa.parent_section_id,
+                                            dataa.format_type,x.field_id,
+                                            x.option_id,
+                                            a.field_name,
+                                            x.option_name)">
+                                              <mat-radio-button color="primary" value="1" [checked]="x.option_default == 1 ?true:false" >{{x.option_name}}</mat-radio-button>
+                                            </mat-radio-group>
+                                                        
+                    
+                                          </div>
+                            
+                                        </div>
+      
+                                    
+                                      </div>
+                                      </div>
+      
+                                    <!-- radio buttons radio internal dependencies -->
+                                    <div  *ngFor="let x of a.radio_list">
+                                      
+                                      <div class="row">
+                                        <div class="col-md-12"> 
+                                          <!--inner radio buttons text dependencies -->
+                                          <div *ngFor="let k of dd">
+                                            <div *ngFor="let b of k.name">
+                                                <div *ngIf="b.parent_field_type == 'radio'">
+                                                  <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'text'">
+                                                    <div >
+                                                      <b>{{b.field_name }} </b>
+                                                      <input type="text" class="form-control mainn mb-3"
+                                                      autocomplete="off" 
+                                                      (change)="abcdef(removeformId,b.parent_field_id,dataa.format_type,b.field_id,
+                                                      b.field_name, b.parent_option_id,dataa.parent_section_id,$event)">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                              
+                                          </div>
+                                          <!-- inner radio buttons text dependencies --> 
+      
+                                          <!-- inner radio buttons radio dependencies -->
+                                          <div *ngFor="let k of dd">
+                                          <div *ngFor="let b of k.name">
+                                            <div *ngIf="b.parent_field_type == 'radio'">
+                                              <div  *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id &&  b.field_type == 'radio'">
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                      <b>{{b.field_name }} </b>
+                                                    </div>
+                                                  
+                                                  </div>
+                        
+                                                  <div  *ngFor="let x of b.radio_list"  class="d-inline-flex mr-5">
+                                                    <div class="col-md-6">
+                                                      <div>
+                                                        <mat-radio-group aria-label="Select an option" 
+                                                        name="{{x.field_id}}"                             
+                                                        (change)="abcde(dataaa.field_id,removeformId,dataa.parent_section_id,
+                                                        dataa.format_type,x.field_id,
+                                                        x.option_id,
+                                                        b.field_name,
+                                                        x.option_name)"
+                                                        (change)="checkbox(data.section_id,removeformId,
+                                                        dataa.format_type,0,
+                                                        dataaa.r_number,a.field_type,x.section_id,x.field_id,x.option_id)">
+                                                          <mat-radio-button color="primary" value="1" [checked]="x.option_default == 1 ?true:false" >{{x.option_name}}</mat-radio-button>
+                                                        </mat-radio-group>
+                                                      </div>
+                                        
+                                                    </div>
+                
+                                                
+                                                  </div>
+                                                  </div>
+                                            </div>
+                                            </div>
+                
+                                        
+                                          </div>   
+                                  
+                                        </div>
+                                          <!-- inner radio buttons radio dependencies -->
+      
+                                          <!-- inner radio buttons checkbox dependencies -->
+                                          <div *ngFor="let k of dd" >
+                                              <div *ngFor="let b of k.name">
+                                                  <div *ngIf="b.parent_field_type == 'radio'">
+                                                    <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'checkbox'">
+                                                      <div class="row">
+                                                        <div class="col-md-4">
+                                                          <div class="mb-3">
+                                                            <b>{{b.field_name }}</b>
+                                                          </div>
+                                                    
+                                                      </div>
+                                                      <div class="col-md-6">
+                                                        <div *ngFor="let x of b.checkbox_list"  class="d-inline-flex mr-5">
+                                                          <mat-checkbox color="primary"
+                                                          (change)="ab(removeformId,dataa.parent_section_id,dataa.format_type,
+                                                            x.field_id,
+                                                            b.field_name,x.option_id,
+                                                            x.option_name,$event)"
+                                                            (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                                            0,dataaa.r_number,
+                                                            b.field_type,x.section_id,
+                                                            x.field_id,x.option_id)">{{x.option_name}} </mat-checkbox>
+                                                        
+                                                          <!-- inner radio->checkbox text dependencies -->
+                                                            <div class="col-md-12">
+                                                              <div class="row">
+                                                            
+                                                              <div>
+                                                              <div  *ngFor="let k of dd" >
+                                                        
+                                                                <div *ngFor="let b of k.name">
+                                                                  <div *ngIf="b.parent_field_type == 'checkbox'">
+                                                                    <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'text'">
+                                                                      <div >
+                                                                        <b>{{b.field_name }}</b>
+                                                                        <input type="text" class="form-control mainn mb-3"
+                                                                        (change)="abcdef(removeformId,b.parent_field_id,dataaa.format_type,b.field_id,
+                                                                    b.field_name,dataaa.option_id,dataaa.parent_section_id,$event)">
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                
+                                                                </div>
+                                                            
+                                                            </div> 
+                                                            </div>
+                                                            
+                                                            </div>
+                                                          </div>
+                                                          <!-- inner radio->checkbox text dependencies -->
+                                                        </div>
+                                                    
+                                                      </div>
+                                                      </div>
+                                                    
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- inner radio buttons checkbox dependencies -->
+      
+                              
+      
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                      <!-- radio buttons radio internal dependencies -->
+                                  </div>
+                                </div>
+      
+                            
+                              </div>   
+                      
+                            </div>
+                            <!-- radio button radio dependencies -->
+      
+                            <!-- radio button checkbox dependencies -->          
+                            <div *ngFor="let k of dd" >
+                              <div *ngFor="let a of k.name">
+                                  <div *ngIf="a.parent_field_type == 'radio'">
+                                    <div class="row" *ngIf="a.field_name != ''  && a.parent_field_id==dataaa.field_id && a.field_type == 'checkbox'">
+                                      <!-- <div class="col-md-12"> -->
+                                          <div class="col-md-4">
+                                            <div class="mb-3">
+                                              <b>{{a.field_name }}</b>
+                                            </div>
+                                      
+                                          </div>
+                                          <div class="col-md-8">
+                                            <div *ngFor="let x of a.checkbox_list"  class="d-inline-flex mr-4">
+                                              <mat-checkbox color="primary"                                         
+                                              (change)="ab(removeformId,dataa.parent_section_id,dataa.format_type,
+                                        x.field_id,
+                                        a.field_name,x.option_id,
+                                        x.option_name,$event)"
+                                              (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                              0,dataaa.r_number,a.field_type,x.section_id,x.field_id,x.option_id)">{{x.option_name}}
+                                            </mat-checkbox>
+                                            </div>
+                                          </div>
+                                        
+                                      <!-- </div> -->
+      
+                                          
+      
+                                        <!-- radio buttons checkbox internal dependencies -->
+                                        <div  *ngFor="let x of a.checkbox_list">
+                                      
+                                          <div class="row">
+                                            <div class="col-md-12"> 
+                                            <!--inner radio buttons checkbox text dependencies -->
+                                          <div *ngFor="let k of dd">
+                                            <div *ngFor="let b of k.name">
+                                                <div *ngIf="b.parent_field_type == 'checkbox'">
+                                                  <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'text'">
+                                                    <div>
+                                                      <b>{{b.field_name }} </b>
+                                    
+                                                      <input type="text" class="form-control mainn mb-3" autocomplete="off" 
+                                                      (change)="abcdef(removeformId,b.parent_field_id,dataa.format_type,
+                                                      b.field_id,
+                                                      b.field_name, b.parent_option_id,
+                                                      dataa.parent_section_id,$event)">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                              
+                                          </div>
+                                          <!-- inner radio,radio buttons checkbox text dependencies --> 
+      
+                                            <!-- inner radio buttons radio dependencies -->
+                                            <div *ngFor="let k of dd">
+                                              <div *ngFor="let b of k.name">
+                                                <div *ngIf="b.parent_field_type == 'checkbox'">
+                                                  <div  *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id &&  b.field_type == 'radio'">
+                                                    <div class="row">
+                                                      <div class="col-md-4">
+                                                        <div class="mb-3">
+                                                          <b>{{b.field_name }} </b>
+                                                        </div>
+                                                  
+                                                      </div>
+                            
+                                                      <div  *ngFor="let x of b.radio_list"  class="d-inline-flex mr-3">
+                                                        <div class="col-md-6">
+                                                          <div>
+                                                            <mat-radio-group aria-label="Select an option" 
+                                                            name="{{x.field_id}}" 
+                                                            (change)="abcde(dataaa.field_id,removeformId,dataa.parent_section_id,
+                                                            dataa.format_type,x.field_id,
+                                                            x.option_id,
+                                                            b.field_name,
+                                                            x.option_name)"
+                                                            (change)="checkbox(data.section_id,removeformId,dataa.format_type,0,
+                                                            dataaa.r_number,
+                                                            a.field_type,x.section_id,x.field_id,x.option_id)">
+                                                              <mat-radio-button color="primary" value="1" [checked]="x.option_default == 1 ?true:false" >{{x.option_name}} </mat-radio-button>
+                                                            </mat-radio-group>
+                                                          </div>
+                                            
+                                                        </div>
+                    
+                                                    
+                                                      </div>
+                                                      </div>
+                                                </div>
+                                                </div>
+                    
+                                            
+                                              </div>   
+                                      
+                                            </div>
+                                              <!-- inner radio buttons radio dependencies -->
+      
+                                              
+                                          <!-- inner radio,checkbox buttons checkbox dependencies -->
+                                          <div *ngFor="let k of dd" >
+                                          <div *ngFor="let b of k.name">
+                                              <div *ngIf="b.parent_field_type == 'checkbox'">
+                                                <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'checkbox'">
+                                                  <div class="row">
+                                                    <div class="col-md-4">
+                                                      <div class="mb-3">
+                                                        <b>{{b.field_name }}</b>
+                                                      </div>
+                                          
+                                                  </div>
+                                                  <div class="col-md-8">
+                                                    <div *ngFor="let x of b.checkbox_list"  class="d-inline-flex mr-4">
+                                                      <mat-checkbox
+                                                      color="primary"
+                                                      (change)="ab(removeformId,dataa.parent_section_id,dataa.format_type,
+                                                      x.field_id,
+                                                      b.field_name,x.option_id,
+                                                      x.option_name,$event)"
+                                                      (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                                        0,dataaa.r_number,
+                                                        b.field_type,x.section_id,
+                                                        x.field_id,x.option_id)"
+                                                      >{{x.option_name}} </mat-checkbox>
+                                                    </div>
+                                                  </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              </div>
+                                          </div>
+                                          <!-- inner radio buttons checkbox dependencies -->
+      
+      
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- radio buttons checkbox internal dependencies -->
+                                    <!-- </div> -->
+                                    </div>
+          
+      
+                                  
+      
+                                  </div>
+                                  </div>
+                            </div>
+                            <!-- radio button checkbox dependencies -->
+      
+                            </div>  
+                        </div>                            
+                      <!-- radio buttons dependencies -->
+  
+                          
+                          <!-- checkbox dependencies -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <!-- checkbox text dependencies -->
+                                  <div *ngFor="let k of dd" >
+                                    <div *ngFor="let a of k.name">
+                                      <div  *ngIf="a.parent_field_type == 'checkbox'">
+                              
+                                          <div class="col-md-12" *ngIf="a.field_name != ''  && a.parent_field_id==dataaa.field_id && a.field_type == 'text'">
+                                            <div class="mb-3">
+                                              <b>{{a.field_name }} </b>
+                                              <input type="text" class="form-control" 
+                                              autocomplete="off" 
+                                              (change)="abcdef(removeformId,a.parent_field_id,dataaa.format_type,dataaa.field_id,
+                                              a.field_name,dataaa.option_id,dataaa.parent_section_id,$event)">
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                
+                                  </div>
+                                  <!-- checkbox text dependencies -->
+                                
+                                  <!-- checkbox radio dependencies -->
+                                  <div *ngFor="let k of dd">
+                                    <div *ngFor="let a of k.name">
+                                      <div *ngIf="a.parent_field_type == 'checkbox'">
+                                        <div  *ngIf="a.field_name != ''  && a.parent_field_id==dataaa.field_id &&  a.field_type == 'radio'">
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <div class="mb-3">
+                                                <b>{{a.field_name }} </b>
+                                              </div>
+                              
+                                            </div>
+                  
+                                            <div class="col-md-6">
+                                              <div *ngFor="let x of a.radio_list"  class="d-inline-flex mr-3">
+                                                <mat-radio-group aria-label="Select an option" name="{{x.field_id}}" 
+                                                *ngIf="x.field_id==a.field_id"
+                                                (change)="abcde(dataaa.field_id,removeformId,dataa.parent_section_id,
+                                                dataa.format_type,x.field_id,
+                                                x.option_id,
+                                                a.field_name,
+                                                x.option_name)"
+                                                (change)="checkbox(data.section_id,removeformId,dataa.format_type,0,
+                                                dataaa.r_number,a.field_type,
+                                                x.section_id,x.field_id,x.option_id)"
+                                                >
+                                                  <mat-radio-button color="primary" value="1" [checked]="x.option_default == 1 ?true:false" >{{x.option_name}}</mat-radio-button>
+                                                </mat-radio-group>
+                                              </div>
+                                            </div>
+                              
+                                          </div>
+            
+                                          <!-- inner checkbox radio dependencies -->
+                                          <div  *ngFor="let x of a.radio_list">
+                                            
+                                            <div class="row">
+                                              <div class="col-md-12"> 
+                                                <!--inner radio buttons text dependencies -->
+                                                <div *ngFor="let k of dd">
+                                                  <div *ngFor="let b of k.name">
+                                                      <div *ngIf="b.parent_field_type == 'radio'">
+                                                        <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'text'">
+                                                          <div >
+                                                            <div class="mb-3">
+                                                              <b>{{b.field_name }}  </b>
+                                                            </div>
+                                                            
+                                                            <input type="text" class="form-control" autocomplete="off" 
+                                                            (change)="abcdef(removeformId,b.parent_field_id,dataa.format_type,b.field_id,
+                                                            b.field_name, b.parent_option_id,dataa.parent_section_id,$event)">
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                    
+                                                </div>
+                                                <!-- inner radio buttons text dependencies --> 
+            
+                                                <!-- inner radio buttons radio dependencies -->
+                                                <div *ngFor="let k of dd">
+                                                <div *ngFor="let b of k.name">
+                                                  <div *ngIf="b.parent_field_type == 'radio'">
+                                                    <div  *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id &&  b.field_type == 'radio'">
+                                                      <div class="row">
+                                                        <div class="col-md-4">
+                                                          <div class="mb-3">
+                                                            <b>{{b.field_name }}</b>
+                                                          </div>
+                                                          
+                                                        </div>
+                              
+                                                        <div  *ngFor="let x of b.radio_list"  class="d-inline-flex mr-3">
+                                                          <div class="col-md-6">
+                                                            <div>
+                                                              <mat-radio-group aria-label="Select an option" 
+                                                              name="{{x.field_id}}"
+                                                               
+                                                              (change)="abcde(dataaa.field_id,removeformId,dataa.parent_section_id,
+                                                              dataa.format_type,x.field_id,
+                                                              x.option_id,
+                                                              b.field_name,
+                                                              x.option_name)"
+                                                              (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                                              0,dataaa.r_number,a.field_type,x.section_id,x.field_id,x.option_id)">
+                                                                <mat-radio-button color="primary" 
+                                                                value="1" 
+                                                                [checked]="x.option_default == 1 ?true:false" >
+                                                                {{x.option_name}} </mat-radio-button>
+                                                              </mat-radio-group>
+                                                            </div>
+                                              
+                                                          </div>
+                      
+                                                      
+                                                        </div>
+                                                        </div>
+                                                  </div>
+                                                  </div>
+                      
+                                              
+                                                </div>   
+                                        
+                                              </div>
+                                                <!-- inner radio buttons radio dependencies -->
+            
+                                                <!-- inner radio buttons checkbox dependencies -->
+                                                <div *ngFor="let k of dd" >
+                                                <div *ngFor="let b of k.name">
+                                                    <div *ngIf="b.parent_field_type == 'radio'">
+                                                      <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'checkbox'">
+                                                        <div class="row">
+                                                          <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                              <b>{{b.field_name }}</b>
+                                                            </div>
+                                                        
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                          <div *ngFor="let x of b.checkbox_list"  class="d-inline-flex mr-4">
+                                                            <mat-checkbox
+                                                            color="primary"
+                                                            (change)="ab(removeformId,dataa.parent_section_id,dataa.format_type,
+                                                            x.field_id,
+                                                            b.field_name,x.option_id,
+                                                            x.option_name,$event)"
+                                                            (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                                              0,dataaa.r_number,
+                                                              b.field_type,x.section_id,
+                                                              x.field_id,x.option_id)">{{x.option_name}} </mat-checkbox>
+                                                          </div>
+                                                        </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <!-- inner radio buttons checkbox dependencies -->
+            
+                                    
+            
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                          <!-- inner checkbox radio dependencies -->
+                                      </div>
+                                      </div>
+                                    </div>                        
+                                  </div>
+                                  <!-- checkbox radio dependencies -->
+            
+                                      <!-- checkboxes checkbox dependencies -->
+                                      <div *ngFor="let k of dd">
+                                        <div *ngFor="let a of k.name">
+                                            <div *ngIf="a.parent_field_type == 'checkbox'">
+                                              <div class="col-md-12" *ngIf="a.field_name != ''  && a.parent_field_id==dataaa.field_id && a.field_type == 'checkbox'">
+                                                <div class="row">
+                                                  <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                      <b>{{a.field_name }}</b>
+                                                    </div>
+                                              
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <div *ngFor="let x of a.checkbox_list"  class="d-inline-flex mr-3">
+                                                    <mat-checkbox
+                                                    color="primary"
+                                                    (change)="ab(removeformId,dataa.parent_section_id,dataa.format_type,
+                                                    x.field_id,
+                                                    a.field_name,x.option_id,
+                                                    x.option_name,$event)"
+  
+                                                    (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                                    0,dataaa.r_number,
+                                                    a.field_type,x.section_id,
+                                                    x.field_id,x.option_id)">{{x.option_name}}</mat-checkbox>
+                                                  </div>
+                                                </div>
+                                                </div>
+            
+                                                <!-- checkbox internal dependencies -->
+            
+                                                <div  *ngFor="let x of a.checkbox_list">
+                                            
+                                                  <div class="row">
+                                                    <div class="col-md-12"> 
+                                                    <!--inner checkbox checkbox text dependencies -->
+                                                  <div *ngFor="let k of dd">
+                                                    <div *ngFor="let b of k.name">
+                                                        <div *ngIf="b.parent_field_type == 'checkbox'">                                                 
+                                                            <div  *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'text'">
+                                                              <div class="mb-3">
+                                                                <b>{{b.field_name }}</b>
+                                                              </div>
+                                                                <input type="text" class="form-control"
+                                                                autocomplete="off" 
+                                                                (change)="abcdef(removeformId,b.parent_field_id,dataa.format_type,b.field_id,
+                                                                b.field_name, b.parent_option_id,dataa.parent_section_id,$event)">
+                                                          </div>
+                                              
+                                                        </div>
+                                                    </div>
+                                                      
+                                                  </div>
+                                                  <!-- inner checkbox checkbox text dependencies --> 
+            
+                                                    <!-- inner checkbox checkbox radio dependencies -->
+                                                    <div *ngFor="let k of dd">
+                                                      <div *ngFor="let b of k.name">
+                                                        <div *ngIf="b.parent_field_type == 'checkbox'">
+                                                          <div  *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id &&  b.field_type == 'radio'">
+                                                            <div class="row">
+                                                              <div class="col-md-4">
+                                                                <div class="mb-3">
+                                                                  <b>{{b.field_name }} </b>
+                                                                </div>
+                                            
+                                                              </div>
+                                    
+                                                              <div  *ngFor="let x of b.radio_list"  class="d-inline-flex mr-3">
+                                                                <div class="col-md-6">
+                                                                  <div>
+                                                                    <mat-radio-group aria-label="Select an option" 
+                                                                    name="{{x.field_id}}"                                                              
+                                                                  (change)="abcde(dataaa.field_id,removeformId,dataa.parent_section_id,
+                                                                    dataa.format_type,x.field_id,
+                                                                    x.option_id,
+                                                                    b.field_name,
+                                                                    x.option_name)"
+                                                                    (change)="checkbox(data.section_id,removeformId,dataa.format_type,0,
+                                                                    dataaa.r_number,b.field_type,
+                                                                    x.section_id,x.field_id,x.option_id)">
+            
+                                                                      <mat-radio-button color="primary" value="1" [checked]="x.option_default == 1 ?true:false" >{{x.option_name}}</mat-radio-button>
+                                                                    </mat-radio-group>
+                                                                  </div>
+                                                    
+                                                                </div>
+                            
+                                                            
+                                                              </div>
+                                                              </div>
+                                                        </div>
+                                                        </div>
+                            
+                                                    
+                                                      </div>   
+                                              
+                                                    </div>
+                                                      <!-- inner checkbox checkbox radio dependencies -->
+            
+                                                      
+                                                  <!-- inner checkbox checkbox dependencies -->
+                                                  <div *ngFor="let k of dd" >
+                                                  <div *ngFor="let b of k.name">
+                                                      <div *ngIf="b.parent_field_type == 'checkbox'">
+                                                        <div class="col-md-12" *ngIf="b.field_name != ''  && b.parent_option_id==x.option_id && b.field_type == 'checkbox'">
+                                                          <div class="row">
+                                                            <div class="col-md-4">
+                                                              <div  class="mb-3">
+                                                                <b>{{b.field_name }}</b>
+                                                              </div>
+                                                    
+                                                          </div>
+                                                          <div class="col-md-8">
+                                                            <div *ngFor="let x of b.checkbox_list"  class="d-inline-flex mr-3">
+                                                              <mat-checkbox
+                                                              color="primary"
+                                                              (change)="ab(removeformId,dataa.parent_section_id,dataa.format_type,
+                                                              x.field_id,
+                                                              b.field_name,x.option_id,
+                                                              x.option_name,$event)"
+                                                        
+                                                              (change)="checkbox(data.section_id,removeformId,dataa.format_type,
+                                                              0,dataaa.r_number,
+                                                              a.field_type,x.section_id,
+                                                              x.field_id,x.option_id)"
+                                                              >{{x.option_name}} </mat-checkbox>
+                                                            </div>
+                                                          </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                                  <!-- inner checkbox checkbox dependencies -->
+            
+            
+                                                    </div>
+                                                  </div>
+                                                </div>
+            
+                                                <!-- checkbox internal dependencies -->
+                                              </div>
+                                            </div>
+                                            </div>
+                                      </div>
+                                      <!-- checkboxes checkbox dependencies -->
+            
+                                  </div>
+                            </div>
+                          <!-- checkbox dependencies end -->
+            
+                              </div>
+                            
+                              </div>
+                          </div>
+                            
+                      </div>
+  
+  
+                      <!-- Inner Section Data End-->
+                   </mat-expansion-panel>
+                 </mat-accordion>
+               </div>
+             </div>
+            
+            </div>
+            <div class="col-12" style="text-align: center;">
+              <button mat-raised-button (click)="final(removeformId)"
+               *ngIf="hideButton" class="my_bg_v style mt-3" [disabled]="disabled">SUBMIT</button>
+            </div>
+          
+          </div>
+          <div class="help">
+            <button mat-mini-fab  (click)="help()"><mat-icon>help_outline</mat-icon></button>
+          </div>
+      </div>
+  </div>
+    <!-- Section Data Start -->
+
+  </section>
+<!-- </div> -->
+

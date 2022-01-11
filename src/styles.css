@@ -1,0 +1,620 @@
+/* You can add global styles to this file, and also import other style files */
+ @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+ @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+ /* @import '~@angular/cdk/overlay-prebuilt.css'; */
+
+
+body { margin: 0; padding:0; font-family: 'Raleway', sans-serif !important; background:#f5f9fa !important;overflow: hidden; overflow-x: hidden; }
+body::-webkit-scrollbar{
+  width: 0px !important;
+}
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  height: -webkit-fill-available !important;
+}
+
+.cdk-global-overlay-wrapper {
+  /* display: block !important;
+  position: initial; */
+  z-index: 1000;
+  overflow: auto;
+  overflow-x: hidden;
+  pointer-events: auto;
+
+}
+.cdk-overlay-pane { 
+  display: block !important;
+}
+
+
+
+.introjs-helperLayer{
+  box-shadow: rgb(33 33 33 / 95%) 0px 0px 1px 2px, rgb(33 33 33 / 91%) 0px 0px 0px 5000px !important;
+    width: 527px;
+    height: 44px;
+    top: 59px;
+    left: 5px;
+    opacity: 1;
+  }
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
+  background: #062045 !important;
+  color: #3bd6ac !important;
+}
+.mat-fab.mat-accent[disabled], .mat-fab.mat-primary[disabled], .mat-fab.mat-warn[disabled], .mat-fab[disabled][disabled], .mat-flat-button.mat-accent[disabled], .mat-flat-button.mat-primary[disabled], .mat-flat-button.mat-warn[disabled], .mat-flat-button[disabled][disabled], .mat-mini-fab.mat-accent[disabled], .mat-mini-fab.mat-primary[disabled], .mat-mini-fab.mat-warn[disabled], .mat-mini-fab[disabled][disabled], .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-primary[disabled], .mat-raised-button.mat-warn[disabled], .mat-raised-button[disabled][disabled]{
+  background-color: rgba(0,0,0,.12) !important; 
+}
+.mat-form-field-appearance-outline .mat-form-field-infix{
+  padding: 10px 0px 10px 0px !important;
+}
+.mat-chip{
+  font-weight: 500!important;
+  font-size: 13px !important;
+}
+.mat-tab-body-content::-webkit-scrollbar {
+  display: none;
+}
+mat-sidenav-content.mat-drawer-content.mat-sidenav-content::-webkit-scrollbar {
+  display: none;
+}
+.mat-autocomplete-panel-above .mat-autocomplete-panel{
+  border-radius: 12px !important;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+label{
+  margin:0px;
+  padding: 0px;
+  font-size:13px;
+}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: #250869!important;
+
+} 
+.mat-checkbox-layout .mat-checkbox-label{
+  white-space: normal !important;
+}
+.mat-drawer-side{
+  border-right: none !important;
+}
+body {overflow: -moz-scrollbars-none; -ms-overflow-style: none; }
+
+.mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix{
+  top:0 !important;
+}
+/* .mat-sidenav-container {
+ min-height: calc(100vh - 60px);
+} */
+  
+  .mat-drawer-inner-container::-webkit-scrollbar {
+    width: 0px !important;
+  }
+  .mat-drawer-inner-container { overflow: -moz-scrollbars-none; }
+  .mat-drawer-inner-container { -ms-overflow-style: none; }
+
+  .mat-drawer-inner-container{ 
+    
+    background-color: #0b1271  !important;
+    /* background-image: linear-gradient(#062045, #062045 50%) !important; */
+    border-bottom: 1px solid #062045 !important;
+    /* background-color: #f5f9fa; */
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  }
+  .mat-form-field-infix{
+    width: 180px !important;
+  }
+  .mat-form-field{
+    width: 100% !important;
+  }
+  .mat-expansion-panel-body {
+    padding: 0 16px 16px !important;
+}
+.mat-expansion-panel-header{
+  padding: 12px !important;
+}
+/* th.mat-header-cell{
+  text-align: center !important;
+} */
+  .mat-drawer-side {
+    box-shadow:-4px -8px 20px 2px #8e808073;
+}
+.mat-mini-fab .mat-button-wrapper {
+  padding: 1px 0 !important;
+  display: inline-block;
+  line-height: 24px;
+}
+.mat-fab.mat-accent, .mat-flat-button.mat-accent, .mat-mini-fab.mat-accent, .mat-raised-button.mat-accent{
+  background-color:#10365a !important;
+  color: #33e5a6 !important;
+}
+
+
+
+
+.mat-snack-bar-handset .mat-snack-bar-container{
+  margin:0 auto !important;
+}
+/* ///modal --css// */
+/* notifications styles*/
+
+
+
+  button:focus{
+    outline: none !important;
+  }
+  .mat-menu-content:not(:empty){
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  /* .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.02), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0) !important;
+} */
+
+  /* .mat-raised-button:not([class*=mat-elevation-z]) {
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0.06) !important;
+} */
+
+.mat-elevation-z8 {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0), 0 8px 10px 1px rgba(0, 0, 0, 0), 0 3px 14px 2px rgba(63, 62, 62, 0.02) !important;
+}
+/* .mat-checkbox-layout {
+  white-space: normal !important;
+} */
+.mat-chip.mat-standard-chip {
+  background-color: #c2dcda21 !important;
+  color: black !important;
+  border: 1px solid lavender;
+}
+
+input.mat-chip-input{
+  width:100% !important;
+}
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+  padding-left: 10px !important;
+}
+td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:last-of-type {
+  padding-right: 0px !important;
+}
+/* .mat-card{
+  background-color: #425f871a !important;
+} */
+/* div.mat-chip-list-wrapper {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  width: 100% !important;
+}
+div.mat-chip-list-wrapper::-webkit-scrollbar{
+  width: 100px !important;
+  
+}
+.mat-chip-selected {
+  background-color: #346cb0 !important;
+  color: white;
+}
+.mat-chip-list-wrapper > .mat-chip {
+  flex: 0 0 auto !important;
+} */
+
+.right-aligned-header > .mat-content {
+  justify-content: space-between !important;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+flex: 0 0 auto !important;
+}
+.sketchCss > .mat-dialog-container {
+  display: block;
+  padding:0px !important;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: auto;
+  outline: 0;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  max-height: inherit;
+}
+
+/* .mat-dialog-container{
+padding: 12px !important;
+} */
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width:360px) { 
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:10px;
+    z-index: 1001;
+  }
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  .myapp-no-padding-dialog > mat-dialog-container {
+    width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    top:0;
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+   
+}
+
+
+@media (min-width: 411px) and (max-width: 731px) { 
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:10px;
+    z-index: 1001;
+  }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) and (max-width: 767.98px) { 
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  .myapp-no-padding-dialog > mat-dialog-container {
+    width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    top:0;
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+
+}
+@media (min-width: 767.98px) and (max-width: 576px) { 
+ 
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:10px;
+    z-index: 1001;
+  }
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  .myapp-no-padding-dialog > mat-dialog-container {
+    width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    top:0;
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+}
+ /* // Medium devices (tablets, 768px and up) */ 
+@media (min-width: 320px) and (max-width:568px) { 
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:10px;
+    z-index: 1001;
+  }
+  .myapp-no-padding-dialog > mat-dialog-container {
+    width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    top:0;
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    padding: 2px !important;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+   
+} 
+ /* // Medium devices (tablets, 768px and up) */ 
+ @media (min-width: 768px) and (max-width:1024px) { 
+
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  .myapp-no-padding-dialog >mat-dialog-container {
+    max-width: 80% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 70% !important;
+    margin: 0 auto;
+    
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 70% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+  } 
+/* // Medium devices (tablets, 768px and up) */ 
+@media (min-width: 768px) and (max-width:1024px) { 
+
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  .myapp-no-padding-dialog > mat-dialog-container {
+    max-width: 80% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 90% !important;
+    margin: 0 auto;
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 90% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+  .mat-tab-label {
+    min-width: 80px !important;
+    height: 38px !important;
+    padding:0px 0px !important
+}
+.mat-tab-label .mat-tab-label-content{
+  font-size:13px;
+}
+ 
+} 
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:0px;
+    right:25%;
+    left:50%;
+    margin-left:-150px;
+    z-index: 1001;
+  }
+  /* .cdk-overlay-pane { width: 50%; height: 70%; } */
+  .myapp-no-padding-dialog > mat-dialog-container {
+    max-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 70% !important;
+    margin: 0 auto;
+    position: relative;
+    
+   
+   }
+   .editprescribe-dailog > mat-dialog-container{
+    max-width: 70% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .Template-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+    width:450px;
+  }
+  .fu-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:0px;
+    right:25%;
+    left:50%;
+    margin-left:-150px;
+    z-index: 1001;
+  }
+  .myapp-no-padding-dialog > mat-dialog-container {
+    max-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 70% !important;
+    margin: 0 auto;
+    position: relative;
+    
+   
+   }
+
+   /* .sketchCss > mat-dialog-container {
+    max-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+   }  */
+  .editprescribe-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .fu-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    min-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+ .Template-dailog > mat-dialog-container{
+  max-width: 100% !important;
+  margin: 0 auto;
+  position: relative;
+  width:450px;
+}
+  
+}
+@media (min-width: 1366px) and (max-width:1920px){ 
+  snack-bar-container.custom_snackbar{
+    position: fixed;
+    bottom:0px;
+    right:25%;
+    left:50%;
+    margin-left:-150px;
+    z-index: 1001;
+  }
+  .myapp-no-padding-dialog > mat-dialog-container {
+    max-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+   } 
+   .Symptom_dailog > mat-dialog-container{
+    max-width: 70% !important;
+    margin: 0 auto;
+    position: relative;
+    
+   
+   }
+
+   /* .sketchCss > mat-dialog-container {
+    max-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+   }  */
+  .editprescribe-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+  .fu-dailog > mat-dialog-container{
+    max-width: 100% !important;
+    min-width: 50% !important;
+    margin: 0 auto;
+    position: relative;
+  }
+ .Template-dailog > mat-dialog-container{
+  max-width: 100% !important;
+  margin: 0 auto;
+  position: relative;
+  width:450px;
+}
+  
+}
+.sketchCss > mat-dialog-container {
+  width:100%;
+  height:100%;
+  /* max-width: 50% !important;
+  
+  margin: 0 auto;
+  position: relative; */
+ } 
+ .mat-fab.mat-accent[disabled], .mat-fab.mat-primary[disabled], .mat-fab.mat-warn[disabled], .mat-fab[disabled][disabled], .mat-flat-button.mat-accent[disabled], .mat-flat-button.mat-primary[disabled], .mat-flat-button.mat-warn[disabled], .mat-flat-button[disabled][disabled], .mat-mini-fab.mat-accent[disabled], .mat-mini-fab.mat-primary[disabled], .mat-mini-fab.mat-warn[disabled], .mat-mini-fab[disabled][disabled], .mat-raised-button.mat-accent[disabled], .mat-raised-button.mat-primary[disabled], .mat-raised-button.mat-warn[disabled], .mat-raised-button[disabled][disabled] {
+  color: #dddd !important;
+  cursor: not-allowed;
+}
+ /* .mat-form-field-outline-start, .mat-form-field-outline-end {
+  border-radius: 0 !important;
+} */
+
+/* font custom csss*/
+
+
+.custom_fontsize{
+  font-size:13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color:black
+}
+
+@media (min-width: 320px) and (max-width:568px){
+  ::ng-deep .mat-tab-label{
+    height: 32px !important;
+  }
+}
+@media (max-width: 599px){
+
+.mat-tab-label {
+    min-width: 58px !important;
+    height: 38px !important;
+    padding:0px 0px !important
+}
+.mat-tab-label .mat-tab-label-content{
+  font-size:13px;
+}
+}
+
+.my_bg_v{
+  background-color: #0B1271;
+  border-bottom: 1px solid #133783;
+  color: #33e5a6;
+}
+

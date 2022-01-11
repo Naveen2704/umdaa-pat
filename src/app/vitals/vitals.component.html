@@ -1,0 +1,80 @@
+
+<div class="overflow">
+<!-- <loading *ngIf="isLoading"></loading> -->
+
+<div class="row">
+    <div class="col-8 col-md-8">
+        <div class="header_section ">
+            <button mat-stroked-button (click)="openVitals()" class="my_bg_v"><mat-icon>add</mat-icon> VITALS</button>
+        </div>
+    </div>
+    <div class="col-4 col-md-4">
+        <div class="header_section_print text-right mt-3 mr-4">
+            <mat-icon  class="custm_css" (click)="getPrint()">print</mat-icon>
+            <!-- <a href={{VitalsPrint}} target="_self"><mat-icon>print</mat-icon></a> -->
+        </div>
+    </div>
+</div>
+<!-- <ngx-doc-scanner 
+     *ngIf="image"
+     [file]="image"
+     [config]="config">
+     (editResult)="editResult($event)"
+     (exitEditor)="exitEditor($event)"
+     (error)="onError($event)"
+     (processing)="editorState($event)"
+</ngx-doc-scanner> -->
+<div class="container-fluid overflow">
+    <div class="row" *ngIf="vitalsSignsdata.length != 0">
+        <div class="drug_section " >
+          <div class="col-10 col-md-10 " >
+              <div class="mat-subheading-2">Drug Allergy : {{drug.drug_allergy == ""?'NO':drug.drug_allergy |titlecase}}</div>
+          </div>
+          <div class="col-2 col-md-2  ">
+            <div class="vital_update text-right ">
+                 <!-- <i  class="fa fa-pencil-square-o fa-lg "  ></i>\ -->
+                 <!-- <mat-icon  (click)="updatevitals()">edit</mat-icon> -->
+            </div>
+        </div>
+          </div>
+     </div>
+    <div class="class" *ngFor="let vital of (vitalsSignsdata)?.slice().reverse() ">
+         <div class="row">
+             <div class="col-12 col-md-8 mat-subheading-1 mt-2">
+                Date : {{vital.vital_sign_recording_date_time | dateTimeFormatPipe : " DD MMM, YYYY"}},
+                Time : {{vital.vital_sign_recording_date_time | dateTimeFormatPipe : " HH:mm" }}
+             </div>
+           
+         </div>
+
+     <div class="row  mb-3 mt-3" >
+           <!-- <div class="vitals_section col-6  m-1 col-md-2  {{ (vita.vital_sign_name == 'SBP' || vita.vital_sign_name == 'DBP')?'d-none':'' }} " *ngFor="let vita of vital.vital_signs | sortby:'position'"> -->
+            <div class="vitals_section col-6  m-1 col-md-2  {{ (vita.vital_sign_name == 'SBP' || vita.vital_sign_name == 'DBP')?'d-none':'' }} " *ngFor="let vita of vital.vital_signs | sortby:'position'">
+                <div class=" col-12 mb-0 p-0 text-center pt-2">
+                  
+                    <div class="vital-block " >
+                        <div class="class_1 " *ngFor="let item of icons">
+                            <img *ngIf="item.name == vita.vital_sign_name"  src="{{item.url}}" alt="BP" class="mt-1 f-size">
+                        </div>
+                        <div class="class_2 " >
+                            <div *ngIf="vita.vital_sign_name == 'BP'; then bprow else remainrow"></div>
+                            <ng-template #bprow>
+                                <p class="p-0 mb-0 mat-subheading-1" > {{vita.vital_sign_name |uppercase}}</p>
+                            <p class="mat-subheading-2"> <span [style.color]="vita.status.split('/')[0] == 'abnormal' ? 'red': ''">{{ vita.value.split("/")[0] }}</span>/<span [style.color]="vita.status.split('/')[1] == 'abnormal' ? 'red': ''">{{vita.value.split("/")[1]}}</span> <small>{{vita.unit}}</small></p>
+                            </ng-template>
+                            <ng-template #remainrow>
+                                <p class="p-0 mb-0 mat-subheading-1" > {{vita.vital_sign_name |uppercase}}</p>
+                                <p class="mat-subheading-2" [style.color]="vita.status == 'abnormal' ? 'red': vita.status == 'abnormal/abnormal' ? 'red': '' ">{{vita.value}} <small>{{vita.unit}}</small></p>
+                            </ng-template>
+                            
+                        </div>
+                    </div>
+                   
+                  </div>
+           </div>
+         
+    </div>
+    <mat-divider></mat-divider>
+    </div>
+</div>
+</div>    

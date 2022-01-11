@@ -1,0 +1,33 @@
+.custom_css_btn {
+    background: #10365a;
+    color: #f5f5f5;
+    
+}
+
+/* ::ng-deep .mat-tab-header {
+    background-color: #425f87!important;
+    } */
+  
+    .textColor a
+    {
+        color:white;
+        text-decoration: none;
+    }
+
+    td {
+        padding-right: 8px;
+        width: 500px;
+      }
+
+.mat-ink-bar{
+    background-color:#00ADEE;
+}
+.mat-tab-label-active{
+     color: #00ADEE !important;
+ } 
+
+.backtext{
+    background-color: #425f87;
+    color: white;
+ }
+ 

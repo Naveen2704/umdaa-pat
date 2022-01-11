@@ -1,0 +1,64 @@
+
+  
+  
+  <app-forms></app-forms>
+  <div class="">
+    <section style="margin-top:56px">
+    
+      <form [formGroup]='ProcedureForm' #myformpro="ngForm" (ngSubmit)="Proceduresearchadd(ProcedureForm.value,myformpro)">
+        <div class="row ml-0 " data-step="1" data-intro="Enter Keys and select from list then add to the patients" data-position='left' >
+            <div class="col-8 col-md-5">
+                    <mat-form-field >
+                      <input type="text"  #term (ngModelChange)="procedureSearch(term.value)"
+                            placeholder="Select Procedure here.."
+                            aria-label="Number"
+                            matInput
+                            id="keyword"
+                            formControlName='queryField'
+                            [matAutocomplete]="auto" required>
+                            <!-- <input type="hidden" formControlName ="procedure_id" class="form-control" [(ngModel)]="procedure_id"> -->
+                            <mat-hint>Please enter Minimum 3 letters</mat-hint>
+                      <mat-autocomplete #auto="matAutocomplete">
+                          <mat-option *ngFor="let item of options " [value]="item.medical_procedure" (click)="getId(item.medical_procedure_id)" >
+                            <span >{{item.medical_procedure}}</span>
+                           </mat-option>
+                      </mat-autocomplete>
+                      <!-- <mat-error *ngIf="isSubmitted && CdForm.get('queryField').hasError('required')">
+                        Please Select diagnosis name 
+                      </mat-error> -->
+                    </mat-form-field>
+                  
+            </div>
+            <div class="col-4  col-md-4 p-0 my-auto">
+              
+              <button mat-raised-button [disabled]="disabled" type="submit"  class=" mt-1 my_bg_v" >ADD</button> 
+            </div>
+      
+        </div>
+       </form>
+   
+  </section>
+ 
+  
+
+  <div class="class" >
+  <div class="row" >
+      <div class="col-12" >
+          <div class="m-2" *ngFor="let item of ProceduresList">
+            
+            <mat-card (click) ="procedureId(item.medical_procedure_id)"  data-step="2" data-intro="Click on view then edit and print " data-position='left'>
+              
+              <div class="title">
+                {{item.procedure_name}}
+                <span class="pull-right view d-flex"><mat-icon >visibility</mat-icon> View</span>
+              </div>
+            </mat-card>
+          </div>
+      </div>
+  </div>
+  </div> 
+  <div class="help">
+    <button mat-mini-fab  (click)="help()"><mat-icon>help_outline</mat-icon></button>
+  </div>
+
+</div>

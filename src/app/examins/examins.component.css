@@ -1,0 +1,23 @@
+  /* ink bar tabs*/
+  ::ng-deep .mat-tab-header {
+    background-color: white!important;
+     position: fixed !important;
+     z-index: 999;
+     width:100vw;
+     height: 42px !important;
+    }
+    ::ng-deep .mat-tab-body-wrapper {
+      position: relative !important;
+      margin-top:180px;
+  }
+    .textColor a
+    {
+        color:white;
+        text-decoration: none;
+        /* background-color: #21396d; */
+    }
+
+    .active-link {
+      background-color: rgb(128, 128, 128);
+  }
+ 

@@ -1,0 +1,127 @@
+<!-- <div  class="header fixed-top " >
+  <div class="header_inner" style="padding:5px" >
+    <!-- <i class="fas fa-chevron-left fa-1x"></i> 
+    <span class="ml-2"> Patient Name</span>
+    <button type="button" class="btn btn-success  float-right btn-sm">FINISH</button>
+  </div>
+ <div>
+  
+ </div>
+</div> -->
+<!-- 
+<div class="header">
+  <div class="header-inner">
+    <div class="row">
+      <div class="text-right mt-2 col-4 col-md-4">
+            <img class="image_class"src="https://www.howtogeek.com/thumbcache/200/200/f865a71d9c7ddffc9b95492aa9ff3f0c/wp-content/uploads/2018/08/profile-square-1000px.jpg" class="card-img-top" alt="">
+      </div>
+      <div class="ml-2 mt-2 col-4 col-md-4">
+        <div class="row">
+          <div class="col-md-12 ">
+            <label  class="primary ml-2 m-0">Patient Name </label>
+            <a mat-mini-fab  class="ml-4"routerLink="/profile_edit"><i class="material-icons fs" style="vertical-align: unset;">
+              edit
+              </i>
+            </a>
+          </div>
+          <div class="col-md-12">
+            <label  class="primary ml-2 m-0">21Y,Male</label>
+            <label class="ml-2">#UMR NO: P1234</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 col-md-4">
+          <button type="button" class="btn btn-success  float-right btn-sm mt-3">FINISH</button>
+      </div>
+  
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="header">
+  <div class="row">
+    <div class=" col text-center p-0">
+      <div class=" mt-2">
+        <img class="image_class"src="https://www.howtogeek.com/thumbcache/200/200/f865a71d9c7ddffc9b95492aa9ff3f0c/wp-content/uploads/2018/08/profile-square-1000px.jpg" class="card-img-top" alt="">
+      </div>
+    </div>
+
+    <div class="col-6 text-left mt-2 p-0">
+      <div class="row">
+        <div class="col">
+          <label  class="primary ml-2 m-0">{{patientDetails.full_name}}</label>
+          <a  class="ml-3" (click)="openDialog()"><i class="material-icons fs" style="vertical-align: unset;">
+            edit
+            </i>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"> 
+          <label  class="primary ml-2 m-0 line">21Y</label>
+          <label  class="primary ml-2 m-0 line">Male</label>
+          <label class="ml-2">#P1234</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-4  pl-3">
+      <button mat-raised-button type="button" class="mat-small mt-3" color="green">FINISH</button>
+      
+    </div>
+
+  </div>
+</div>  -->
+
+ <div class="header mat-body my_bg_v" >
+  <div class="row">
+    <div class="col-8  d-flex "> 
+        <mat-icon class="m-1 my-auto click" (click)="routeback()">arrow_back</mat-icon>
+      <div class="image " >
+        <!-- <img class="image_class"src=" patientDetails.photo !='' ? patientDetails.photo: https://www.howtogeek.com/thumbcache/200/200/f865a71d9c7ddffc9b95492aa9ff3f0c/wp-content/uploads/2018/08/profile-square-1000px.jpg" class="card-img-top" alt="" (click)="openDialog()" > -->
+        <img [src]="image_link !='' ? patientDetails.photo:myImgUrl" alt="no" class="resp-img"  onerror="this.onerror=null; this.src='Default.jpg'" (click)="openDialog()">
+
+      </div>
+      <div class="Patient_info ml-2 w-100 ">
+        <div class="class_1 d-flex text-wrap m-1">
+          <label  class="primary ml-2 m-0"  > {{patientDetails?.title}} {{patientDetails?.first_name |titlecase}} {{patientDetails?.last_name | titlecase}} </label>
+          <span (click)="openDialog()"><i class="fa fa-pencil-square-o fa-lg ml-2"></i></span>
+        </div>
+        <div class="class_2 d-flex m-1">
+          <label *ngIf = "patientDetails.age != ''" class=" ml-2 m-0 line">{{patientDetails?.age}} </label>
+          <label *ngIf = "patientDetails.gender != ''"  class=" ml-2 m-0 line">{{patientDetails?.gender |titlecase}}</label>
+          <label *ngIf = "patientDetails.umr_no != ''"  class="ml-2" >{{patientDetails?.umr_no}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 text-right right my-auto">
+      <button *ngIf="status != 'closed'" mat-button (click)="Finish()">Finish</button>
+    </div>
+    <!-- <div class="col-2 p-0">
+      <div class="class_3 text-right " *ngIf="routeName == 'touch'?show:hide">
+          <mat-chip-list aria-label="Fish selection" style="color:white">
+            <mat-chip color="white" (click)="back()">Back</mat-chip>
+          </mat-chip-list>
+      </div>
+      <div class="class_3 text-right " *ngIf="pRouteName == 'preview'?show:hide">
+        <mat-chip-list aria-label="Fish selection" style="color:white">
+          <mat-chip color="white" (click)="backk()">Back</mat-chip>
+        </mat-chip-list>
+    </div>
+    </div> -->
+       <div class="col-2 p-0">
+      <!-- <div class="class_3 text-right">
+          <mat-chip-list aria-label="Fish selection" style="color:white">
+            <mat-chip color="white" (click)="backIonic()">Finish</mat-chip>
+            
+          </mat-chip-list>
+      </div> -->
+      <!-- <div class="class_3 text-right " *ngIf="pRouteName == 'preview'?show:hide">
+        <mat-chip-list aria-label="Fish selection" style="color:white">
+          <mat-chip color="white" (click)="backk()">Back</mat-chip>
+        </mat-chip-list>
+    </div> -->
+    </div>
+
+
+  </div>
+</div> 

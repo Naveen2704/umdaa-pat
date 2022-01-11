@@ -1,0 +1,78 @@
+<div class="mat-body">
+   
+<div class="row">
+    <div class="col-12 text-right">
+        <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+    </div>
+</div>
+
+<div class="section">
+    <form [formGroup]="Reportsform"  #EditForm="ngForm" (ngSubmit)="submit(Reportsform.value)">
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>REPORT DATE</mat-label>
+                <input  autocomplete="off" matInput [matDatepicker]="picker"  [max]="maxToDate"  formControlName="reportdate" [(ngModel)]="reportdate" required>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker >
+                    <mat-error  *ngIf=" Reportsform.get('reportdate').hasError('required')">Please Add Report Date</mat-error>
+              </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>DOCUMENT TYPE</mat-label>
+                <mat-select formControlName="reporttype" [(ngModel)]="reporttype" required>
+                  <mat-option *ngFor="let Docs of DocTypes" [value]="Docs.value">
+                    {{Docs.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error  *ngIf="Reportsform.get('reporttype').hasError('required')">Please Set Report Type</mat-error>
+              </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="example-full-width"  >
+                <mat-label>DESCRIPTION</mat-label>
+                <textarea matInput  formControlName="reportdesc" [(ngModel)]="reportdesc" ></textarea>
+              </mat-form-field>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="attached_reports_list text-center" >
+                <p *ngIf="urls.length != 0">SCANNED DOCUMENTS</p>
+                <span class="text-success" *ngIf="urls.length != 0">{{filename}}<mat-icon>check_circle_outline</mat-icon></span>
+               <!-- <img *ngFor='let url of urls'  [src]="url"  alt="Attached" width="65px" height="65px"> -->
+               <!-- <img [src]="patientDetails.photo !=null ? patientDetails.photo:myImgUrl" alt="image not found" class="resp-img" onerror="this.onerror=null; this.src='Default.jpg'" (click)="openDialog()">-->
+
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="attached_reports text-center">
+             
+                <div class="file_section">
+                    <img src="././assets/images/sidenav/scaner.png" onclick="document.getElementById('files').click()" width="50px" height="50px">
+                    <!-- <mat-icon   onclick="document.getElementById('files').click()" >attach_file</mat-icon> -->
+                    
+                    <input type="file" #fileInput id="files" style="display: none" name="file_i[]" formControlName="file_i" (change)="onSelectFile($event)" multiple required><br>
+                    <small>Only Images/PDF/Doc Formats are allowed</small>
+                   <mat-error *ngIf="isSubmitted && Reportsform.get('file_i').hasError('required')" > Please Add Documents </mat-error> 
+                   
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="button-row text-center mt-2 p-0">
+        <button mat-raised-button [disabled] ="disabled" color="primary" type="submit"  class="my-3 m-0 p-0" style="width : 15em;" >SUBMIT</button>
+    </div>  
+    <mat-progress-bar mode="indeterminate" *ngIf="inProgress"></mat-progress-bar>
+    </form>
+</div>
+</div>

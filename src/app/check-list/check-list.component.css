@@ -1,0 +1,8 @@
+.margin_body{
+    margin-top:80px !important;
+}
+
+.check-disabled
+{
+    pointer-events: none
+}

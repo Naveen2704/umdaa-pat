@@ -1,0 +1,59 @@
+.example-form {
+    width: 100%;
+  }
+  .overflow{
+    overflow: hidden;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+  
+  td {
+    padding-right: 8px;
+    width: 500px;
+  }
+  .custom_css_btn {
+    background: #10365a;
+    color: #f5f5f5;
+}
+
+.fs_D{
+  cursor: pointer !important;
+  color:rgb(231, 74, 74);
+}
+
+.fs_E{
+  cursor: pointer !important;
+  color:#425f87
+}
+/* 
+.mat-card
+{
+  background-color:white !important;
+} 
+*/
+
+.container_more {
+  font-size: 16px;
+  line-height: 16px;
+  height: 32px;
+  overflow: hidden;
+
+ 
+}
+
+.show {
+  overflow: visible;
+  height: auto;
+}
+.new{
+  cursor: pointer;
+}
+
+.help{
+ 
+  position: fixed;
+  right: 24px;
+  z-index: 9999;
+  bottom:10px;
+}

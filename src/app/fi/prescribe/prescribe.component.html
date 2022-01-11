@@ -1,0 +1,490 @@
+<div class="conatiner-fluid overflow">
+  <div class="help">
+    <button mat-mini-fab  matTooltip="Help" (click)="help()"><mat-icon>help_outline</mat-icon></button>
+  </div>
+<section>
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 ">
+        <mat-card class="example-card padding">
+          <!-- <div class="col-12   d-sm-block d-md-none p-0">
+            <div class="btn_done text-right"> -->
+              <!-- <button mat-stroked-button color="primary" type="button" (click)="selectTemp()"><mat-icon>done</mat-icon> Template</button> -->
+
+              <!-- <button mat-mini-fab type="submit"  class=" mt-1 custom_css_btn" ><mat-icon>add</mat-icon></button>  -->
+              <!-- <button mat-button type="submit" ><mat-icon class="fs">done</mat-icon>Done</button> -->
+            <!-- </div>
+          </div> -->
+          <!-- <h1 data-step="1" data-intro="This is a tooltip!" data-position='right' class="fixed">Naveen</h1> -->
+        <form [formGroup]='DrugForm' #myformDrug="ngForm" (ngSubmit)="Prescribe(DrugForm.value,myformDrug)">
+          <div class="bord mb-2 case_event_intro"  >
+          <div class="row " data-step="1" data-intro="Add Drug allergy " data-position='right'>
+            <div class="col-4 col-md-2 col-lg-2 col-xl-2 pr-0">
+              Drug Allergy
+            </div>
+            <div class="col-8 col-md-4 col-xl-3 col-lg-4 ">
+              
+                <mat-radio-button color="primary" formControlName="allergy" [checked]="cheked"  (click)="setradio('yes')" >Yes</mat-radio-button>
+                <mat-radio-button color="primary"  formControlName="allergy" [checked]="checkedData"   (click)="setradio('no')" >No</mat-radio-button>
+                
+            </div>
+          </div>
+          
+          <div class="row ">
+            <div class="col-md-6 offset-md-2">
+              <div class="class" *ngIf="allergyShow">
+                <mat-form-field appearance="outline" class="m-0">
+                  <mat-label>Drug allergy</mat-label>
+                  <input matInput formControlName="drugAllergy" >
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+          <div class="row " data-step="2" data-intro="Search drug and add (or) select from T as Template (you can customize your own templates according to either Diseases or Drugs )" data-position='right'>
+            <div class=" col-2 col-md-2 col-lg-2  my-auto">
+              <div class="mat-subheading-1">Rx</div>
+            </div>
+            <div class="col-8 col-md-6  col-lg-8  my-auto">
+              <div class="search">
+                <mat-form-field appearance="outline">
+                  <input type="text" id="drug" #drugs (ngModelChange)="drugsearch(drugs.value)"
+                        placeholder="Type Medicine here.."
+                        aria-label="Number"
+                        matInput
+                        id="keyword"
+                        formControlName='drugField'
+                        [matAutocomplete]="auto2" required>
+                  
+                        <mat-hint>Enter Minimum 3 letters</mat-hint>
+                        <input type="hidden" formControlName = "Drug_id" class="form-control" [(ngModel)]="s_drugId">
+                  <mat-autocomplete #auto2="matAutocomplete" [panelWidth]="fit">
+                    <!-- <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option> -->
+                    
+                    <mat-option class="p-1" *ngFor="let item of results " [value]="item.trade_name" (click)="druginfo(item)" >
+                    <div class="d-inline-flex w-100 fs" [ngStyle]="(item.available_quantity > '0' || item.common == '1')?{'background-color':'white','color':'black','font-weight':'bold'}:{'background-color':'white','color':'#6e8178','font-weight':'lighter'}">
+                      <div>{{item.trade_name}} </div>
+                    <div class="ml-2">
+                      <span class="qty" *ngIf="item.available_quantity !=''">Qty:{{item.available_quantity}}</span>
+                    </div>
+                    <!-- <label class="ml-2 badge badge-success"></label> -->
+                    <label class="ml-2 expdate" *ngIf="item.available_quantity > '0'">{{item.expiry_date | date: 'dd-MM-yyyy'}}</label>
+                    </div>
+                    
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="isprescribed && DrugForm.get('drugField').hasError('required')">
+                    Please Enter Medicine name
+                  </mat-error>
+                </mat-form-field>
+              
+              </div>
+            </div>
+            <div class="col-2 col-md-4  col-lg-2 mt-0  my-1 p-0">
+              <div class="btn_done">
+                <button mat-flat-button [disabled]="disabled"  type="button" matTooltip="Templates" class="my_bg_v" style="height: 36px; min-width: 0px;" (click)="selectTemp()">T</button>
+
+                <!-- <button mat-mini-fab type="submit"  class=" mt-1 custom_css_btn" ><mat-icon>add</mat-icon></button>  -->
+                <!-- <button mat-button type="submit" ><mat-icon class="fs">done</mat-icon>Done</button> -->
+              </div>
+            </div>
+            <!-- <div class="d-none d-sm-block col-4 col-md-2  col-lg-3 mt-0  my-2 border-left">
+              <div class="btn_done">
+                <button mat-stroked-button color="primary" type="text" (click)="selectTemp()"><mat-icon>done</mat-icon> Template</button>
+
+             <button mat-mini-fab type="submit"  class=" mt-1 custom_css_btn" ><mat-icon>add</mat-icon></button>  -->
+                <!-- <button mat-button type="submit" ><mat-icon class="fs">done</mat-icon>Done</button> 
+              </div>
+            </div> -->
+          </div>
+          <div class="row " >
+            <!-- <div class="col-lg-3 col-5 col-md-3">
+             <div class="suggition">
+              <button mat-stroked-button color="primary" type="text" (click)="selectTemp()"><mat-icon>done</mat-icon> Template</button>
+             <mat-chip (click)="selectTemp()"> <mat-icon>done</mat-icon> Template</mat-chip> -
+             </div>
+            </div> -->
+            
+            <div class="d-flex col-12 col-lg-12 ">
+              <mat-chip-list  [selectable]="true" #chipList [multiple]="true"  >
+
+                <mat-chip [selectable]="true"  *ngFor="let drugsuggition of drugsuggitions;let i=index"  (click)="selectedDrug(drugsuggition.drug_name,drugsuggition.drug_id)" >{{drugsuggition.drug_name }}</mat-chip>
+                
+              </mat-chip-list>
+            </div>
+              <!-- <div class="container p-0" [class.show]="show">
+              <div class="class">
+                <mat-chip-list  [selectable]="true" #chipList [multiple]="true"  >
+
+                  <mat-chip [selectable]="true"  *ngFor="let drugsuggition of drugsuggitions;let i=index"  (click)="selectedDrug(drugsuggition.drug_name,drugsuggition.drug_id)" >{{drugsuggition.drug_name |titlecase}}</mat-chip>
+                  
+                </mat-chip-list>
+              </div>
+              
+              <button >{{ show ? 'less': 'More' }}</button> -
+            </div> -->
+            <!-- <div class="new my-auto" *ngIf="drugsuggitions?.length > 6">
+              <span class="material-icons" (click)="show = !show">
+                more_vert
+                </span>
+              
+            </div> -->
+            
+            
+
+<!--        
+              <div style="float: left">
+                  <button (click)="scrollLeft()">left</button>
+              </div>
+
+              <div #widgetsContent class="middle">
+              
+                    <mat-chip-list  class="info-widget" [selectable]="true" #chipList [multiple]="true"  >
+
+                      <mat-chip [selectable]="true"  *ngFor="let drugsuggition of drugsuggitions"  (click)="selectedDrug(drugsuggition.drug_name,drugsuggition.drug_id)" >{{drugsuggition.drug_name |titlecase}}</mat-chip>
+                      
+                    </mat-chip-list>
+                 
+                
+              </div>
+
+              <div style="float: right">
+                  <button (click)="scrollRight()">right</button>
+              </div> -->
+             
+          </div>
+          
+        
+          <div class="row h-custom-47 mt-2 "  data-step="3" data-intro="Add Mode and type to Prescribe" data-position='right'>
+            <div class="col-2 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Mode </div>
+            </div>
+            <div class="col-4 col-md-4  col-lg-4  pl-0 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-select value="Oral" [(ngModel)]="modeselect" placeholder="Mode.." formControlName="Mode" required>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="isprescribed && DrugForm.get('Mode').hasError('required')">
+                  Mode is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-2 col-md-1  col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Type </div>
+            </div>
+            <div class="col-4 col-md-4  col-lg-4 pl-0 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-select value="Tablet" [(ngModel)]="typeselect" placeholder="Type.." formControlName="type" required>
+                  <mat-option *ngFor="let Type of types" [value]="Type.value">
+                    {{Type.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="isprescribed && DrugForm.get('type').hasError('required')">
+                  Medicine type is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row  vertical-divider " data-step="4" data-intro="Add Schedule to Prescribe" data-position='right'>
+            <div class=" col-2 col-md-2 col-lg-2 pr-0 ">
+              <div class="mat-subheading-1">Timing</div>
+            </div>
+            <div class="col-10 col-md-10 col-lg-10 d-flex mar">
+              <div class="col-6 col-md-4 col-lg-4 mt-1 or "  id="padding">
+                <div class="checkbox" >
+                  <mat-checkbox formControlName="M"  id="morning" value="M" [(ngModel)]="isChecked" (change)="check($event)" color="primary">Breakfast (M)</mat-checkbox>
+                </div>
+                <div class="checkbox">
+                  <mat-checkbox formControlName="A" id="after" value="A"  [(ngModel)]="isCheckedd" (change)="check($event)"color="primary" >Lunch (A)</mat-checkbox>
+                </div>
+                <div class="checkbox">
+                  <mat-checkbox formControlName="N" id="night" value="N"  [(ngModel)]="isCheckeddd" (change)="check($event)" color="primary">Dinner (N)</mat-checkbox>
+                </div>
+              </div>
+              <div class="col-6 col-md-5  col-lg-5  pl-0  text-center "  id="padding">
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-select placeholder="Time.." formControlName="time" (selectionChange)="selectionChange($event)">
+                      <mat-option *ngFor="let time of times;let i = index" [value]="time.value">
+                        {{time.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                   
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-select  placeholder="Frequency.." formControlName="Frequency" (selectionChange)="selectionChanges($event)" >
+                      <mat-option *ngFor="let mode of modes" [value]="mode.value">
+                        {{mode.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row h-custom-37" data-step="5" data-intro="Add Preferred intake with relation to food" data-position='right'>
+            <div class="col-4 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">A/B</div>
+            </div>
+            <div class="col-8 col-md-10  col-lg-10  pl-0 my-auto">
+              <div class="radio ">
+                <mat-radio-group aria-label="Select an option" formControlName="radio">
+                  <mat-radio-button value="AF" color="primary">After</mat-radio-button>
+                  <mat-radio-button value="BF" color="primary">Before</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+         
+          <div class="row h-custom-60 " data-step="6" data-intro="Add Qty and Duration to Prescribe" data-position='right' >
+            <div class="col-2 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">QTY</div>
+            </div>
+            <div class="col-4 col-md-4  col-lg-4  pl-0 my-auto">
+              <mat-form-field  appearance="outline">
+                <input matInput type="number" min="0"  onKeyPress="if(this.value.length==4) return false;" placeholder="Qty Each Time"  autocomplete="off" formControlName="Qty" required>
+                <mat-error *ngIf="isprescribed && DrugForm.get('Qty').hasError('required')">
+                Quantity is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+      
+            <div class="col-2 col-xs-6 col-md-1 col-lg-2 pl-0 pr-0 my-auto">
+              <div class="mat-subheading-1">Duration</div>
+            </div>
+            <div class="col-4 col-xs-6 col-md-4  col-lg-4  pl-0 my-auto">
+                <mat-form-field  appearance="outline">
+                    <input matInput type="number" onKeyPress="if(this.value.length==3) return false;" placeholder="Duration" min="0" autocomplete="off" formControlName="Duration" required>
+                    <span matSuffix class="text-muted">{{freqvaluee}}</span>
+                    <mat-error *ngIf="isprescribed && DrugForm.get('Duration').hasError('required')">
+                      Duration is required
+                      </mat-error>
+                  </mat-form-field>
+            </div>
+          </div>
+          <!-- <div class="row mt-2">
+            <div class="col-4 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">F/U Date</div>
+            </div>
+            <div class="col-6 col-md-4  col-lg-4  pl-0 my-auto">
+                  <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="picker" placeholder="Add f/u date" formControlName="followupdate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  
+            </div>
+          </div> -->
+          <div class="row " data-step="7" data-intro="Add Remarks to Prescribe" data-position='right'>
+            <div class="col-4 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Remarks</div>
+            </div>
+            <div class="col-8 col-md-8  col-lg-8 pl-0 my-auto">
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Add note...." autocomplete="off" formControlName="Note" ></textarea>
+                <!-- <mat-error *ngIf="isprescribed && DrugForm.get('Note').hasError('required')">
+                  Please add Remarks
+                  </mat-error> -->
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row " data-step="8" data-intro="Save Prescription as  template, or submit" data-position='right'>
+            <div class="col-auto m-auto"  >
+              <div class="btn_done text-center">
+                <!-- <button mat-mini-fab type="submit"  class=" mt-1 custom_css_btn" ><mat-icon>add</mat-icon></button>  -->
+                <button mat-flat-button [disabled]="disabled"  class="my_bg_v" matTooltip="Save Template" (click)="AddTemp(dataSource)">
+                  <mat-icon>save</mat-icon>
+                  <span>T</span>
+               </button> 
+                <button mat-flat-button type="submit" [disabled]="disabled" class="my_bg_v m-2" >SUBMIT</button>
+               
+                <!-- <button mat-flat-button class="custom_css_btn m-2" (click)="submitprint()" >
+                  <span>SUBMIT & PRINT</span>
+               </button>  -->
+              </div>
+            </div>
+           </div>
+        </form>
+        </mat-card>
+      </div>
+      <div class="col-12 col-md-12 col-lg-6">
+       <div class="followup-date mb-2 mt-2">
+        <!-- <b class="custom_fontsize">Followup Date</b> -->
+       
+        <!-- <mat-card>
+          <form [formGroup]='FdForm' #myformfd="ngForm" (ngSubmit)="FDsubmit(FdForm.value,myformfd)">
+               
+            <div class="row mt-2">
+              <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Enter Here</mat-label>
+                  <input formControlName="followupdate" type="number" matInput (input)="date($event.target.value)" autocomplete="off" required placeholder="Ex. Enter Days">    
+                  <mat-error *ngIf="FdForm.get('followupdate').hasError('required')">
+                    Followupdate is required
+                  </mat-error>                            
+                  </mat-form-field>
+               
+              </div>
+              <div class="col-6 col-md-4 col-lg-4 col-xl-4 my-auto">                              
+                <button  mat-raised-button [disabled]="disabled"   type="submit" style=" background-color: #425f87;color: white;"> ADD </button>  
+             </div>
+            </div>
+            <div class="row m-2">
+              <div class="class" *ngIf="followingDate != ''" >
+               Next followup date : <span [ngStyle]="(sunday == 0)?{'color':'red'}:{'color':'black'}" >{{followingDate | date: 'dd/MM/yyyy'}}  {{Day}}</span>
+                <!-- {{followingDate | date: 'HH:mm'}} -
+              </div>
+            </div>
+           
+                 
+                 
+            
+          </form>
+       
+        </mat-card> -->
+       </div>
+       <div class="rxlist">
+        <mat-card>
+          <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" class="table table-responsive w-100 d-block d-md-table" >
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <div>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> MEDICINE </th>
+              <td mat-cell *matCellDef="let element">
+                <div>
+                  {{element.medicine_name}}{{element.day_dosage}}
+                </div>
+               </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> DOSE </th>
+              <td mat-cell *matCellDef="let element"> 
+                <div class="mb-1" *ngIf="element.day_schedule == '' || element.day_schedule == null">
+                  {{element.day_dosage == "1" ? element.day_dosage+"Time":element.day_dosage == "SOS"?element.day_dosage:element.day_dosage == "STAT"?element.day_dosage:element.day_dosage == "HS"?element.day_dosage:element.day_dosage+"Times" }} A {{element.dosage_frequency}}
+                </div>
+                <!-- <div class="mb-1" *ngIf=" element.day_dosage != 'SOS' 
+                || element.day_dosage != 'STAT' || element.day_dosage != 'HS'   ">
+                  {{element.day_dosage}} A {{element.dosage_frequency}}
+                </div> -->
+                <div class="mb-1" *ngIf="element.day_schedule!='' || element.day_schedule!= null">
+                  {{element.day_schedule}}<br>
+                  {{element.day_schedule == "M,A,N" ? "(8:00 AM,1:00 PM,8:00 PM)" : element.day_schedule == "M,A" ? "(8:00 AM,1:00 PM)" : element.day_schedule == "M" ? "(8:00 AM)" : element.day_schedule == "A" ? "(1:00 PM)": element.day_schedule == "N" ? "(8:00 PM)": element.day_schedule == "A,N" ? "(1:00 PM,8:00 PM)":element.day_schedule == "M,N" ? "(8:00 AM,8:00 PM)":''}}
+                </div>
+                <div *ngIf="element.drug_dose!= null">{{element.drug_dose}} {{element.dosage_unit}} Each</div>
+               </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Prescription">
+              <th mat-header-cell *matHeaderCellDef> Prescription</th>
+              <td mat-cell *matCellDef="let element">
+               A/B - {{element.preffered_intake}} <br>
+               COURSE - {{element.dose_course}} <br>
+               QTY - {{element.quantity == '0' ? '--' : element.quantity}}
+            
+              </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <!-- <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef> COURSE </th>
+              <td mat-cell *matCellDef="let element" > {{element.dose_course}}</td>
+            </ng-container>
+            <ng-container matColumnDef="qty">
+              <th mat-header-cell *matHeaderCellDef> QTY </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container> -->
+           <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef > Actions
+                <!-- <button mat-flat-button color="primary" (click)="AddTemp(dataSource)">
+                    <span style="font-size: 10px">TEMPLATE</span>
+                </button> -->
+                <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="AddTemp(dataSource)">
+                    <mat-icon>save</mat-icon>
+                    <span>SAVE TEMPLATE</span>
+                  </button>
+                  <button mat-menu-item (click)="selectTemp()">
+                    <mat-icon>done</mat-icon>
+                    <span>SELECT TEMPLATES</span>
+                  </button>
+                </mat-menu> -->
+                
+                <!-- <button mat-raised-button  (click)="AddTemp(dataSource)" > <mat-icon class="fs">add</mat-icon>TEMP</button>--></th>
+              <td mat-cell *matCellDef="let element" 
+            > 
+            <button mat-icon-button matTooltip="Edit" (click)="
+            updatePre(
+              element.drug_id,
+              element.patient_prescription_drug_id,
+              element.patient_prescription_id,
+              element.medicine_name,
+              element.dosage_unit,
+              element.day_schedule,
+              element.mode,
+              element.drug_dose,
+              element.dose_course,
+              element.day_dosage,
+              element.dosage_frequency,
+              element.preffered_intake,
+              element.remarks
+            )">
+              <mat-icon>edit</mat-icon>
+            </button>
+              <!-- <mat-icon   (click)="
+              updatePre(
+                element.drug_id,
+                element.patient_prescription_drug_id,
+                element.patient_prescription_id,
+                element.medicine_name,
+                element.dosage_unit,
+                element.day_schedule,
+                element.mode,
+                element.drug_dose,
+                element.dose_course,
+                element.day_dosage,
+                element.dosage_frequency,
+                element.preffered_intake,
+                element.remarks
+              )" class="fs_E" >edit</mat-icon>  -->
+              <button mat-icon-button matTooltip="Delete" class="fs_D" (click)="deletePre(element.patient_prescription_drug_id)" >
+                <mat-icon>delete</mat-icon>
+              </button>
+             <!-- <mat-icon (click)="deletePre(element.patient_prescription_drug_id)" class="fs_D">delete</mat-icon></td> -->
+            </ng-container> 
+       
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                         
+            </div>
+          </table>
+          <div class="class" *ngIf="Drug_allergy !='' ">
+              Drug Allergy: <span style="color:red;"> {{Drug_allergy | titlecase}}</span>
+          </div>
+          </div>
+      </mat-card>
+       </div>
+      </div>
+    </div>
+  </section> 
+</div>
+
+
+<!----------mobile view -->

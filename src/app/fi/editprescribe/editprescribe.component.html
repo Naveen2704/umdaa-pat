@@ -1,0 +1,166 @@
+<div class="container-fluid">
+    <div class="col-12 col-md-12 col-lg-12 ">
+        <div class="row">
+            <div class="col-12 text-right">
+                <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+            </div>
+        </div>
+        <form [formGroup]='DrugFormEdit' #myformDrugEdit="ngForm" (ngSubmit)="PrescribeUpdate(DrugFormEdit.value,myformDrugEdit)">
+          <div class="row ">
+            <div class="col-2 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Rx</div>
+            </div>
+            <div class="col-7 col-md-8  col-lg-8 pl-0 my-auto">
+              <div class="search">
+                <mat-form-field appearance="outline">
+                  <input type="text"
+                        aria-label="Number"
+                        matInput
+                        formControlName='drugname' readonly
+                         [(ngModel)]="data.medicin_name">
+                        <input type="hidden" formControlName = "Drug_id" class="form-control" [(ngModel)]="data.drug_id">
+                        <input type="hidden" formControlName = "p_drug_id" class="form-control" [(ngModel)]="data.patient_prescription_drug_id">
+                        <input type="hidden" formControlName = "p_p_id" class="form-control" [(ngModel)]="data.patient_prescription_id">
+                 
+                </mat-form-field>
+              
+              </div>
+            </div>
+            <div class="col-2 col-md-2  col-lg-2 pl-0 my-2">
+              <div class="btn_done">
+                <!-- <button mat-mini-fab type="submit"  class=" mt-1 custom_css_btn" ><mat-icon>add</mat-icon></button>  -->
+                <button mat-button type="submit" [disabled]="disabled" ><mat-icon class="fs">done</mat-icon>UPDATE</button>
+              </div>
+            </div>
+          </div>
+          <mat-card-content>
+          <div class="row mt-3">
+            <div class="col-3 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Mode </div>
+            </div>
+            <div class="col-3 col-md-4  col-lg-4  pl-0 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Mode.." [(ngModel)]="data.mode" formControlName="Mode"  required>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="isprescribed && DrugFormEdit.get('Mode').hasError('required')">
+                  Mode is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-3 col-md-2  col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Type </div>
+            </div>
+            <div class="col-3 col-md-4  col-lg-4 pl-0 my-auto">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Type.." formControlName="type" [(ngModel)]="data.dosage_unit" required>
+                  <mat-option *ngFor="let Type of types" [value]="Type.value">
+                    {{Type.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="isprescribed && DrugFormEdit.get('type').hasError('required')">
+                  Madicine type is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+    
+          <div class="row mt-2 vertical-divider">
+            <div class="col-4 col-md-2 col-lg-3 pr-0 ">
+              <div class="mat-subheading-1">Timing</div>
+            </div>
+            <div class="col-4 col-md-5  col-lg-4  pl-0  or">
+              <div class="checkbox" >
+                <mat-checkbox formControlName="M"   value="M" [(ngModel)]="morningSchedule" (change)="EditCheckM($event)" color="primary">Breakfast (M)</mat-checkbox>
+              </div>
+              <div class="checkbox">
+                <mat-checkbox formControlName="A"  value="A"  [(ngModel)]="afternoonSchedule" (change)="EditCheckA($event)" color="primary" >Lunch (A)</mat-checkbox>
+              </div>
+              <div class="checkbox">
+                <mat-checkbox formControlName="N"  value="N"  [(ngModel)]="nightSchedule" (change)="EditCheckN($event)" color="primary">Dinner (N)</mat-checkbox>
+              </div>
+            </div>
+            <div class="col-4 col-md-5  col-lg-5  pl-0  ">
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-select placeholder="time.." formControlName="time" [(ngModel)]="data.day_dosage" (selectionChange)="Editchange($event)">
+                    <mat-option *ngFor="let time of times;let i = index" [value]="time.value">
+                      {{time.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                 
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-select placeholder="Frequency.." formControlName="Frequency" [(ngModel)]="data.dosage_frequency" (selectionChange)="Editchange($event)" >
+                    <mat-option *ngFor="let mode of modes" [value]="mode.value">
+                      {{mode.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-2 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">A/B</div>
+            </div>
+            <div class="col-10 col-md-10  col-lg-102 pl-0 my-auto">
+              <div class="radio ">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="data.preffered_intake" formControlName="radio">
+                  <mat-radio-button value="AF" color="primary">After</mat-radio-button>
+                  <mat-radio-button value="BF" color="primary">Before</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Quantity</div>
+            </div>
+            <div class="col-6 col-md-4  col-lg-4  pl-0 my-auto">
+              <mat-form-field  appearance="outline">
+                <input matInput type="number" onKeyPress="if(this.value.length==4) return false;" [(ngModel)]="data.drug_dose" placeholder="Qty.."  autocomplete="off" formControlName="Qty" required>
+                <mat-error *ngIf="isprescribed && DrugFormEdit.get('Qty').hasError('required')">
+                Quantity is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+       
+          <div class="row mt-2">
+            <div class="col-4 col-xs-6 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Duration</div>
+            </div>
+            <div class="col-6 col-xs-6 col-md-4  col-lg-4  pl-0 my-auto">
+                <mat-form-field  appearance="outline">
+                    <input matInput type="number" onKeyPress="if(this.value.length==3) return false;" [(ngModel)]="data.dose_course" placeholder="Duration" min="0" autocomplete="off" formControlName="Duration" required>
+                    <span matSuffix class="text-muted">Days</span>
+                    <mat-error *ngIf="isprescribed && DrugFormEdit.get('Duration').hasError('required')">
+                      Duration is required
+                      </mat-error>
+                  </mat-form-field>
+            </div>
+          </div>
+    
+          <div class="row mt-2">
+            <div class="col-4 col-md-2 col-lg-2 pr-0 my-auto">
+              <div class="mat-subheading-1">Remarks</div>
+            </div>
+            <div class="col-8 col-md-8  col-lg-8 pl-0 my-auto">
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Add note...." autocomplete="off" formControlName="Note" [(ngModel)]="data.remarks" ></textarea>
+                <!-- <mat-error *ngIf="isprescribed && DrugFormEdit.get('Note').hasError('required')">
+                  Please add Remarks
+                  </mat-error> -->
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        </form>
+       
+      </div>
+</div>

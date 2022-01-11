@@ -1,0 +1,214 @@
+<app-examins></app-examins>
+
+<section class="container " style="margin-top:57px;">
+    <form [formGroup]="userForm" #formDirective="ngForm"  (ngSubmit)="onSubmit(userForm.value,formDirective)">
+        <div class="row mt-3">
+            <div class="col">
+                <span class="font-weight-bold custom_fontsize" >General Physical Examination</span>
+                <mat-card class="mt-2 mat-card">
+                    <!-- <mat-card-header>
+                         <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                    </mat-card-header> -->
+                    <mat-card-content>
+                        <div class="container">
+                            <div class="row">
+                              <div class="col-8">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label>Enter Here</mat-label>
+                                  <input matInput formControlName="firstName" autocomplete="off" required >                                
+                                  <mat-error *ngIf="isSubmitted">
+                                    Field is required
+                                  </mat-error>
+                                  </mat-form-field>
+                               
+                              </div>
+                              <div class="col-4 my-auto">                              
+                                <button  mat-raised-button  [disabled]="disabled" type="submit" class="my_bg_v" > ADD </button>  
+                           </div>
+                            </div>
+                        </div>
+                        <div class="container mt-2" >
+                            <div class="row">
+                              <div class="col">
+                                <mat-chip-list aria-label="Fish selection">
+                                    <mat-chip color="primary" selected  *ngFor="let data of gpeSList" (click)="sendGpeSuggestion(data.suggestion_name)">{{data.suggestion_name |titlecase}}</mat-chip>
+                                  </mat-chip-list>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="container  mt-2" *ngIf="hide">
+                          <div class="row">
+                            <div class="col-12  table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let data of allGpeSList">
+                                    <th scope="row">{{data.No}}</th>
+                                    <td>{{data.suggestion_name}}</td>
+                                    <td>
+                                      <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i>  -->
+                                      <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deleteSuggestions(data.id,data.form_type)"></i>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              
+                            </div>
+                          </div>
+                        </div>
+                    </mat-card-content>
+                 
+                </mat-card>
+            </div>
+        </div>
+    </form>
+   
+    <div *ngIf="roleId != '6'">
+      <form [formGroup]="seForm" #se="ngForm"  (ngSubmit)="onSubmitt(seForm.value,se)" >
+        <div class="row mt-3">
+            <div class="col">
+              <span class="font-weight-bold custom_fontsize">Systemic Examination</span>
+               <!-- <b style="color:#10365a;">Systemic Examination</b> -->
+                <mat-card class="mt-2 mat-card">
+                    <!-- <mat-card-header>
+                         <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                    </mat-card-header> -->
+                    <mat-card-content>
+                        <div class="container">
+                            <div class="row">
+                              <div class="col-8">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label>Enter Here</mat-label>
+                                  <input matInput formControlName="seName" autocomplete="off" required >                                
+                                  <mat-error *ngIf="isSubmittedd">
+                                    Field is required
+                                  </mat-error>
+                                  </mat-form-field>
+                               
+                              </div>
+                              <div class="col-4 my-auto">                              
+                                <button  mat-raised-button  [disabled]="disabled" type="submit" class="my_bg_v"> ADD </button>  
+                           </div>
+                            </div>
+                        </div>
+                        <div class="container mt-2" >
+                            <div class="row">
+                              <div class="col">
+                                <mat-chip-list aria-label="Fish selection">
+                                    <mat-chip color="primary" selected  *ngFor="let data of seSList" (click)="sendSeSuggestion(data.suggestion_name)">{{data.suggestion_name |titlecase}}</mat-chip>
+                                  </mat-chip-list>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="container  mt-2" *ngIf="hidee">
+                          <div class="row">
+                            <div class="col-12  table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let data of allSeSList">
+                                    <th scope="row">{{data.No}}</th>
+                                    <td>{{data.suggestion_name}}</td>
+                                    <td>
+                                      <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                      <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deleteSeSuggestions(data.id,data.form_type)"></i>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              
+                            </div>
+                          </div>
+                        </div>
+                    </mat-card-content>
+                 
+                </mat-card>
+            </div>
+        </div>
+    </form>
+    </div>
+   
+<div  *ngIf="roleId != '6'">
+  <form [formGroup]="osForm" #os="ngForm"  (ngSubmit)="onSubmittt(osForm.value,os)">
+    <div class="row mt-3 mb-3">
+        <div class="col">
+          <span class="font-weight-bold custom_fontsize">Other Systems</span>
+           <!-- <b style="color:#10365a;">Other Systems</b> -->
+            <mat-card class="mt-2 mat-card">
+                <!-- <mat-card-header>
+                     <mat-card-title style="font-size: 15px;color:10365a;color:#10365a;">General Physical Examination</mat-card-title>
+                </mat-card-header> -->
+                <mat-card-content>
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-8">
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Enter Here</mat-label>
+                              <input matInput formControlName="osName" autocomplete="off" required >                                
+                              <mat-error *ngIf="isSubmitteddd">
+                                Field is required
+                              </mat-error>
+                              </mat-form-field>
+                           
+                          </div>
+                          <div class="col-4 my-auto">                              
+                               <button  mat-raised-button [disabled]="disabled" type="submit" class="my_bg_v"> ADD </button>  
+                          </div>
+                        </div>
+                    </div>
+                    <div class="container mt-2" >
+                        <div class="row">
+                          <div class="col">
+                            <mat-chip-list aria-label="Fish selection">
+                                <mat-chip color="primary" selected  *ngFor="let data of osSList" (click)="sendOsSuggestion(data.suggestion_name)">{{data.suggestion_name | titlecase}}</mat-chip>
+                              </mat-chip-list>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="container  mt-2" *ngIf="hideee">
+                      <div class="row">
+                        <div class="col-12  table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let data of allOsSList">
+                                <th scope="row">{{data.No}}</th>
+                                <td>{{data.suggestion_name}}</td>
+                                <td>
+                                  <!-- <i class="fa fa-pencil" aria-hidden="true" style="font-size:15px;" (click)="updateSuggestions(data.id,data.suggestion_name)"></i> -->
+                                  <i class="fa fa-trash" aria-hidden="true" style="font-size:15px;margin-left:15px" (click)="deleteOsSuggestions(data.id,data.form_type)"></i>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          
+                        </div>
+                      </div>
+                    </div>
+                </mat-card-content>
+             
+            </mat-card>
+        </div>
+    </div>
+</form>
+</div>
+
+</section>

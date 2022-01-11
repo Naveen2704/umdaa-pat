@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-12">
+      
+    <div>
+        <div class="col-12">
+            <p><b>Drugs:</b></p>
+            <form>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Drug Name</label>
+                  <form [formGroup]='DrugForm' #myformDrug="ngForm" (ngSubmit)="Prescribe(DrugForm.value,myformDrug)">
+                    <div class="row">
+                      <div class="col-12">
+              <div class="search">
+                    <mat-form-field appearance="outline">
+                      <input type="text" id="drug" #drugs (ngModelChange)="drugsearch(drugs.value)"
+                            placeholder="Type Medicine here..."
+                            aria-label="Number"
+                            matInput
+                            id="keyword"
+                            formControlName='drugField'
+                            [matAutocomplete]="auto2" required>
+                            <!-- <mat-hint>Enter Minimum 3 letters</mat-hint> -->
+                            <!-- <input type="hidden" formControlName = "Drug_id" class="form-control" [(ngModel)]="s_drugId"> -->
+                      <mat-autocomplete #auto2="matAutocomplete">
+                        <!-- <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option> -->
+                        
+                        <mat-option class="p-1" *ngFor="let item of results " [value]="item.trade_name" (click)="druginfo(item)" >
+                        <div class="d-inline-flex w-100 fs" [ngStyle]="(item.available_quantity > '0' || item.common == '1')?{'background-color':'white','color':'black','font-weight':'bold'}:{'background-color':'white','color':'#6e8178','font-weight':'lighter'}">
+                          <div>{{item.trade_name}} </div>
+                        <div class="ml-2">
+                          <span class="qty" *ngIf="item.available_quantity !=''">Qty:{{item.available_quantity}}</span>
+                        </div>
+                        <!-- <label class="ml-2 badge badge-success"></label> -->
+                        <label class="ml-2 expdate" *ngIf="item.available_quantity > '0'">{{item.expiry_date | date: 'dd-MM-yyyy'}}</label>
+                        </div>
+                        
+                        </mat-option>
+                      </mat-autocomplete>
+                      <mat-error *ngIf="isprescribed && DrugForm.get('drugField').hasError('required')">
+                        Please Enter Medicine name
+                      </mat-error>
+                    </mat-form-field>
+                  
+                  </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input"> -->
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">Dose</label>
+                                <input type="text" autocomplete="off" class="form-control" id="formGroupExampleInput2" placeholder="Another input" value="{{drugDose}}" (change)="onChange($event.target.value)">
+                              </div>
+                              <div class="form-group">
+                                  <label for="formGroupExampleInput2">Food</label>
+                                  <input type="text" autocomplete="off" class="form-control" id="formGroupExampleInput2" placeholder="Another input" value="{{drugFood}}"  (change)="foodChange($event.target.value)">
+                                </div>
+                                <div class="form-group">
+                                  <label for="formGroupExampleInput2">Remarks</label>
+                                  <input type="text" autocomplete="off" class="form-control" id="formGroupExampleInput2" placeholder="Another input" value="{{drugRemarks}}"  (change)="remarkChange($event.target.value)">
+                                </div>
+                        </div>
+                        <div class='col-6'>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">Frequency</label>
+                                <input type="text" autocomplete class="form-control" id="formGroupExampleInput2" placeholder="Another input" value="{{drugFreuency}}"  (change)="frequencyChange($event.target.value)">
+                              </div>
+                              <div class="form-group">
+                                <label for="formGroupExampleInput2">Days</label>
+                                <input type="text" autocomplete class="form-control" id="formGroupExampleInput2" placeholder="Another input" value="{{drugDuration}}"  (change)="durationChange($event.target.value)">
+                              </div>
+                        </div>
+                     
+                    </div>
+                    <div class="text-center">
+                      <button mat-stroked-button (click)="editDrug()" class="my_bg_v">EDIT</button>
+                  </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>

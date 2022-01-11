@@ -1,0 +1,20 @@
+<div class="row my-auto">
+    <div class="col-6 text-left">
+        <!-- <mat-icon (click)="print()" class="custom_css_btn_p">print</mat-icon> -->
+    </div>
+    <div class="col-6 text-right">
+        <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+    </div>
+</div>
+
+<div class="chart-wrapper">
+    <canvas baseChart  width="500px" height="300px"
+        [datasets]="lineChartData" 
+        [labels]="lineChartLabels" 
+        [options]="lineChartOptions"
+        [colors]="lineChartColors" 
+        [legend]="lineChartLegend" 
+        [chartType]="lineChartType" 
+        [plugins]="lineChartPlugins">
+    </canvas>
+</div>

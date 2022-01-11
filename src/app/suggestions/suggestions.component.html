@@ -1,0 +1,53 @@
+<div class="form_header">
+  <div class="row">
+    <div class="col-8">
+      <p class="color">
+        <!-- Update Suggestions -->
+      </p>
+    </div>
+    <div class="col-2" style="text-align: right;">
+      <i class="material-icons fs" (click)="close()">close</i>
+
+    </div>
+  </div>
+</div>
+<form class="example-form"  [formGroup]='usersForm' #SymForm="ngForm" (ngSubmit)="update(usersForm.value)">
+     <!-- <span>Your choice is: {{usersForm.value | json}}</span> -->
+     
+
+     <div class="row mb-2">
+        <input  type="hidden" placeholder="Span" formControlName='id' [(ngModel)]="data.id" required>
+  
+       <div class="col-8 col-md-8 ">
+       
+         <mat-form-field class="example-full-width">
+           <input type="text" id="symptom" #fruitInput 
+            placeholder="Suggestions" [(ngModel)]="data.symptom_name" matInput 
+            formControlName='Search' required>
+           <!-- <input type="hidden" name="SymptomsId" [(ngModel)]="SymptomsInfo.SymptomsId" [value]="option.hopi_synonym_id"> -->
+           <!-- <mat-autocomplete #auto="matAutocomplete" id="symptomOPt" >
+             <mat-option *ngFor="let option of filteredOptions | async" value="{{ option.synonym |titlecase}}" (click)="getFormId(option)">
+               {{option.synonym | titlecase}}
+             </mat-option>
+           </mat-autocomplete> -->
+           <!-- <mat-hint>Enter Symptoms</mat-hint> -->
+           <mat-error *ngIf="usersForm.get('Search').hasError('required')">
+            Suggestions is required
+           </mat-error>
+       </mat-form-field>
+       
+       </div>
+    
+        <div class="col-4 col-md-2 text-center">
+        <button  type="submit" [disabled]="!SymForm.valid" class="btn mt-2 custom_css_btn" ><mat-icon>done</mat-icon></button> 
+       </div>
+     </div>
+     <!-- <div class="row mt-3">
+       <div class="col-12">
+       <mat-chip-list  [selectable]="true" #chipList [multiple]="true">
+         <mat-chip [selectable]="true"  *ngFor="let suggition of suggitions"  (click)="selected(suggition)" >{{suggition.symptom | titlecase}}</mat-chip>
+       </mat-chip-list>
+       </div>
+     </div> -->
+    
+</form>

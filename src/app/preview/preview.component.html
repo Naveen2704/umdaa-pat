@@ -1,0 +1,134 @@
+<div class="container-fluid overflow">
+  <div class="row">
+    <div class="col-12 text-right">
+      <div class="btn">
+
+          <mat-chip-list aria-label="Fish selection">
+              <mat-chip color="primary" (click)="link()">Back</mat-chip>
+            </mat-chip-list>
+         
+ 
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-12 col-md-12 col-lg-6">
+         <section id="main" >
+          <!-- <div  class="col-12" id="check">
+            <mat-chip-list aria-label="Fish selection" style="float:right;">
+                <mat-chip color="accent" selected   (click)="link()">Back</mat-chip>
+            </mat-chip-list>
+         </div>  -->
+             <i class="fa fa-pencil pencil" aria-hidden="true" id="draw-button"></i>
+         
+             <i class="fa fa-eraser pencil" aria-hidden="true"  id="eraser-button"></i> 
+            
+             <i class="fa fa-trash pencil" aria-hidden="true" id="clear-button"></i> 
+         
+             <i class="pencil" aria-hidden="true">
+                 <input type="color"  id="color"  class="js-color-picker  color-picker">
+             </i> 
+            
+             <i class="pencil" aria-hidden="true">
+                 <input type="range" style="width:60px;" class="js-line-range" min="1" max="30"  value="1">
+                             <label class="js-range-value"  style="color:black;font-size: 20px;">1</label>
+             </i> 
+         
+             <section  #screen>
+                 <div>
+                  <canvas id="drawCanvas"  [style.backgroundImage]="'url('+ id123 +')'" style="background-size: 100% 100%;"></canvas>
+                   <!-- <canvas id="drawCanvas"  style="background-image: url('assets/sketches/CardiacAuscultation.png'); background-size: 100% 100%;"></canvas> -->
+                 </div>
+               </section>
+               <div class="one two">
+                 <button type="submit" class="btn btn-primary"  (click)="clickmeeee()">Preview</button>
+             
+             </div>
+         
+             
+         </section>
+      </div>
+      <div class="col-12 col-md-12 col-lg-6">
+    
+        <div class="mt-3" style="text-align:center">
+            <h5 >Previews</h5>
+            <small>Only One Preview Permitted</small>
+        </div>
+     
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-6 mt-5">
+
+                  <div *ngIf="special">
+                    <p style="margin-left: 65px">Preview</p>
+                    <img src="assets/images/noimage.png" id="welcome" style="width:250px;height:250px" class="responsive">
+                  </div>
+
+                    <div id="download" *ngIf="show">
+                        <p style="margin-left: 65px">Preview</p>
+                        <img #canvas class="responsive">
+                        <button class="btn btn-primary" (click)="saveImage()" style="margin-left: 20px">Save</button>
+                        <button type="submit"  class="btn btn-danger" (click)="imgDelete()" style="margin-left: 30px">Delete</button>
+                        
+                      </div>
+
+                      <div id="abc" [hidden]="!acting" >
+                        <div class="row">
+                            <div id="download">       
+                                <p style="margin-left: 50px">Preview</p>
+                                <img src="" id="place" style="width:300px;height:250px">
+                                <button type="submit"   (click)="delete()" class="btn btn-danger" style="margin-left: 75px">Delete</button>
+                            </div>    
+                         </div>
+                      </div> 
+
+                      <!-- FOR MOBILES -->
+                     <!-- <div id="checkk">
+                      <div *ngIf="special">
+                        <p style="margin-left: 65px">Preview</p>
+                        <img src="assets/images/noimage.png" id="welcome" style="width:250px;height:250px" class="responsive">
+                      </div>
+    
+                        <div id="download" *ngIf="show" style="margin-left: 120px">
+                            <p style="margin-left: 65px">Preview One</p>
+                            <img #canvas class="responsive">
+                            <button class="btn btn-primary" (click)="saveImage()" style="margin-left: 30px">Save</button>
+                            <button type="submit"  class="btn btn-danger" (click)="imgDelete()" style="margin-left: 30px">Delete</button>
+                            
+                        </div>
+    
+                          <div id="abc" [hidden]="!acting">
+                            <div class="row">
+                                <div id="download">       
+                                    <p style="margin-left: 65px">Preview One</p>
+                                    <img src="" id="place" style="width:300px;height:250px">
+                                    <button type="submit"   (click)="delete()" class="btn btn-danger" style="margin-left: 75px">Delete</button>
+                                </div>    
+                             </div>
+                          </div>
+                     </div>     -->
+               
+                      <!-- FOR MOBILES -->
+              
+                </div>
+            </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- 
+<button (click)="clickmeeee()">Capture thing in orange</button> -->
+<!-- 
+<h2>Captured Image</h2>
+<img src={{capturedImage}}> -->
+
+<!-- <div id="download">
+  <p style="margin-left: 65px">Preview One</p>
+  <img #canvas class="responsive">
+  <button class="btn btn-primary" style="margin-left: 30px">Save</button>
+  <button type="submit"  class="btn btn-danger" style="margin-left: 30px">Delete</button>
+  
+</div> -->

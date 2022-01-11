@@ -1,0 +1,27 @@
+
+
+    <div id="main">
+        <div>
+         <div id="container" #screenn [ngStyle]="{'background': 'url(' + backgroundUrll +') no-repeat 0 0 / cover', 'background-position': 'center center'}"  [style.width.px]="width" [style.height.px]="height"></div>
+       </div>
+    
+  
+       <div class="buttons mt-3 p-3" style="text-align: center;">
+        <button mat-mini-fab  (click)="save()"><mat-icon>save</mat-icon></button>
+     
+           <button mat-mini-fab class=" ml-2" id="eraser-button"><i class="fa fa-eraser fa-2x" style="font-size: 22px;" aria-hidden="true" ></i></button>
+   
+           <button mat-mini-fab class=" ml-2" id="draw-button"><mat-icon>edit</mat-icon></button>
+   
+      </div>
+      <!-- <div class="buttons mt-3 p-3" style="text-align: center;">
+        <button class="btn btn-primary" (click)="save()">Save</button>
+      
+           <button class="btn btn-danger" id="eraser-button">Erase</button>
+       
+           <button class="btn btn-success" id="draw-button">Draw</button>
+      
+      </div> -->
+   
+      </div>
+     

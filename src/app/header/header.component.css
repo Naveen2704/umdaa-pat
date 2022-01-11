@@ -1,0 +1,83 @@
+/* .header {
+    /* padding: 10px 20px;
+    padding-left: 7px; 
+    background: #10365a;
+    color: #fff;
+    margin-bottom: 0px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  }
+  .header_inner {
+    padding: 5 px;
+  } */
+
+ .click{
+   cursor: pointer;
+ }
+.header{
+  height: 64px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  background-color:#10365a ;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  color: #f5f5f5;
+  display: grid;
+}
+ img{
+  border-radius:50%;
+  width: 50px;
+  height: 50px;
+  border:1px solid #f5f5f5;
+    border-radius:50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+.right{
+  right:0;
+}
+.mat-mini-fab{
+  width: 29px !important;
+  height: 29px !important;
+}
+.fs{
+  font-size:15px !important;
+  /* background-color:#f2f5f8 !important; */
+  border-radius:50%;
+  width: 20px;
+  height: 20px;
+  color:white !important;
+  text-align: center;
+  line-height:20px;
+  border:1px solid #eeeeee;
+}
+
+.line{
+ border-right: 1px solid rgb(255, 253, 253);
+ height: 18px;
+ left: 10px;
+line-height:18px;
+padding-right: 5px;
+
+}
+.Patient_info{
+  width:100px;
+  
+}
+.class_1{
+  width: 100%;
+}
+
+.mat-chip.mat-standard-chip {
+  background-color: white !important;
+  color: rgb(35, 36, 86) !important;
+}
+ .primary{
+  white-space: nowrap;
+  width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 85px;
+ }

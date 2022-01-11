@@ -1,0 +1,536 @@
+<mat-tab-group backgroundColor="primary" [(selectedIndex)]="demo1TabIndex">
+   <mat-tab label="Rounds"> 
+    <!-- <div class="container"> -->
+
+        <div class="row">
+            <div class="col-8 col-md-8">
+                <div class="header_section ">
+                    <button mat-stroked-button *ngIf="show" (click)="viewTimeLines()" class="my_bg_v">VIEW</button>
+                    <button mat-stroked-button *ngIf="hide" (click)="back()" class="my_bg_v">Back</button>
+                </div>
+            </div>
+            <div class="col-4 col-md-4">
+                <div class="header_section_print text-right mt-3 mr-4">
+                    <button mat-raised-button style="margin-left: -14px;"  *ngIf="showLoading" (click)="getPrint()" data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> <mat-icon  class="custm_css" >print</mat-icon>Print </button>
+                    <button mat-raised-button style="margin-left: -14px;" *ngIf="hideLoading"
+                       data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> Loading...Please Wait</button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="show">
+          <form  [formGroup]='ipdSubjective' #myipdSubjective="ngForm" (ngSubmit)="subSubmit(ipdSubjective.value,myipdSubjective)">
+            <section class="p-2" >
+              <div class="row" >
+                <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                  <!-- <form [formGroup]='ipdSubjective' #myipdSubjective="ngForm" (ngSubmit)="subSubmit(ipdSubjective.value,myipdSubjective)"> -->
+                    <div class="row mt-3">
+                      <div class="col-12">
+                         <b class="custom_fontsize">Subjective</b>
+                          <mat-card class="mt-2">
+                              <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                                  
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <textarea type="text" class="w-100" (keyup)="handleInput($event)" formControlName='subjective' placeholder="1.Add Subjective" rows="4" cols="50"  autocomplete="off" required > </textarea>                         
+                                        </div>
+                            
+                                        <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                          <div>
+                                            <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                          </div>   
+                                         </div> -->
+                                      </div>
+      
+                                  
+                              </mat-card-content>
+                           
+                          </mat-card>
+                      </div>
+                  
+                    </div>
+                  <!-- </form> -->
+                </div>
+                <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                  <!-- <form [formGroup]='ipdObjective' #myipdObjective="ngForm" (ngSubmit)="objSubmit(ipdObjective.value,myipdObjective)"> -->
+                    <div class="row mt-3">
+                      <div class="col-12">
+                         <b class="custom_fontsize">Objective</b>
+                          <mat-card class="mt-2">
+                              <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                                  
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <textarea type="text" class="w-100" (keyup)="handleInput($event)"  formControlName='objective' placeholder="1.Add Objective" rows="4" cols="50"  autocomplete="off" required > </textarea>                         
+                                        </div>
+                                        <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                          <div>
+                                            <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                          </div>          
+                                        </div> -->
+                                      </div>
+      
+                                  
+                              </mat-card-content>
+                           
+                          </mat-card>
+                      </div>
+                  
+                    </div>
+                  <!-- </form> -->
+                </div>
+              </div>
+
+          </section>
+                     
+          <section class="p-2" >
+              <div class="row" >
+              <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                  <!-- <form [formGroup]='ipdAnalysis' #myipdAnalysis="ngForm" (ngSubmit)="analysisSubject(ipdAnalysis.value,myipdAnalysis)"> -->
+                  <div class="row mt-3">
+                      <div class="col-12">
+                          <b class="custom_fontsize">Analysis</b>
+                          <mat-card class="mt-2">
+                              <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                                  
+                                      <div class="row">
+                                      <div class="col-12">
+                                          <textarea type="text" class="w-100" formControlName='analysis' (keyup)="handleInput($event)" placeholder="1.Add Comment" rows="4" cols="50"  autocomplete="off" required > </textarea>                         
+                                      </div>
+                                      <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                          <div>
+                                          <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                          </div>   
+                                          
+                                      </div> -->
+                                      </div> 
+                              </mat-card-content>
+                          </mat-card>
+                      </div>
+                  
+                  </div>
+                  <!-- </form> -->
+              </div>
+              <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                  <!-- <form [formGroup]='ipdPlan' #myipdPlan="ngForm" (ngSubmit)="submitIpdPlan(ipdPlan.value,myipdPlan)"> -->
+                  <div class="row mt-3">
+                      <div class="col-12">
+                      <b class="custom_fontsize">Plan</b>
+                          <mat-card class="mt-2">
+                              <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                                  
+                                      <div class="row">
+                                      <div class="col-12">
+                                          <textarea type="text" class="w-100" (keyup)="handleInput($event)" formControlName='plan' placeholder="1.Add Comment" rows="4" cols="50"  autocomplete="off" required > </textarea>                         
+                                      </div>
+                                      <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                          <div >
+                                          <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                          </div>   
+                                          
+                                  </div> -->
+                                      </div>
+
+                                  
+                              </mat-card-content>
+                          
+                          </mat-card>
+                      </div>
+                  
+                  </div>
+                  <!-- </form> -->
+              </div>
+              </div>
+
+          </section>
+
+          <div class="col-12 mt-4" style="text-align: center;">    
+            <div >
+            <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> SUBMIT </button> 
+            </div>   
+          </div>
+          </form>
+        </div>
+        
+        <div *ngIf="hide">
+            <div>
+                <p style="font-weight: 900;" class="text-center">Time Lines</p>
+                <div class="container">
+                    <div class="card">
+                        <!-- <h4 class="text-primary font-weight-bold">PATIENT SUMMARY</h4> -->
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12"  *ngFor="let data of rounds">
+                                <div id="tracking">
+                                    <div class="tracking-list">
+                                        <div class="tracking-item">
+                                            <div class="tracking-icon status-inforeceived">
+                                                <i class="fa fa-angle-right" aria-hidden="true" style="color: whitesmoke;"></i>
+                                            </div>
+                
+                                            <div class="tracking-date font-weight-bold text-primary h5" style="font-size: 17px;">
+                                                {{data.created_date | date: 'dd-MM-yyyy h:mm a'}}                  
+                                             </div>
+                                            <!-- pharmacy loop -->
+                                            <div class="container">
+                                                <div>
+                                                    <p style="font-weight: 600;">Subjective</p>
+                                                    <p class="new"> {{data.Subjective}} </p>
+                                            
+                                                </div>
+                                                <div (keyup)="handleInput($event)" >
+                                                  <p style="font-weight: 600;">Objective</p>
+                                                  <p class="new"> {{data.objective}} </p>
+                                                 <!-- <p class="new"> {{data.objective != '' || data.objective != null ?data.objective:-}} </p> -->
+                                               
+                                               </div>
+                                              <div>
+                                                  <p style="font-weight: 600;">Analysis</p>
+                                                 <p class="new">{{data.Analysis}}</p>
+                                              </div>
+                                              <div>
+                                                  <p style="font-weight: 600;">Plan</p>
+                                                 <p class="new">{{data.plan}}</p>
+                                              </div>
+                                            </div>
+                                              
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div> 
+   </mat-tab>
+   <mat-tab label="Cross Consultation">
+       <div class="container mt-3">
+          <div class="row">
+            <div class="col-12">
+                <!-- <form [formGroup]='crossForm' #myCrossForm="ngForm" (ngSubmit)="crossNotesSubmit(crossForm.value,myCrossForm)"> -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Doctor</mat-label>
+                    <mat-select (selectionChange)="changeClient($event.value)">
+                      <mat-option *ngFor="let list of doctorsList" [value]="list.doctor_id">
+                        {{list.doctor_name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                       <b class="custom_fontsize">Notes</b>
+                        <mat-card class="mt-2">
+                            <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <textarea type="text" class="w-100" (keyup)="handleInput($event)"  (change)="getCrossNotes($event.target.value)" (click)="getCrossNotes($event)" rows="8" cols="100"  autocomplete="off" required> </textarea>                         
+                                        </div>
+                        
+                                    </div>
+                                    <div>
+                                        <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v " (click)="getCross()"> ADD </button> 
+                                        </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                  </div>
+            </div>
+        
+          </div>
+       </div>
+  
+   </mat-tab>
+
+   <mat-tab label="Discharge"> 
+        <form [formGroup]='dischargeForm' #myDischargeForm="ngForm" (ngSubmit)="dischargeFormSubmit(dischargeForm.value,myDischargeForm)">
+        <div class="row p-3">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-4 col-xl-4">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker"  [value]="date" placeholder="Date of Appointment" formControlName="appDate" (dateChange)="onChangeEvent('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4 col-xl-4">
+                  <mat-form-field>  
+                    <input matInput [matDatepicker]="picker1" [value]="date1" placeholder="Date of Surgery" formControlName="surDate" (dateChange)="onChangeEventt('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 [startAt]="surDate" ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4 col-xl-4">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker2" [value]="date2" placeholder="Date of Discharge" formControlName="disDate" (dateChange)="onChangeEventtt('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2  [startAt]="disDate"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- <p>Primary Consultant</p> -->
+              <mat-form-field appearance="outline">
+                <mat-label>Primary Consultant</mat-label>
+                <mat-select [placeholder]="pConsultantSelected" formControlName="pConsultant" [(ngModel)]="pConsultantSelected" (selectionChange)="changeClient($event.value)">
+                  <mat-option *ngFor="let list of doctorsList" [value]="list.doctor_id">
+                    {{list.doctor_name}},{{list.qualification}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- <p>Consultant</p> -->
+              <mat-form-field appearance="outline">
+                <mat-label>Consultant</mat-label>
+                <mat-select [placeholder]="consultantSelected"  [(ngModel)]="consultantSelected"  formControlName="consultant" (selectionChange)="changeClientt($event.value)">
+                <!-- <mat-select (selectionChange)="changeClientt($event.value)" formControlName="consultant"> -->
+                  <mat-option *ngFor="let list of doctorsList" [value]="list.doctor_id">
+                    {{list.doctor_name}},{{list.qualification}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        
+                <div class="row">
+                  <div class="col-12">
+                     <b class="custom_fontsize">Add Presentation</b>
+                      <!-- <mat-card class="mt-2"> -->
+                          <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                              
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <textarea type="text" class="w-100" formControlName="presentation" (input)="addPresentation($event)" [(ngModel)]="presentation" rows="4" cols="50"  autocomplete="off" required (click)="addPresentation($event)"> </textarea>                         
+                                    </div>
+                                    <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                      <div >
+                                        <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                      </div>   
+                                        
+                                 </div> -->
+                                  </div>
+  
+                              
+                          </mat-card-content>
+                       
+                      <!-- </mat-card> -->
+                  </div>
+              
+                </div>
+            
+                <div class="row">
+                  <div class="col-12">
+                     <b class="custom_fontsize">Add Course And Mangement</b>
+                      <!-- <mat-card class="mt-2"> -->
+                          <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                              
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <textarea type="text" class="w-100" (input)="addCourse($event)" formControlName="course" [(ngModel)]="course" rows="4" cols="50"  autocomplete="off" required > </textarea>                         
+                                    </div>
+                                    <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                      <div >
+                                        <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                      </div>   
+                                        
+                                 </div> -->
+                                  </div>
+  
+                              
+                          </mat-card-content>
+                       
+                      <!-- </mat-card> -->
+                  </div>
+              
+                </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                     <b class="custom_fontsize">Add Rx</b>
+                      <!-- <mat-card class="mt-2"> -->
+                          <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                              
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <textarea type="text" class="w-100" (click)="presribe()"  rows="4" cols="50"  autocomplete="off" required > </textarea>                         
+                                    </div>
+                                    <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                      <div >
+                                        <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                      </div>   
+                                        
+                                 </div> -->
+                                  </div>
+  
+                              
+                          </mat-card-content>
+                       
+                      <!-- </mat-card> -->
+                  </div>
+              
+                </div>
+            
+                <div class="row">
+                  <div class="col-12">
+                     <b class="custom_fontsize">Add Follow Up Advice</b>
+                      <!-- <mat-card class="mt-2"> -->
+                          <mat-card-content data-step="1" data-intro="Write on General Instructions for patients and click on add button" data-position='right'>
+                              
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <textarea type="text" class="w-100" (input)="addFollowUp($event)" [(ngModel)]="followup" formControlName="followup" rows="4" cols="50"  autocomplete="off" required (keyup)="handleInput($event)"> </textarea>                         
+                                    </div>
+                                    <!-- <div class="col-12  col-md-2  my-auto d-flex">    
+                                      <div >
+                                        <button  mat-raised-button [disabled]="disabled"  type="submit" class="custom_css_btn my_bg_v "> ADD </button> 
+                                      </div>   
+                                        
+                                 </div> -->
+                                  </div>
+  
+                              
+                          </mat-card-content>
+                       
+                      <!-- </mat-card> -->
+                  </div>
+              
+                </div>
+              <div style="text-align: center;">
+                <button  mat-raised-button [disabled]="disabled"  type="submit"
+                 class="custom_css_btn my_bg_v " > SUBMIT </button> 
+              </div>
+            </div>
+       
+          <div class="col-sm-12  col-md-12 col-lg-6 col-xl-6">
+            <mat-card style="background-color: #f3f398;">
+              <div class="row detail">
+                <div class="col-12 col-sm-12  col-md-12 col-lg-6 col-xl-6">
+                  <div class="row nameafter">
+                    <label  class="col-7   col-md-5 col-lg-5 col-xl-5"><b>Patient Name</b></label>
+                    <span class="col-5 col-sm-12  col-md-7 col-lg-7 col-xl-7">{{patient_info.patient_name}}</span>
+                  </div>
+                  <div class="row nameafter">
+                    <label  class="col-7   col-md-5 col-lg-5 col-xl-5"><b>Patient Id</b></label>
+                    <span class="col-5 col-sm-12  col-md-7 col-lg-7 col-xl-7">{{patient_info.umr_no}}</span>
+                  </div>
+                  <div class="row nameafter">
+                    <label  class="col-7   col-md-5 col-lg-5 col-xl-5"><b>Patient Mobile</b></label>
+                    <span class="col-5 col-sm-12  col-md-7 col-lg-7 col-xl-7">{{patient_info.mobile}}</span>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12  col-md-12 col-lg-6 col-xl-6">
+                  <div class="row nameafter">
+                    <label  class="col-7   col-md-5 col-lg-8 col-xl-6" style="font-size:12px;"><b>Date of Appointment</b></label>
+                    <span class="col-5 col-sm-12  col-md-6 col-lg-4 col-xl-6">{{appDate2}}</span>
+                  </div>
+                  <div class="row nameafter">
+                    <label  class="col-7   col-md-5 col-lg-8 col-xl-6"><b>Date of Surgery</b></label>
+                    <span class="col-5 col-sm-12  col-md-4 col-lg-4 col-xl-6">{{surDate}}</span>
+                  </div>
+                  <div class="row nameafter">
+                    <label  class="col-7   col-md-5 col-lg-8 col-xl-6"><b>Date of Discharge</b></label>
+                    <span class="col-5 col-sm-12  col-md-7 col-lg-4 col-xl-6">{{disDate}}</span>
+                  </div>
+                  <!-- <p><b>Date of Appointment:</b>{{appDate}}</p>
+                  <p><b>Date of Surgery:</b>{{surDate}}</p>
+                  <p><b>Date of Discharge:</b>{{disDate}}</p> -->
+                </div>
+              </div>
+              <hr>
+              <div class="row detail">
+                <div class="col-6">
+                  <p><b>Primary Consultant:</b></p>
+                  <p>{{pConsultant1}}</p>
+                  <!-- <p>Dr.Ravi Kishore</p> -->
+                </div>
+                <div class="col-6">
+                  <p><b>Consultant:</b></p>
+                  <p>{{consultant}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row detail">
+                <div class="col-12">
+                  <p><b>Presentation:</b></p>
+                  <p>
+                    {{presentation}}
+                    <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                    dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+                    specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+                    more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. -->
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row detail">
+                <div class="col-12">
+                  <p><b>Course and Management:</b></p>
+                  <p>
+                    {{course}}
+                    <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                    dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+                    specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+                    more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. -->
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row detail">
+                <div class="col-12">
+                  <p><b>Prescription:</b></p>
+                  <table class="table" *ngIf="prescription != ''">
+                    <thead>
+                      <tr>
+                        <th scope="col">Medicine</th>
+                        <th scope="col">DOSE</th>
+                        <th scope="col">Prescription</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of prescription">
+                        <td>{{data.medicine_name}}</td>
+
+                        <td>{{data.day_schedule}}
+
+                          {{data.drug_dose}} {{data.dosage_unit}} Each</td>
+
+                        <td>{{data.preffered_intake}}
+                          COURSE - {{data.dose_course}}
+                          QTY - {{data.quantity}}</td>
+                      </tr>
+                      <!-- <tr>
+                        <th scope="row">2</th>
+                        <td>Dolo</td>
+                        <td>M,A,N
+                          (8:00 AM,1:00 PM,8:00 PM)
+                          1 Tablet Each</td>
+                        <td>A/B - AF
+                          COURSE - 2
+                          QTY - 6</td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+              <div class="row detail">
+                <div class="col-12">
+                  <p><b>Follow Up Advice:</b></p>
+                    <p style="white-space: pre;">{{followup}}</p>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </form>
+      <div class="upload">
+        <button mat-raised-button style="margin-left: -14px;"  *ngIf="showDischargeLoading" (click)="getDischargePrint()" data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> <mat-icon  class="custm_css" >print</mat-icon>Print </button>
+        <button mat-raised-button style="margin-left: -14px;" *ngIf="hideDischargeLoading"
+        data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> Loading...Please Wait</button>
+      </div>
+   </mat-tab>
+</mat-tab-group>
+  

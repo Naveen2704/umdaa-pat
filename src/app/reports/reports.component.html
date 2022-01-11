@@ -1,0 +1,62 @@
+<div class="overlay">
+  <div class="center">
+      <mat-progress-spinner diameter=80 *ngIf="showSpinner"
+                          mode="indeterminate"
+                >
+    </mat-progress-spinner> 
+  </div>
+  </div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="header_section ">
+            <button mat-stroked-button (click)="openreports()"  class="my_bg_v"><mat-icon>add</mat-icon> REPORTS</button>
+        </div>
+    </div>
+</div>
+<!-- <div *ngFor="let data of ReportsList">
+  {{data.current_date}}
+</div> -->
+<div class="row">
+    <div class="col-12 ">
+        <div class="reeports_section p-2">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Date</th>
+                <th scope="col">Notes</th>
+                <th scope="col">DESCRIPTION</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of ReportsList;let i= index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{data.report_date}}</td>
+                <td>{{data.document_type |titlecase}}</td>
+                <td>{{data.description |titlecase}} </td>
+                <td>
+                  <div  *ngIf="data.type == 'images'">
+                    <mat-icon  [lightbox]=""  (click)="open(data.previous_document_id)" >attach_file</mat-icon> 
+                    <!-- <img [src]="imgSrc.image" [lightbox]="z"> -->
+                  </div> 
+                  <div class="fc" *ngIf="data.type == 'pdf'">
+                    <mat-icon (click)="openPdf(data)">picture_as_pdf</mat-icon> 
+  
+                  </div>
+                  <div class="fc" *ngIf="data.type == 'doc'">
+                    <mat-icon (click)="openDoc(data)">article</mat-icon> 
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    
+          <div *ngIf="ReportsList=== null" class="no-records">
+            No records found
+          </div>
+        </div>
+          
+    </div>
+</div>

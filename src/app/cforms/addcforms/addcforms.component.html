@@ -1,0 +1,37 @@
+<div class="p-2">
+  <div class="row">
+    <div class="col-12 m-2">
+        <button mat-raised-button class="my_bg_v" (click)="backlocation()"> <mat-icon>arrow_back</mat-icon>BACK</button>
+    </div>
+  </div>
+  
+  <div class="row">
+        <div class="col-12">
+    
+            <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" [ngModelOptions]="{standalone: true}"  [config]="editorConfig"></angular-editor>
+            
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="d-flex">
+              <div class="save_p m-2">
+                <button mat-raised-button [disabled]="disabled" type="button"  (click)="saveforthispatient()" class=" my_bg_v"> SAVE FOR THIS PATIENT</button>
+
+              </div>
+              <div class="save_temp m-2">
+                <button mat-raised-button [disabled]="disabled" type="button"   (click)="saveastemplate()" class="my_bg_v" >SAVE AS TEMPLATE</button>
+
+              </div>
+              <div class="save_temp m-2">
+                <button mat-raised-button type="button"  *ngIf="print_enable"  (click)="print()" class="my_bg_v" >PRINT</button>
+
+              </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+

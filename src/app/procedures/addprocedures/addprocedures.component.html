@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="col-12 m-2">
+        <button mat-raised-button class="my_bg_v" (click)="backlocation()"> <mat-icon>arrow_back</mat-icon>BACK</button>
+    </div>
+</div>
+
+
+<div class="m-2">
+    <form  [formGroup]="ProcedureForm" #ProForm="ngForm" (ngSubmit)="saveProcedure(ProcedureForm.value,ProForm)">
+       
+       <div class="row border-bottom">
+           <div class="col-6 col-md-4 col-lg-4">
+            <mat-form-field  appearance="fill">
+                <mat-label>Patient Name</mat-label>
+                <input matInput name="patientName" [(ngModel)]="obj_R.patient_name" formControlName="patientName">
+             </mat-form-field>
+           </div>
+           <div class="col-6 col-md-4 col-lg-4">
+            <mat-form-field  appearance="fill">
+                <mat-label>Patient Age</mat-label>
+                <input matInput name="patientage" [(ngModel)]="obj_R.age" formControlName="patientage" >
+             </mat-form-field>
+           </div>
+           <div class="col-6 col-md-4 col-lg-4">
+            <mat-form-field  appearance="fill">
+                <mat-label>Patient Gender</mat-label>
+                <input matInput name="patientgender" [(ngModel)]="obj_R.gender" formControlName="gender" >
+             </mat-form-field>
+           </div>
+           <div class="col-6 col-md-4 col-lg-4">
+            <mat-form-field  appearance="fill">
+                <mat-label>UMR no</mat-label>
+                <input matInput name="umr_no" [(ngModel)]="obj_R.umr_no"  formControlName="umr_no">
+             </mat-form-field>
+           </div>
+           <div class="col-6 col-md-4 col-lg-4">
+            <mat-form-field  appearance="fill">
+                <mat-label>Date</mat-label>
+                <input matInput name="date" [(ngModel)]="obj_R.appointment_date " formControlName="date" >
+             </mat-form-field>
+           </div>
+           <div class="col-6 col-md-4 col-lg-4">
+            <mat-form-field  appearance="fill">
+                <mat-label>Emergency/Elective</mat-label>
+                <input matInput name="Emergency"  formControlName="Emergency">
+             </mat-form-field>
+           </div>
+       </div>
+    
+        <div class="row mt-2">
+            <div class="col-6 col-md-6 col-lg-6">
+             <mat-form-field  appearance="fill">
+                 <mat-label>Performing Dr.</mat-label>
+                 <input matInput name="Performing"  formControlName="Performingdr" >
+              </mat-form-field>
+            </div>
+            <div class="col-6 col-md-6 col-lg-6">
+             <mat-form-field  appearance="fill">
+                 <mat-label>Anaesthetist</mat-label>
+                 <input matInput name="Anaesthetist"  formControlName="Anaesthetist">
+              </mat-form-field>
+            </div>
+    
+            </div>
+            <div class="row ">
+                <div class="col-6 col-md-6 col-lg-6">
+                 <mat-form-field  appearance="fill">
+                     <mat-label>Assisting Dr.</mat-label>
+                     <input matInput name="Assistingdr" formControlName="Assistingdr" >
+                  </mat-form-field>
+                </div>
+                <div class="col-6 col-md-6 col-lg-6">
+                 <mat-form-field  appearance="fill">
+                     <mat-label>Assisting Nurse</mat-label>
+                     <input matInput name="Assisting Nurse"  formControlName="Assistingnurse">
+                  </mat-form-field>
+                </div>
+        
+            </div>
+            <div class="row border-bottom">
+                <div class="col-12">
+                    <div class="mat-subheading-1">
+                        Type of anesthesia
+                    </div>
+                </div>
+                <div class="col-12">
+                    <mat-radio-group color="primary" formControlName="typeofanesthesia">
+                        <mat-radio-button value="SA">SA</mat-radio-button>
+                        <mat-radio-button value="EA">EA</mat-radio-button>
+                        <mat-radio-button value="GA">GA</mat-radio-button>
+                        <mat-radio-button value="LA">LA</mat-radio-button>
+                      </mat-radio-group>
+                </div>
+        
+            </div>
+            <div class="row  mt-2">
+                <div class="col-12">
+                    <mat-form-field  appearance="fill">
+                        <mat-label>Preoperative Diagnosis</mat-label>
+                        <input matInput name="Preoperative"  formControlName="Preoperative">
+                     </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field  appearance="fill">
+                        <mat-label>Postoperative Diagnosis</mat-label>
+                        <input matInput name="Postoperative"  formControlName="Postoperative" >
+                     </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field  appearance="fill">
+                        <mat-label>Indication</mat-label>
+                        <input matInput name="Indication" formControlName="Indication" >
+                     </mat-form-field>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <mat-form-field  appearance="fill">
+                        <mat-label>Position</mat-label>
+                        <input matInput name="Position" formControlName="Position" >
+                     </mat-form-field>
+                </div>
+            </div>
+            <div class="row  m-2 ">
+                <div class="col-12 ">
+                    <div class="text-center">
+                        <button mat-raised-button [disabled]="disabled" color="primary" type="submit" >SAVE</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row  m-3">
+                <div class="col-6 col-md-6 col-lg-6">
+                    <div class="mat-subheading-1">
+                        PROCEDURE
+                    </div>
+                </div>
+                    <!-- <div class="col-6 col-md-6 col-lg-6">
+                    <div class="text-right">
+                        <button mat-raised-button color="primary" (click)="editDescription()">EDIT</button>
+                    </div>
+                    </div> -->
+        
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- <div class="class" [innerHTML]="myHtml"></div> -->
+                    <!-- <mat-card [innerHTML]="myHtml"></mat-card> -->
+                    <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" [ngModelOptions]="{standalone: true}"  [config]="editorConfig"></angular-editor>
+                    <!-- <angular-editor name="myHtml"  [(ngModel)]="myHtml"  [config]="config"></angular-editor> -->
+
+                </div>
+            </div>
+            <!-- <div class="row mt-2">
+                <div class="col-12">
+                    <div class="text-center flex-lg-row">
+                      <div class="save_p m-2">
+                        <button mat-raised-button type="button"  (click)="saveforthispatient()" class=" my_bg_v"> SAVE FOR THIS PATIENT</button>
+
+                      </div>
+                      <div class="save_temp m-2">
+                        <button mat-raised-button type="button"   (click)="saveastemplate()" class="my_bg_v" >SAVE AS TEMPLATE</button>
+
+                      </div>
+
+                    </div>
+                </div>
+            </div> -->
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="d-flex">
+                      <div class="save_p m-2">
+                        <button mat-raised-button  [disabled]="disabled" type="button"  (click)="saveforthispatient()" class=" my_bg_v"> SAVE FOR THIS PATIENT</button>
+        
+                      </div>
+                      <div class="save_temp m-2">
+                        <button mat-raised-button  [disabled]="disabled" type="button"   (click)="saveastemplate()" class="my_bg_v" >SAVE AS TEMPLATE</button>
+        
+                      </div>
+                      
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>

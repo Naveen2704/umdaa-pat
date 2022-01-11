@@ -1,0 +1,89 @@
+<div class="mat-body">
+    <div class="row my-auto">
+        <div class="col-12 text-right">
+            <mat-icon (click)="close()" class="custom_css_btn">close</mat-icon>
+        </div>
+    </div>
+    
+    <form [formGroup]="paramDetailsForm"  (submit)="SaveData()">
+        
+        <div class="row">
+            <div class="col-12 m-2 ml-0">
+                <h6 class="font-weight-bold">CLINICAL PARAMETERS</h6>
+            </div>
+    
+        </div>
+
+        <div   formArrayName="ClassDetails" 
+        *ngFor="let cd of paramDetailsForm['controls'].ClassDetails['controls'] ;let i=index;">
+            <div formGroupName={{i}} class="row">
+                <div class="col-6" >
+                    <div class="mt-3">
+                         {{cd.get('param').value}}  
+                    </div>
+                </div>
+               
+             
+                <div class="col-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput formControlName="value" placeholder="Enter here">
+                      </mat-form-field>
+                </div>
+            </div>
+      
+        
+        </div>
+
+        <div class="row">
+            <div class="col-12 m-2 ml-0">
+                <h6 class="font-weight-bold">LAB PARAMETERS</h6>
+            </div>
+    
+        </div>
+
+            <div    formArrayName="LabDetails"
+        *ngFor="let cd of paramDetailsForm['controls'].LabDetails['controls'] ;let j=index;">
+            <div  class="row"  formGroupName={{j}}>
+                <div class="col-6">
+                    <div class="mt-3">
+                         {{cd.get('param').value}}  
+                    </div>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput formControlName="value" placeholder="Enter here">
+                      </mat-form-field>
+                </div>
+            </div>
+      
+        
+        </div>
+        
+        <div    formArrayName="ComplinceDetails"
+        *ngFor="let cd of paramDetailsForm['controls'].ComplinceDetails['controls'] ;let k=index;">
+            <div  class="row "  formGroupName={{k}}>
+                <div class="col-6">
+                    <div class="mt-3 font-weight-bold">
+                         {{cd.get('param').value}}  
+                    </div>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="example-full-width">
+                        <input matInput formControlName="value" placeholder="Enter here">
+                      </mat-form-field>
+                </div>
+            </div>
+      
+        
+        </div>
+        
+    
+       
+        <div class="row">
+            <div class="col-12 text-center">
+                <button mat-raised-button  type="submit" color="primary">SAVE</button>
+            </div>
+        </div>
+    
+    </form>
+    </div>

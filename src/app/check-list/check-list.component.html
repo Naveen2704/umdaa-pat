@@ -1,0 +1,349 @@
+
+ <app-forms></app-forms>
+
+ <section style="margin-top:56px">
+    <form [formGroup]='clForm' #CForm="ngForm" (ngSubmit)="Cladd(clForm.value,CForm)">
+        <div class="row ml-0">
+            <div class="col-8 col-md-5">
+                    <mat-form-field>
+                      <input type="text"  #term (ngModelChange)="Search(term.value)"
+                            placeholder="Select CheckList here.."
+                            aria-label="Number"
+                            matInput
+                            id="keyword"
+                            formControlName='queryField'
+                            [matAutocomplete]="auto" required>
+                            <input type="hidden" formControlName ="cl_id" class="form-control">
+                            <mat-hint>Please enter Minimum 3 letters</mat-hint>
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let item of Cformlist " [value]="item.consent_form_title"  (click)="getId(item.consent_form_id)" >
+                                  <span>{{item.consent_form_title}}</span>
+                                 </mat-option>
+                            </mat-autocomplete>
+                      <!-- <mat-error *ngIf="isSubmitted && CdForm.get('queryField').hasError('required')">
+                        Please Select diagnosis name 
+                      </mat-error> -->
+                    </mat-form-field>
+                  
+            </div>
+            <div class="col-4  col-md-4 p-0 my-auto">
+              
+                <button mat-raised-button  [disabled]="disable" type="submit"  class=" mt-1 my_bg_v" >ADD</button> 
+              </div>
+        </div>
+       </form>
+</section>
+ <!-- <loading *ngIf="isLoading"></loading> -->
+<section style="margin-top:10px">
+   <div class="m-2" *ngFor="let item of CList">
+    <mat-accordion  >
+        <mat-expansion-panel  (opened)="consentFormId(item.patient_consent_form_id)">
+       <!-- <mat-expansion-panel (opened)="consentFormId(item.patient_consent_form_id)" (closed) ="closepanel()" > -->
+                 <mat-expansion-panel-header class="right-aligned-header">
+                 <mat-panel-title>
+                     {{item.patient_consent_form_name}}
+                 </mat-panel-title>
+                 <mat-panel-description>
+                    <mat-icon >visibility</mat-icon>    VIEW CHECKLIST
+                 </mat-panel-description>
+                 </mat-expansion-panel-header>
+                 
+                 <form [formGroup]="SchoolDetailsForm" #myForm="ngForm" (ngSubmit)="SaveData(myForm)" #target>
+              <!-- top section -->
+                     <div class="row">
+                         <div class="col-6 col-md-4 col-lg-4">
+                             <mat-form-field class="example-full-width">
+                                 <mat-label>Checked By</mat-label>
+                                 <input matInput formControlName="checked_by"  required>
+                                 
+                                 <mat-error *ngIf="submitted && f.checked_by.errors">
+                                     <div *ngIf="f.checked_by.errors.required ">Checked_by is required</div>
+                                 </mat-error>
+                               </mat-form-field>
+                         </div>
+                         <div class="col-6 col-md-4 col-lg-4">
+                             <mat-form-field class="example-full-width">
+                                 <mat-label>Assisted By</mat-label>
+                                 <input matInput formControlName="done_by" >
+<!--                                  
+                                 <mat-error *ngIf="submitted && f.done_by.errors">
+                                     <div *ngIf="f.done_by.errors.required ">Assisted By is required</div>
+                                 </mat-error> -->
+                               </mat-form-field>
+                         </div>
+                         <div class="col-6 col-md-4 col-lg-4">
+                             <mat-form-field class="example-full-width">
+                                 <mat-label>Nurse</mat-label>
+                                 <input matInput formControlName="nurse" >
+                                 
+                                 <!-- <mat-error *ngIf="submitted && f.nurse.errors">
+                                     <div *ngIf="f.nurse.errors.required ">Nurse is required</div>
+                                 </mat-error> -->
+                               </mat-form-field>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-6 col-md-4 col-lg-4">
+                             <mat-form-field class="example-full-width">
+                                 <mat-label>Procedure By</mat-label>
+                                 <input matInput formControlName="assisted_by" >
+                                 
+                                 <!-- <mat-error *ngIf="submitted && f.checked_by.errors">
+                                     <div *ngIf="f.checked_by.errors.required ">Procedure By is required</div>
+                                 </mat-error> -->
+                               </mat-form-field>
+                         </div>
+                         <div class="col-6 col-md-4 col-lg-4">
+                             <mat-form-field class="example-full-width">
+                                 <mat-label>UMR NO</mat-label>
+                                 <input matInput formControlName="UHID"   readonly>
+                               </mat-form-field>
+                         </div>
+                         <div class="col-6 col-md-4 col-lg-4">
+                             <mat-form-field class="example-full-width">
+                                 <mat-label>Anesthetist</mat-label>
+                                 <input matInput formControlName="anesthetist" >
+                                 
+                                 <!-- <mat-error *ngIf="submitted && f.anesthetist.errors">
+                                     <div *ngIf="f.anesthetist.errors.required" style="color:red">Anesthetist is required</div>
+                                 </mat-error> -->
+                               </mat-form-field>
+                         </div>
+                    </div>
+             <!-- top section -->
+
+             <div class="row" *ngIf="hideLoading">
+                <div class="m-auto col-12">
+                    <p style="font-weight: bold;text-align: center;">Loading...Please Wait<p>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="noDataAvailable">
+                <div class="m-auto col-12">
+                    <p style="font-weight: bold;text-align: center;">No Checklist Available<p>
+                </div>
+            </div>
+
+                    <!-- <div class="row"  *ngIf="count==0">
+                         <div class="m-auto col-12">
+                             <h1>No CheckList Available for This Content Form</h1>
+                         </div>
+                    </div> -->
+<div *ngIf="hideMainData">
+
+    <div class="row" *ngIf="count==1">
+        <div class="col-12 col-md-12">
+            <div class="w-100">
+                <mat-checkbox class="example-margin before" color="primary" (click)="triggerSomeEvent($event)" >
+                    <span class="font-weight-bold">Before Procedure Check</span>    
+                </mat-checkbox>
+            </div>
+            <div class="row" formArrayName="consent_check_list" *ngFor="let cd of SchoolDetailsForm['controls'].consent_check_list['controls'] ;let i=index;">
+                <div class="col-12" *ngIf="(cd.get('category').value) == 'before'">
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) == 'Title'">
+                        <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                    </div>
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) != 'Title'">
+                        <mat-checkbox class="example-margin" color="warn"  formControlName="checked" [disabled]="isDisabled" (change)="clearQuantityIfNecessary(i)">
+                            <span class="font-weight-bold">{{cd.get('Consent_Form').value}}</span>    
+                        </mat-checkbox>
+
+                        
+                        <div class="mb-2">
+                         <input class="form-control"  id="{{i}}"  #reset formControlName="remark"  [attr.disabled]="SchoolDetailsForm.get('consent_check_list').value[i].checked ? null:''"  >
+                          
+
+                           <input  type="hidden" formControlName="category" value="{{cd.get('category').value}}" placeholder="{{cd.get('category').value}}" >
+                           <input   type="hidden" formControlName="checked" [(ngModel)]="imp12"  *ngIf="testing == i" id="{{i}}" >
+                           <input   type="hidden" formControlName="checklist_id" value="{{cd.get('checklist_id').value}}">
+                           <input  type="hidden" formControlName="doctor_review" value="1" placeholder="{{cd.i}}">
+                           <input   type="hidden" formControlName="patient_checklist_id" value="{{cd.get('patient_checklist_id').value}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+
+     <div class="row" *ngIf="count==2">
+         <div class="col-12 col-md-6">
+             <div class="w-100">
+                 <mat-checkbox class="example-margin before" color="primary" (click)="triggerSomeEvent($event)" >
+                     <span class="font-weight-bold">Before Procedure Check</span>    
+                 </mat-checkbox>
+             </div>
+             <div class="row" formArrayName="consent_check_list" *ngFor="let cd of SchoolDetailsForm['controls'].consent_check_list['controls'] ;let i=index;">
+                 <div class="col-12" *ngIf="(cd.get('category').value) == 'before'">
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) == 'Title'">
+                        <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                    </div>
+                     <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) != 'Title'">
+                         <!-- <input type="checkbox" formControlName="checked" [disabled]="isDisabled" (change)="clearQuantityIfNecessary(i)" [ngClass]="(cd.get('checked').value  == true)?{'background-color':'red'}:''">{{cd.get('Consent_Form').value}} -->
+                         <mat-checkbox class="example-margin" color="warn" formControlName="checked" [disabled]="isDisabled" (change)="clearQuantityIfNecessary(i)" [ngClass]="(cd.get('checked').value  == true)?['bold-text', 'green']:''" >
+                             <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                         </mat-checkbox>
+
+                       
+                            <div class="mb-2" >
+                                <input  id="{{i}}" class="form-control" #reset formControlName="remark"  [attr.disabled]="SchoolDetailsForm.get('consent_check_list').value[i].checked ? null:''"  >
+                                 
+
+                                <input  type="hidden" formControlName="category" value="{{cd.get('category').value}}" placeholder="{{cd.get('category').value}}" >
+                                <input   type="hidden" formControlName="checked" [(ngModel)]="imp12"  *ngIf="testing == i" id="{{i}}" >
+                                <input   type="hidden" formControlName="checklist_id" value="{{cd.get('checklist_id').value}}">
+                                <input  type="hidden" formControlName="doctor_review" value="1" placeholder="{{cd.i}}">
+                                <input   type="hidden" formControlName="patient_checklist_id" value="{{cd.get('patient_checklist_id').value}}">
+                            </div>
+                            
+                 
+                              
+                        
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="col-12 col-md-6">
+             <div class="w-100">
+                 <mat-checkbox class="example-margin" color="primary" (click)="triggerafterEvent($event)">
+                     <span class="font-weight-bold">After Procedure Check</span>    
+                 </mat-checkbox>
+             </div>
+             <div class="row" formArrayName="consent_check_list" *ngFor="let cd of SchoolDetailsForm['controls'].consent_check_list['controls'] ;let y=index;">
+                 <div class="col-12" *ngIf="(cd.get('category').value) == 'after'">
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) == 'Title'">
+                        <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                    </div>
+                     <div class="class" formGroupName={{y}} *ngIf="(cd.get('type').value) != 'Title'">
+                        <mat-checkbox class="example-margin" color="warn"  formControlName="checked" [disabled]="isDisabledd" (change)="clearQuantity(y)">
+                            <span class="font-weight-bold">{{cd.get('Consent_Form').value}}</span>    
+                        </mat-checkbox>
+
+                  
+                    <div class="mb-2" >
+                         <input  class="form-control" id="{{y}}"  #reset formControlName="remark"  [attr.disabled]="SchoolDetailsForm.get('consent_check_list').value[y].checked ? null: ''" >
+                        
+                         <!-- <input matInput  id="{{y}}" #reset formControlName="remark" disabled> -->
+                         <input   type="hidden" formControlName="category" value="{{cd.get('category').value}}" placeholder="{{cd.get('category').value}}" >
+                         <input   type="hidden" formControlName="checked" [(ngModel)]="impAfter12"  *ngIf="afterTesting == y"   >
+                         <input   type="hidden" formControlName="checklist_id" value="{{cd.get('checklist_id').value}}">
+                         <input  type="hidden" formControlName="doctor_review" value="1" placeholder="{{cd.i}}">
+                         <input  type="hidden" formControlName="patient_checklist_id" value="{{cd.get('patient_checklist_id').value}}">
+                        </div>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="row" *ngIf="count==3">
+         <div class="col-12 col-md-4">
+             <div class="w-100">
+                 <mat-checkbox class="example-margin before" color="primary" (click)="triggerSomeEvent($event)" >
+                     <span class="font-weight-bold">Before Procedure Check</span>    
+                 </mat-checkbox>
+             </div>
+             <div class="row" formArrayName="consent_check_list" *ngFor="let cd of SchoolDetailsForm['controls'].consent_check_list['controls'] ;let i=index;">
+                 <div class="col-12" *ngIf="(cd.get('category').value) == 'before'">
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) == 'Title'">
+                        <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                    </div>
+                     <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) != 'Title'">
+                         <mat-checkbox class="example-margin" color="warn"  formControlName="checked" [disabled]="isDisabled" (change)="clearQuantityIfNecessary(i)">
+                             <span class="font-weight-bold">{{cd.get('Consent_Form').value}}</span>    
+                         </mat-checkbox>
+
+                         
+                            <div class="mb-2">
+                          <input class="form-control"  id="{{i}}"  #reset formControlName="remark"  [attr.disabled]="SchoolDetailsForm.get('consent_check_list').value[i].checked ? null:''"  >
+                           
+
+                            <input  type="hidden" formControlName="category" value="{{cd.get('category').value}}" placeholder="{{cd.get('category').value}}" >
+                            <input   type="hidden" formControlName="checked" [(ngModel)]="imp12"  *ngIf="testing == i" id="{{i}}" >
+                            <input   type="hidden" formControlName="checklist_id" value="{{cd.get('checklist_id').value}}">
+                            <input  type="hidden" formControlName="doctor_review" value="1" placeholder="{{cd.i}}">
+                            <input   type="hidden" formControlName="patient_checklist_id" value="{{cd.get('patient_checklist_id').value}}">
+                        </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="col-12 col-md-4">
+             <div class="w-100">
+                 <mat-checkbox class="example-margin" color="primary" (click)="triggerafterEvent($event)">
+                     <span class="font-weight-bold">After Procedure Check</span>    
+                 </mat-checkbox>
+             </div>
+             <div class="row" formArrayName="consent_check_list" *ngFor="let cd of SchoolDetailsForm['controls'].consent_check_list['controls'] ;let y=index;">
+                 <div class="col-12" *ngIf="(cd.get('category').value) == 'after'">
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) == 'Title'">
+                        <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                    </div>
+                     <div class="class" formGroupName={{y}} *ngIf="(cd.get('type').value) != 'Title'">
+                        <mat-checkbox class="example-margin" color="warn" formControlName="checked" [disabled]="isDisabledd" (change)="clearQuantity(y)">
+                            <span class="font-weight-bold">{{cd.get('Consent_Form').value}}</span>    
+                        </mat-checkbox>
+
+                        <div class="mb-2">
+                         <input class="form-control"  id="{{y}}"  #reset formControlName="remark"  [attr.disabled]="SchoolDetailsForm.get('consent_check_list').value[y].checked ? null: ''" >
+                           
+                         <!-- <input matInput  id="{{y}}" #reset formControlName="remark" disabled> -->
+                         <input   type="hidden" formControlName="category" value="{{cd.get('category').value}}" placeholder="{{cd.get('category').value}}" >
+                         <input   type="hidden" formControlName="checked" [(ngModel)]="impAfter12"  *ngIf="afterTesting == y"   >
+                         <input   type="hidden" formControlName="checklist_id" value="{{cd.get('checklist_id').value}}">
+                         <input  type="hidden" formControlName="doctor_review" value="1" placeholder="{{cd.i}}">
+                         <input  type="hidden" formControlName="patient_checklist_id" value="{{cd.get('patient_checklist_id').value}}">
+                         </div>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="col-12 col-md-4">
+            <div class="w-100">
+                <mat-checkbox class="example-margin" color="primary" (click)="triggerduringEvent($event)">
+                    <span class="font-weight-bold">After Procedure Check</span>    
+                </mat-checkbox>
+            </div>
+            <div class="row" formArrayName="consent_check_list" *ngFor="let cd of SchoolDetailsForm['controls'].consent_check_list['controls'] ;let j=index;">
+                <div class="col-12" *ngIf="(cd.get('category').value) == 'during'">
+                    <div class="class" formGroupName={{i}} *ngIf="(cd.get('type').value) == 'Title'">
+                        <span class="font-weight-bold" >{{cd.get('Consent_Form').value}}</span>    
+                    </div>
+                    <div class="class" formGroupName={{j}} *ngIf="(cd.get('type').value) != 'Title'">
+                       <mat-checkbox class="example-margin" color="warn" formControlName="checked" [disabled]="isDisab" (change)="clearQuantityD(j)">
+                           <span class="font-weight-bold">{{cd.get('Consent_Form').value}}</span>    
+                       </mat-checkbox>
+
+                       <div class="mb-2">
+                        <input class="form-control"  id="{{j}}"  #reset formControlName="remark"  [attr.disabled]="SchoolDetailsForm.get('consent_check_list').value[j].checked ? null: ''" >
+                        
+                        <!-- <input matInput  id="{{y}}" #reset formControlName="remark" disabled> -->
+                        <input   type="hidden" formControlName="category" value="{{cd.get('category').value}}" placeholder="{{cd.get('category').value}}" >
+                        <input   type="hidden" formControlName="checked" [(ngModel)]="impAfter12"  *ngIf="afterTesting == j"   >
+                        <input   type="hidden" formControlName="checklist_id" value="{{cd.get('checklist_id').value}}">
+                        <input  type="hidden" formControlName="doctor_review" value="1" placeholder="{{cd.j}}">
+                        <input  type="hidden" formControlName="patient_checklist_id" value="{{cd.get('patient_checklist_id').value}}">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center">
+             <button mat-raised-button  [disabled]="disable"  type="submit" class="my_bg_v">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                 </form>
+
+       </mat-expansion-panel>
+    </mat-accordion>
+    </div>
+</section>

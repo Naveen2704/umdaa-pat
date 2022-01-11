@@ -1,0 +1,26 @@
+#container
+{
+    margin:0px auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* #main
+{
+    background-color: #090958;
+    
+} */
+
+
+
+
+
+.buttons {
+    padding-left: 20px;
+    position: fixed;
+    left: 0;
+    right: 16px;
+    bottom: 16px;
+    
+
+}
