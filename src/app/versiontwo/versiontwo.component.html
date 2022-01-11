@@ -759,7 +759,7 @@
                                         <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{clinicalnotes}}</p>
                                     </div>
                                     <div class="col-2 p-0">
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="editClinicalNotes(clinicalnotes?.clnotes,i)">edit</mat-icon>
+                                        <!-- <mat-icon  style="font-size: 12px;cursor: default;" (click)="editClinicalNotes(clinicalnotes?.clnotes,i)">edit</mat-icon> -->
                                         <mat-icon  style="font-size: 12px;cursor: default;" (click)="deleteClinicalNotes(clinicalnotes?.clnotes,i)">delete</mat-icon>
                                     </div>
                                 </div>
@@ -794,7 +794,7 @@
                                         <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{historynotes}}</p>
                                     </div>
                                     <div class="col-2 p-0" *ngIf="historyArray.length != 0">
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="edithistoryNotes(historynotes?.history_notes,i)">edit</mat-icon>
+                                        <!-- <mat-icon  style="font-size: 12px;cursor: default;" (click)="edithistoryNotes(historynotes?.history_notes,i)">edit</mat-icon> -->
                                         <mat-icon  style="font-size: 12px;cursor: default;" (click)="deleteHistoryNotes(historynotes?.history_notes,i)">delete</mat-icon>
                                     </div>
                                 </div>
@@ -826,7 +826,7 @@
                                         <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{cd}}</p>
                                     </div>
                                     <div class="col-2 p-0" *ngIf="cdArray.length != 0">
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="editCD(cd,cd?.queryField.disease_name,i)">edit</mat-icon>
+                                        <!-- <mat-icon  style="font-size: 12px;cursor: default;" (click)="editCD(cd,cd?.queryField.disease_name,i)">edit</mat-icon> -->
                                         <mat-icon  style="font-size: 12px;cursor: default;" (click)="deletecd(cd,i)">delete</mat-icon>
                                     </div>
                                 </div>
@@ -915,7 +915,7 @@
                                         <th style="width: 10px;">Days</th>
                                         <th style="width: 10px;">No</th>
                                         <th style="width: 15px;">Remark</th>
-                                        <th style="width: 18px;text-align: center;">Edit</th>
+                                        <th style="width: 18px;text-align: center;">Actions</th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let pr of prArray;let i = index">
@@ -927,8 +927,8 @@
                                             <td class="tdbreak">{{pr?.remark}}</td>
                                             <td>
                                                 <span>
-                                                    <mat-icon style="font-size: 13px;padding-top: 5px;padding-left: 9px;" (click)="editPrescription(i,pr?.drugField,pr.food,pr?.days,pr?.qty,pr?.remark,pr?.mode,pr)">edit
-                                                    </mat-icon>
+                                                    <!-- <mat-icon style="font-size: 13px;padding-top: 5px;padding-left: 9px;" (click)="editPrescription(i,pr?.drugField,pr.food,pr?.days,pr?.qty,pr?.remark,pr?.mode,pr)">edit
+                                                    </mat-icon> -->
                                                     <mat-icon  style="font-size: 12px;;cursor: default;" (click)="deletedrug(pr,i)">delete</mat-icon>
                                                 </span>
                                             </td>

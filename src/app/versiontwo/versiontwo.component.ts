@@ -391,6 +391,7 @@ export class VersiontwoComponent implements OnInit {
       console.log(res)
       if(res.code == '200') {
         this.prArray.push(res.result.prescription)
+        this.DrugForm.reset()
       }
     })
   }
@@ -1253,38 +1254,39 @@ open(event) {
     })  
   }
   getPrint(){
-    console.log(this.mainForm.value);
-    console.log(this.appointment_id);
-    this.AfterClick = false;
-    this.BeforeClick = true;
-    this.ocrService.addOcr(this.followupdays,this.mainForm.value,this.appointment_id).subscribe((data)=>{
-      console.log(data)
-      if(data['code']== 200){
-        this.sort.getshortsummarys(this.appointment_id).subscribe((res)=>{
-          console.log(res.result.pdf_name)
-          let url = res.result.pdf_name
-          console.log(url)
-          window.open(url,'_blank',"width=500,height=500");
-          this.AfterClick = true;
-          this.BeforeClick = false;
-           window.location.reload();
-          // this.ngOnInit();
-        })
-      }     
-    },err => {
-      console.log(err);
+    this.sort.getshortsummarys(this.appointment_id).subscribe((res)=>{
+      console.log(res.result.pdf_name)
+      let url = res.result.pdf_name
+      console.log(url)
+      window.open(url,'_blank',"width=500,height=500");
+      this.AfterClick = true;
+      this.BeforeClick = false;
+       window.location.reload();
+      // this.ngOnInit();
+    })
+    // console.log(this.mainForm.value);
+    // console.log(this.appointment_id);
+    // this.AfterClick = false;
+    // this.BeforeClick = true;
+    // this.ocrService.addOcr(this.followupdays,this.mainForm.value,this.appointment_id).subscribe((data)=>{
+    //   console.log(data)
+    //   if(data['code']== 200){
+        
+    //   }     
+    // },err => {
+    //   console.log(err);
 
-      if(err.status==500){
-        alert ('Something wrong please try again');
-        this.AfterClick = false;
-        this.BeforeClick = true;
-        // this.ngOnInit();
-        window.location.reload();
-      }
+    //   if(err.status==500){
+    //     alert ('Something wrong please try again');
+    //     this.AfterClick = false;
+    //     this.BeforeClick = true;
+    //     // this.ngOnInit();
+    //     window.location.reload();
+    //   }
       
-    }
+    // }
     
-    ) 
+    // ) 
    
   }
 
