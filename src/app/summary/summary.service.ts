@@ -55,17 +55,17 @@ export class SummaryService {
         }
         getshortsummarys(result):Observable<any>
         {
-          
-         return this._http.post(this.apiUrl,
-          {"requesterid":1,
-          "requestname":"shortSummary",
-          "requestparameters":
-          {
-            "appointment_id":result
+          return this._http.post(this.apiUrl,
+            {
+              "requesterid":1,
+              "requestname":"shortSummary",
+              "requestparameters":
+                {
+                  "appointment_id":result
+                }
+            });
         }
-      }
-          );
-          }
+        
         getdischargesummary(id):Observable<any>
       {
        return this._http.post(this.apiUrl,

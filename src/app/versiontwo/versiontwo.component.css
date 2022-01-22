@@ -222,9 +222,14 @@ input::-webkit-input-placeholder {
     width: 40px;
   }
 
+
+  th {
+    font-weight: 500 !important;
+  }
+
   .vital >label{
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 500;
   }
   /* .vital >input::before{
      content: ":";
@@ -232,8 +237,8 @@ input::-webkit-input-placeholder {
   } */
   .vital > span{
     /* margin-left: 10px; */
-    font-size: 14px;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 12px !important;
+    font-family: 'Roboto';
     /* text-decoration: underline; */
   }
   .vital > input{

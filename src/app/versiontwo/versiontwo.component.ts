@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { empty } from 'rxjs';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { FiService } from '../fi/fi.service';
 import { GentempComponent } from '../fi/gentemp/gentemp.component';
@@ -139,6 +140,7 @@ export class VersiontwoComponent implements OnInit {
   frequency: any;
   qty: number;
   clinicalArray: any = [];
+  clinicalNotesArray: any = [];
   historyArray: any = [];
   cdArray: any =[];
   invArray: any =[];
@@ -238,6 +240,9 @@ export class VersiontwoComponent implements OnInit {
   disablebtn11: boolean = true;
   fudate: any;
   showPlanN: boolean = false;
+  showComments: boolean = false
+  comments: string = '';
+  printBtnText: string = "Print";
   constructor(private sort:SummaryService,private dailog: MatDialog,private ocrService:VersiontwoService, private fb:FormBuilder, private _searchService:FiService,private service: PatientserviceService,private route: ActivatedRoute) { }
   
   ngOnInit() {
@@ -302,6 +307,7 @@ export class VersiontwoComponent implements OnInit {
       let productid = params['id'];
       this.appointment_id = params['id'];
       console.log( this.appointment_id)
+      this.getPreviousData()
       this.service.GetPatient(productid).subscribe(data =>{
         console.log(data.result['parameters'][0].status)
         if(data.result['parameters'][0].status === 'closed'){
@@ -348,36 +354,34 @@ export class VersiontwoComponent implements OnInit {
   saveNotesValues(value) {
     console.log(value)
     this.ocrService.saveNotes(this.appointment_id, value).subscribe((res: any) => {
+      console.log(res)
       if(res.code === "200") {
         console.log(res.result)
         this.disablebtn = true
-        this.clinicalArray['notes'] = res.result.note_details
-        this.clinicalArray['id'] = res.result.patient_notes_id
-        console.log(this.clinicalArray)
+        this.clinicalNotesArray.push({"notes": res.result.note_details, "id": res.result.patient_notes_line_item_id})
+        console.log(this.clinicalNotesArray)
         this.clinincalnotes.get('clnotes').reset();
       } 
     });
   }
 
   saveData(value, type, id = '') {
-    console.log(id)
-    console.log(value)
     this.ocrService.saveData(this.appointment_id, value, type).subscribe((res: any) => {
       console.log(res)
       if(res.code === "200") {
         console.log(res)
         if(type == "past") {
           this.history.get('history_notes').setValue('');
-          this.historyArray.push(res.result.section_text)
+          this.historyArray.push({"notes": res.result.section_text, "id": res.result.patient_form_line_item_id})
           this.disablebtn1 = true;
         }
         if(type == "cd") {
-          this.cdArray.push(res.result.disease_name)
+          this.cdArray.push({"notes": res.result.disease_name, "id": res.result.patient_cd_line_item_id})
           this.CdForm.get('queryField').setValue('');
           this.disablebtn2 = true;
         }
         if(type == "inv") {
-          this.invArray.push(res.result.investigation_name)
+          this.invArray.push({"notes": res.result.investigation_name, "id": res.result.patient_investigation_line_item_id})
           this.InForm.get('queryinvField').setValue('');
           this.disablebtn4 = true;
         }
@@ -390,8 +394,58 @@ export class VersiontwoComponent implements OnInit {
     this.ocrService.saveDrug(this.appointment_id, this.DrugForm.value).subscribe((res: any) => {
       console.log(res)
       if(res.code == '200') {
+        console.log(res)
         this.prArray.push(res.result.prescription)
         this.DrugForm.reset()
+      }
+    })
+  }
+
+  toggleCommentBox() {
+    if(this.showComments == true) {
+      this.showComments = false
+    }
+    else {
+      this.showComments = true
+    }
+  }
+
+  getPreviousData() {
+    console.log(this.appointment_id)
+    this.ocrService.loadPreviousData(this.appointment_id).subscribe((res: any) => {
+      console.log(res)
+      if(res.code == "200") {
+        console.log(res.result.inv)
+        if(res.result.vitals != undefined) {
+          this.vitals = res.result.vitals
+        }
+        if(res.result.notes != undefined) {
+          this.clinicalNotesArray = res.result.notes
+        }
+        if(res.result.history != undefined) {
+          this.historyArray = res.result.history
+        }
+        if(res.result.cd != undefined) {
+          this.cdArray = res.result.cd
+        }
+        if(res.result.inv != undefined) {
+          this.invArray = res.result.inv
+        }
+        if(res.result.gen != undefined) {
+          this.giname = res.result.gen
+        }
+        if(res.result.plan != undefined) {
+          this.planInfo = res.result.plan
+        }
+        if(res.result.comments != undefined) {
+          this.comments = res.result.comments
+        }
+        if(res.result.fu != undefined) {
+          this.fudate = res.result.fu
+        }
+        if(res.result.drugs != undefined) {
+          this.prArray = res.result.drugs
+        }
       }
     })
   }
@@ -408,9 +462,10 @@ export class VersiontwoComponent implements OnInit {
     })
   }
 
-  saveGenPlanFu(gen = '', plan = '', fu = '') {
-    this.ocrService.addGenPlanFu(this.appointment_id, gen, plan, fu).subscribe((res: any) => {
+  saveGenPlanFu(gen = '', plan = '', fu = '', cmnts = '') {
+    this.ocrService.addGenPlanFu(this.appointment_id, gen, plan, fu, cmnts).subscribe((res: any) => {
       if(res.code == "200") {
+        console.log(res)
         if(gen != "") {
           this.genaralIns.reset();
           this.giname = res.result.gen
@@ -428,28 +483,55 @@ export class VersiontwoComponent implements OnInit {
           this.fudate = res.result.followupdate;
           this.disablebtn11 = true;
         }
+        if(cmnts != "") {
+          this.comments = res.result.comments;
+          this.showComments = false
+        }
         console.log(res.result)
       }      
     })
   }
 
+  delGPF(type) {
+    this.ocrService.delGenPlanFu(this.appointment_id, type).subscribe((res: any) => {
+      if(res.code == "200") {
+        if(type == "gen") {
+          this.giname = ""
+        }
+        else if(type == "plan") {
+          this.planInfo = ""
+        }
+        else if(type == "fu") {
+          this.fudate = ""
+        }
+      }
+    })
+  }
+
   deleteNow(i, delete_id, type) {
     var a = confirm("Are you sure ?")
-    console.log(delete_id)
     if(a == true) {
       this.ocrService.deleteData(delete_id, type).subscribe((res: any) => {
         if(res.code === "200") {
           if(type == "notes") {
-            this.clinicalArray.slice(i, 1)
+            this.clinicalNotesArray[i] = ""
+            this.clinicalNotesArray = this.clinicalNotesArray.filter((a) => a)
           }
           if(type == "past") {
-            this.historyArray.slice(i, 1)
+            this.historyArray[i] = ""
+            this.historyArray = this.historyArray.filter((a) => a)
           }
-          if(type == "cd") {
-            this.cdArray.slice(i, 1)
+          if(type == "cld") {
+            this.cdArray[i] = ""
+            this.cdArray = this.cdArray.filter((a) => a)
           }
           if(type == "inv") {
-            this.invArray.slice(i, 1)
+            this.invArray[i] = ""
+            this.invArray = this.invArray.filter((a) => a)
+          }
+          if(type == "drugs") {
+            this.prArray[i] = ""
+            this.prArray = this.prArray.filter((a) => a)
           }
         }
       })
@@ -1254,10 +1336,13 @@ open(event) {
     })  
   }
   getPrint(){
+    this.printBtnText = "Printing Data"
+    this.AfterClick = false;
+    this.BeforeClick = true;
     this.sort.getshortsummarys(this.appointment_id).subscribe((res)=>{
-      console.log(res.result.pdf_name)
+      console.log(res)
       let url = res.result.pdf_name
-      console.log(url)
+      // console.log(url)
       window.open(url,'_blank',"width=500,height=500");
       this.AfterClick = true;
       this.BeforeClick = false;
@@ -1294,6 +1379,7 @@ open(event) {
   selectinvTemp(){
     this.templatelistmodel().afterClosed().subscribe((res)=>{
       console.log(res)
+      this.getPreviousData()
       if(res.event != 'close'){
         this.getlatesinv(this.fi_Obj);
       }
@@ -1650,14 +1736,19 @@ open(event) {
     this.genaralIns.get('gen').setValue(a);
    }
 
-   editPLAN(a,i)
-   {
-     this.planIndex = i;
-     this.showPlan = false;
-     this.hidePlan = true;
-     this.disablebtn7 = false;
-    this.plan.get('plan_notes').setValue(a);
+   editPlan(a) {
+     this.plan.get('plan_notes').setValue(a)
    }
+
+
+  //  editPLAN(a,i)
+  //  {
+  //    this.planIndex = i;
+  //    this.showPlan = false;
+  //    this.hidePlan = true;
+  //    this.disablebtn7 = false;
+  //   this.plan.get('plan_notes').setValue(a);
+  //  }
 
   addHero(value)
   {

@@ -36,8 +36,19 @@ export class VersiontwoService {
       }
     })
   }
+
+  loadPreviousData(appointment_id) {
+    let url = this.apiUrl;
+    return this._http.post(this.apiUrl, {
+      "requesterid": 86,
+      "requestname": "getPreviousData",
+      "requestparameters": {
+          "appointment_id": appointment_id
+      }
+    })
+  }
   
-  addGenPlanFu(appointment_id, gen = '', plan = '', fu = '') {
+  addGenPlanFu(appointment_id, gen = '', plan = '', fu = '', cmnts = '') {
     let url = this.apiUrl;
     return this._http.post(this.apiUrl, {
       "requesterid": 86,
@@ -46,7 +57,20 @@ export class VersiontwoService {
           "appointment_id": appointment_id,
           "gen": gen,
           "plan": plan,
-          "followupdate": fu
+          "followupdate": fu,
+          "comments": cmnts
+      }
+    })
+  }
+  
+  delGenPlanFu(appointment_id, type) {
+    let url = this.apiUrl;
+    return this._http.post(this.apiUrl, {
+      "requesterid": 86,
+      "requestname": "delGenPlanFu",
+      "requestparameters": {
+          "appointment_id": appointment_id,
+          "type": type
       }
     })
   }

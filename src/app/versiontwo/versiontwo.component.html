@@ -158,10 +158,6 @@
                                      </mat-option>
                                 </mat-autocomplete>    
                               </div>
-                                  <div class="text-right col-2  pl-0 mt-2" *ngIf="hidehistory" >
-                                    <button type="button" (click)="edithistory(ress,historyIndex)" class="btn btn-light btn-xs btn-radius" id="start_button_1" [disabled]="disablebtn1"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                    <!-- <button type="button" *ngIf="showhistory" (click)="addhistory()" class="btn btn-light btn-xs btn-radius" id="start_button_1" [disabled]="disablebtn1"><i class="fa fa-plus" aria-hidden="true"></i></button> -->
-                                 </div>
                                  <div class="text-right col-2  pl-0 mt-2"  *ngIf="showhistory" >
                                     <!-- <button type="button" *ngIf="hidehistory" (click)="edithistory(ress,historyIndex)" class="btn btn-light btn-xs btn-radius" id="start_button_1" [disabled]="disablebtn1"><i class="fa fa-plus" aria-hidden="true"></i></button> -->
                                     <button type="button" (click)="saveData(termmm.value, 'past')" class="btn btn-light btn-xs btn-radius" id="start_button_1" [disabled]="disablebtn1"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -185,13 +181,6 @@
                                             id="keyword"
                                             formControlName='queryField'
                                             [matAutocomplete]="auto"  (keyup)="onKey2($event)">
-                                            <!-- <input type="hidden" formControlName ="cd_id" class="form-control" >
-                                            <input type="hidden" formControlName ="cd_code" class="form-control" > -->
-                                            <!-- <mat-hint>Please enter Minimum 3 letters</mat-hint> -->
-                                            <!-- <button mat-raised-button matSuffix type="submit"  class="sufix mt-1 custom_css_btn my_bg_v" ><mat-icon>add</mat-icon></button>  -->
-          
-                                            <!-- <mat-icon class="sufix" (click)="cdsearch(CdForm.value,myformcd)" matSuffix>search</mat-icon> -->
-                                      <!-- <mat-autocomplete #auto="matAutocomplete"  [displayWith]="checkValue"> -->
                                         <mat-autocomplete #auto="matAutocomplete">
                                           <mat-option *ngFor="let item of items | async " [value]="item.disease_name" (click)="saveData(item.disease_name, 'cd', item.clinical_diagnosis_id)">
                                             <span  >{{item.disease_name}} ({{item.code}})</span>
@@ -199,10 +188,6 @@
                                    
                        
                                       </mat-autocomplete>
-                                      <!-- <mat-error *ngIf=" CdForm.get('queryField').hasError('required')">
-                                        Please Select diagnosis name 
-                                      </mat-error> -->
-                                    <!-- </mat-form-field> -->
                                   
                             </div>
                             <div class="text-right col-2  pl-0 mt-2" >
@@ -302,12 +287,6 @@
                             </th>
                             <th
                                 style="width:10%;font-size:13px;background: #f2f2f2; border:1px solid #ccc;padding:8px;text-align: center; ">
-                                <!-- <span *ngIf="!infusion">
-                                    NO
-                                </span>
-                                <span *ngIf="infusion">
-                                    Qty
-                                </span> -->
                                 Qty
                             </th>
                                 <th
@@ -322,10 +301,7 @@
                                1 </td>
                                
                             <td style="font-size:10px;border:1px solid #ccc;padding:10px ">
-                                <!-- <mat-form-field appearance="outline" >
-                                    <input matInput  formControlName='days' (ngModelChange)="ondayschange($event)" >
-                                </mat-form-field> -->
-                                <!-- <mat-form-field appearance="outline"> -->
+                                
                                     <input type="text" id="drug" #drugs (ngModelChange)="drugsearch(drugs.value)"
                                           placeholder="Type Medicine here.."
                                           class="form-control formStyle"
@@ -348,15 +324,7 @@
                                       </div>
                                       </mat-option>
                                     </mat-autocomplete>
-                                    <!-- <div > -->
-                                        <!-- <mat-error *ngIf=" DrugForm.get('drugField').hasError('required')" style="margin-top:7px;">
-                                            Please Enter Medicine name
-                                          </mat-error> -->
-                                    <!-- </div> -->
-                                  
-                                    <!-- <mat-hint>{{medformulation}}</mat-hint> -->
-                                  <!-- </mat-form-field> -->
-                                  
+                                    
                             </td>
                             <td style="font-size:10px;border:1px solid #ccc;padding:10px ">
                                 <!-- <mat-form-field appearance="outline" >
@@ -373,27 +341,6 @@
                             </td>
                             <td style="font-size:10px;border:1px solid #ccc;padding:10px ">
                             <div *ngIf="formulation_t">
-                                <!-- <mat-form-field appearance="outline">
-                                    <input type="text" matInput list="tags" autocomplete="off">
-                                    <datalist id="tags">
-                                        <option value="1-0-1">
-                                        <option value="2-0-1">
-                                        <option value="3-0-1">
-                                        <option value="&#x2713;-&#x2713;-&#x2713;">
-                                    </datalist>
-                                </mat-form-field>  -->
-                                <!-- <div class="container"> -->
-                                        <!-- <div id="verify"> -->
-                                            <!-- <mat-form-field appearance="outline">
-                                                <mat-select (valueChange)="changeValue($event)"  formControlName='frquency'>
-                                                <mat-option *ngFor="let food of foods" [value]="food">
-                                                    {{food.viewValue}}
-                                                </mat-option>
-                                                </mat-select>
-                                            </mat-form-field> -->
-                                            <!-- <mat-icon class="fasak">edit</mat-icon> -->
-                                <!-- </div> -->
-                            <!-- <mat-form-field appearance="outline" *ngIf="showfasak"> -->
                                 <div *ngIf="showfasak">
                                     <input class="form-control formStyle" autocomplete="off" type="text"  list="datalist1" (change)="selected($event)" formControlName='frquency.viewValue'/>
                                     <!-- <input matInput *ngIf="hideFrequency" autocomplete="off" type="text"  list="datalist1" (change)="selected($event)" [(ngModel)]='frequencyEdited'/> -->
@@ -404,9 +351,6 @@
                                         </datalist>
                                 </div>
                            
-                            <!-- </mat-form-field> -->
-                              
-                            <!-- <mat-form-field appearance="outline"  > -->
                                 <div *ngIf="showkasak">
                                     <input class="form-control formStyle" autocomplete="off" type="text"  list="datalist1" (change)="selected($event)" formControlName='frquency.viewValue'/>
                                     <datalist id="datalist1">
@@ -415,78 +359,6 @@
                                         </option>
                                     </datalist>
                                 </div>
-                              
-                            <!-- </mat-form-field> -->
-                                    <!-- <mat-form-field appearance="outline"  *ngIf="showInput">
-                                         <input type="text" matInput (click)="open($event)" 
-                                         (valueChange)="changeValue($event)">
-                                    </mat-form-field>   -->
-
-                                        
-                                            <!-- <div fxLayout="row" style="text-align: center;" class="total"> -->
-                                                                
-                <!-- <div class="d-flex flex-row flex-nowrap overflow-auto">
-
-                            
-                            <mat-form-field appearance="outline"  id="verify" style="margin-left: -75px;" *ngIf="hideInput" class="check">
-                                <input type="text" matInput (mouseenter)="onMouseEnter($event)"
-                                (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)" >
-                            </mat-form-field>
-                            <mat-form-field appearance="outline"  id="verify" style="margin-left: -75px;" *ngIf="hideInput" class="check">
-                            <input type="text" matInput (mouseenter)="onMouseEnter($event)"
-                            (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline"  id="verify" style="margin-left: -75px;" *ngIf="hideInput" class="check">
-                        <input type="text" matInput (mouseenter)="onMouseEnter($event)"
-                        (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline"  id="verify" style="margin-left: -75px;" *ngIf="hideInput">
-                    <input type="text" matInput (mouseenter)="onMouseEnter($event)"
-                    (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)">
-                </mat-form-field>
-                    <mat-form-field appearance="outline"  id="verify" style="margin-left: -75px;" *ngIf="hideInput">
-                        <input type="text" matInput (mouseenter)="onMouseEnter($event)"
-                        (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)">
-                    </mat-form-field>
-                        <mat-form-field appearance="outline"  id="verify" style="margin-left: -75px;" *ngIf="hideInput">
-                        <input type="text" matInput (mouseenter)="onMouseEnter($event)"
-                        (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)">
-                    </mat-form-field>
-            </div> -->
-                                            <!-- </div> -->
-                                            <!-- <div > -->
-                                               <!-- <span>  <input type="text" class="box"> </span>
-                                                <span> <input type="text" class="box"> </span>
-                                                <span> <input type="text" class="box"> </span> -->
-                                            <!-- </div> -->
-                                                <!-- <input type="text" matInput formControlName='frquency' (mouseenter)="onMouseEnter($event)" (input)="onSearchChange($event.target.value)"
-                                                (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)">
-                                                <input type="text" matInput formControlName='frquency' (mouseenter)="onMouseEnter($event)" (input)="onSearchChange($event.target.value)"
-                                                (mouseleave)="onMouseLeave($event)" (valueChange)="changeValue($event)"> -->
-                                                <!-- <mat-form-field appearance="outline">
-                                               
-                                                </mat-form-field>    -->
-                                         <!-- </mat-form-field>    -->
-                                 
-                                  
-                                    <!-- <mat-form-field appearance="outline">
-                                        <mat-select (valueChange)="changeValue($event)"  formControlName='frquency'>
-                                        <mat-option *ngFor="let food of foods" [value]="food">
-                                            {{food.viewValue}}
-                                        </mat-option>
-                                        </mat-select>
-                                    </mat-form-field> -->
-                                <!-- <mat-form-field appearance="outline"  >
-                                    <input matInput formControlName='freq_m'>
-                                </mat-form-field>
-                               <span class="item_1"></span>
-                                <mat-form-field appearance="outline" >
-                                    <input matInput  formControlName='freq_a' >
-                                </mat-form-field>
-                                <span class="item_1"></span>
-                                <mat-form-field appearance="outline" >
-                                    <input matInput   formControlName='freq_e'>
-                                </mat-form-field> -->
                             </div>
                              <div *ngIf="liquid">
                                 <mat-form-field appearance="outline">
@@ -507,16 +379,6 @@
                                     </mat-select>
                                 </mat-form-field>
                              </div>
-                             <!-- <div *ngIf="infusion">
-                                <mat-form-field appearance="outline">
-                                   
-                                    <mat-select (valueChange)="changeValue($event)">
-                                      <mat-option   *ngFor="let inf of infusions" [value]="inf.value">
-                                      {{inf.viewValue}}
-                                      </mat-option>
-                                    </mat-select>
-                                  </mat-form-field>
-                             </div> -->
                             </td>
                           
                             <td style="font-size:10px;border:1px solid #ccc;padding:10px;text-align: center; ">
@@ -588,7 +450,7 @@
                             <div class="row">
                               <div class="col-10 pr-0">
                                 <!-- <mat-form-field appearance="outline"> -->
-                                    <input class="form-control formStyle" formControlName="gen" #genIns placeholder="Add genaral instructions.." (keyup)="onKey6($event)">
+                                    <input class="form-control formStyle" formControlName="gen" #genIns placeholder="Add general instructions.." (keyup)="onKey6($event)">
                                   <!-- </mat-form-field> -->
                               </div>
                                   <div class="text-right col-2  pl-0 v_middle">
@@ -664,16 +526,27 @@
             <mat-card style="height: 93vh;
 
             overflow-x: hidden;" class="card-container">
-             <mat-card-header>
+             <mat-card-header class="d-block">
                 
-                <mat-card-title class="text-center">PREVIEW</mat-card-title>
-                
+                <mat-card-title class="text-center mb-0">PREVIEW<span class="float-right"><i class="fa fa-comments" (click)="toggleCommentBox()" style="cursor: pointer;"></i></span></mat-card-title>
+                <label for="" class="small text-center font-italic">{{ comments }}</label>
               </mat-card-header>
+
+              <div class="row" *ngIf="showComments == true">
+                  <div class="col-9 pr-1" id="comments">
+                      <input type="text" [(ngModel)]="comments" placeholder="Comments" class="form-control" #cmnts >
+                  </div>
+                  <div class="col-3 pl-0">
+                    <button type="button" class="btn btn-light btn-xs btn-radius" (click)="saveGenPlanFu('','','',cmnts.value)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <i class="fa fa-remove pl-1" style="cursor: pointer;" (click)="toggleCommentBox()"></i>
+                  </div>
+              </div>
+
                 <form>
                     <h6>VITALS 
                         <span  *ngIf="showVitalIcons">
-                        <mat-icon  style="font-size: 12px;cursor: default;margin-left: 189px;color:black;" (click)="editVitals(vitals)">edit</mat-icon>
-                        <mat-icon  style="font-size: 12px;;cursor: default;color:black;" (click)="deleteVitals(vitals)">delete</mat-icon>
+                        <i class="fa fa-pencil mr-2" style="font-size: 14px;cursor: pointer;margin-left: 189px;color:black;" (click)="editVitals(vitals)"></i>
+                        <i class="fa fa-trash" style="font-size: 14px;;cursor: pointer;color:black;" (click)="deleteVitals(vitals)"></i>
                     </span>
                     </h6>
                     <div *ngIf="hideVitals">
@@ -753,33 +626,16 @@
                       <div class="class" >
                         <div class="row">
                      
-                            <div class=" col-12 clnotes" *ngIf="clinicalArray.length != 0">
-                                <div class="row" *ngFor="let clinicalnotes of clinicalArray;let i = index">
+                            <div class=" col-12 clnotes" *ngIf="clinicalNotesArray.length != 0">
+                                <div class="row" *ngFor="let clinicalnotes of clinicalNotesArray;let i = index">
                                     <div class="col-10">
-                                        <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{clinicalnotes}}</p>
+                                        <p style="font-size: 14px;margin-bottom:0px" ><i class="fa fa-caret-right"></i> {{ clinicalnotes.notes }}</p>
                                     </div>
                                     <div class="col-2 p-0">
                                         <!-- <mat-icon  style="font-size: 12px;cursor: default;" (click)="editClinicalNotes(clinicalnotes?.clnotes,i)">edit</mat-icon> -->
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="deleteClinicalNotes(clinicalnotes?.clnotes,i)">delete</mat-icon>
+                                        <i class="fa fa-trash"  style="font-size: 14px;cursor: pointer;" (click)="deleteNow(i, clinicalnotes.id, 'notes')"></i>
                                     </div>
                                 </div>
-                                <!-- <table *ngIf="clinicalArray.length != 0">
-                                    <thead>
-  6
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let clinicalnotes of clinicalArray;let i = index">
-                                            <td>{{i+1}}.</td>
-                                            <td class="ml-4">{{clinicalnotes?.clnotes}}</td>
-                                            <span *ngIf="clinicalArray.length != 0">
-                                                <mat-icon  style="font-size: 12px;margin-left: 20px;cursor: default;" (click)="editClinicalNotes(clinicalnotes?.clnotes,i)">edit</mat-icon>
-                                                <mat-icon  style="font-size: 12px;cursor: default;" (click)="deleteClinicalNotes(clinicalnotes?.clnotes,i)">delete</mat-icon>
-                                            </span>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <!-- <span>{{clinicalnotes?.clnotes}}</span> -->
-                                <!-- <input   formControlName="clnotes" [(ngModel)]="this.clinicalnotes" > -->
                             </div>
 
                        </div>
@@ -791,27 +647,12 @@
                             <div class=" col-12 clnotes" *ngIf="historyArray.length != 0">
                                 <div class="row" *ngFor="let historynotes of historyArray;let i = index">
                                     <div class="col-10">
-                                        <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{historynotes}}</p>
+                                        <p style="font-size: 14px;margin-bottom:5px" ><i class="fa fa-caret-right"></i> {{ historynotes.notes }}</p>
                                     </div>
                                     <div class="col-2 p-0" *ngIf="historyArray.length != 0">
-                                        <!-- <mat-icon  style="font-size: 12px;cursor: default;" (click)="edithistoryNotes(historynotes?.history_notes,i)">edit</mat-icon> -->
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="deleteHistoryNotes(historynotes?.history_notes,i)">delete</mat-icon>
+                                        <i class="fa fa-trash"  style="font-size: 14px;cursor: pointer;" (click)="deleteNow(i, historynotes.id, 'past')"></i>
                                     </div>
                                 </div>
-                                <!-- <table *ngIf="historyArray.length != 0">
-                                    <thead>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let historynotes of historyArray;let i = index">
-                                            <td>{{i+1}}.</td>
-                                            <td class="ml-2">{{historynotes?.history_notes}}</td>
-                                            <span *ngIf="historyArray.length != 0">
-                                                <mat-icon  style="font-size: 12px;margin-left: 20px;" (click)="edithistoryNotes(historynotes?.history_notes,i)">edit</mat-icon>
-                                                <mat-icon  style="font-size: 12px;;cursor: default;" (click)="deleteHistoryNotes(historynotes?.history_notes,i)">delete</mat-icon>
-                                            </span>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
                             </div>
 
                        </div>
@@ -819,90 +660,42 @@
                       <h6>CLINICAL DIAGNOSIS</h6>
                       <div class="class">
                         <div class="row">
-                     
+                            
                             <div class=" col-12 clnotes" >
                                 <div class="row" *ngFor="let cd of cdArray;let i = index">
                                     <div class="col-10">
-                                        <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{cd}}</p>
+                                        <p style="font-size: 14px" class="mb-0" ><i class="fa fa-caret-right"></i> {{ cd.notes }}</p>
                                     </div>
                                     <div class="col-2 p-0" *ngIf="cdArray.length != 0">
-                                        <!-- <mat-icon  style="font-size: 12px;cursor: default;" (click)="editCD(cd,cd?.queryField.disease_name,i)">edit</mat-icon> -->
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="deletecd(cd,i)">delete</mat-icon>
+                                        <i class="fa fa-trash"  style="font-size: 14px;cursor: pointer;" (click)="deleteNow(i, cd.id, 'cld')"></i>
                                     </div>
                                 </div>
-                                <!-- <table class="table" *ngIf="cdArray.length != 0">
-                                    <thead>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let cd of cdArray;let i = index">
-                                            <td style="width: 19px;">{{i+1}}.</td>
-                                            <td class="ml-2">{{cd?.queryField.disease_name}}</td>
-                                            <td>
-                                                <span *ngIf="cdArray.length != 0">
-                                                    <mat-icon  style="font-size: 12px;" (click)="editCD(cd,cd?.queryField.disease_name,i)">edit</mat-icon>
-                                                    <mat-icon  style="font-size: 12px;;cursor: default;" (click)="deletecd(cd,i)">delete</mat-icon>
-                                                </span> 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <!-- <span>{{cd?.queryField.disease_name}}</span> -->
-                                <!-- <input   formControlName="cd" [(ngModel)]="this.li.item_text" > -->
                             </div>
 
                        </div>
                       </div>
                       <h6>INVESTIGATIONS 
-
                         <span *ngIf="invArray.length != 0"  style="font-size:12px;float: right; text-decoration: underline;     cursor: pointer; " (click)="saveTemp(invArray)"> ADD TEMPLATE</span>
-
-                          <!-- <span> <button mat-raised-button [disabled]="disabled"   class="custom_css_btn__sketch  my_bg_v" matTooltip="Save Template" >
-                        <mat-icon>save</mat-icon>
-                        <span>T</span>
-                      </button></span> -->
-                    
-                    </h6>
+                      </h6>
                       <div class="class">
                         <div class="row">
                      
                             <div class=" col-12 clnotes">
                                 <div class="row" *ngFor="let inv of invArray;let i = index">
                                     <div class="col-10">
-                                        <p style="font-size: 14px;margin-bottom:5px" >{{i+1}}.{{inv}}</p>
+                                        <p style="font-size: 14px" class="mb-0" ><i class="fa fa-caret-right"></i> {{ inv.notes }}</p>
                                     </div>
                                     <div class="col-2 p-0" *ngIf="invArray.length != 0">
-                                        <!-- <mat-icon  style="font-size: 12px;cursor: default;"(click)="editINV(inv,inv?.queryinvField.investigation,i)">edit</mat-icon> -->
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="deleteNow(i,inv, 'inv')">delete</mat-icon>
+                                        <i class="fa fa-trash"  style="font-size: 14px;cursor: pointer;" (click)="deleteNow(i, inv.id, 'inv')"></i>
                                     </div>
                                 </div>
-                                <!-- <table *ngIf="invArray.length != 0">
-                                    <thead>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let inv of invArray;let i = index">
-                                            <td>{{i+1}}.</td>
-                                            <td class="ml-2">{{inv?.queryinvField.investigation}}</td>
-                                            <span *ngIf="invArray.length != 0">
-                                                <mat-icon  style="font-size: 12px;margin-left: 20px;" (click)="editINV(inv,inv?.queryinvField.investigation,i)">edit</mat-icon>
-                                                <mat-icon  style="font-size: 12px;;cursor: default;" (click)="deleteInv(inv,i)">delete</mat-icon>
-                                            </span> 
-                                        </tr>
-                                    </tbody>
-                                </table> -->
                             </div>
 
                        </div>
                       </div>
                       <h6>PRESCRIPTION
-                        <span *ngIf="prArray.length != 0"  style="font-size:12px;float: right; text-decoration: underline;     cursor: pointer; " (click)="AddTemp(prArray)"> ADD TEMPLATE</span>
-
-                          <!-- <span>
-                          <button mat-flat-button [disabled]="disabled"  class="my_bg_v" matTooltip="Save Template" (click)="AddTemp(prArray)">
-                        <mat-icon>save</mat-icon>
-                        <span>T</span>
-                     </button> </span> -->
-                    
-                    </h6>
+                        <span *ngIf="prArray.length != 0"  style="font-size:12px;float: right; text-decoration: underline;     cursor: pointer; " (click)="AddTemp(prArray)"> ADD TEMPLATE</span>                    
+                      </h6>
                       <div class="class">
                         <div class="row">
                      
@@ -927,35 +720,13 @@
                                             <td class="tdbreak">{{pr?.remark}}</td>
                                             <td>
                                                 <span>
-                                                    <!-- <mat-icon style="font-size: 13px;padding-top: 5px;padding-left: 9px;" (click)="editPrescription(i,pr?.drugField,pr.food,pr?.days,pr?.qty,pr?.remark,pr?.mode,pr)">edit
-                                                    </mat-icon> -->
-                                                    <mat-icon  style="font-size: 12px;;cursor: default;" (click)="deletedrug(pr,i)">delete</mat-icon>
+                                                    <i class="fa fa-pencil mr-1" style="font-size: 13px;padding-top: 5px;padding-left: 9px;" (click)="editPrescription(i,pr?.drugField,pr.food,pr?.days,pr?.qty,pr?.remark,pr?.mode,pr)"></i>
+                                                    <i class="fa fa-trash"  style="font-size: 13px;;cursor: pointer;" (click)="deleteNow(i, pr.prescription_id, 'drugs')"></i>
                                                 </span>
                                             </td>
                                         </tr>
-                                        <!-- <tr *ngFor="let pr of prArray;let i = index">
-                                            <td>{{i+1}} </td>
-                                            <td class="tdbreak">{{pr?.drugField}}</td>
-                                            <td class="ml-2 text-center">{{(pr.food == '')? '--' :pr.food}}</td>
-                                            <td class="ml-2">{{pr?.days}}</td>
-                                            <td class="ml-2">{{pr?.qty}}</td>
-                                            <td class="tdbreak">{{pr?.remark}}</td>
-                           s                 <td>
-                                                <span>
-                                                    <mat-icon style="font-size: 13px;padding-top: 5px;" (click)="editPrescription(i,pr?.drugField,pr.food,pr?.days,pr?.qty,pr?.remark,pr?.mode,pr?.frquency.viewValue,pr)">edit
-                                                    </mat-icon>
-                                                    <mat-icon  style="font-size: 12px;;cursor: default;" (click)="deletedrug(pr,i)">delete</mat-icon>
-                                                </span></td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
-                                <!-- <span>{{pr?.drugField}}</span>
-                                <span>{{pr?.days}}</span>
-                                <span>{{pr?.food}}</span>
-                                <span>{{pr?.qty}}</span>
-                                <span>{{pr?.remark}}</span> -->
-
-                                <!-- <input   formControlName="cd" [(ngModel)]="this.li.item_text" > -->
                             </div>
 
                        </div>
@@ -967,14 +738,14 @@
                       <div class="class">
                         <div class="row">
                      
-                            <div class=" col-12 clnotes" >
+                            <div class=" col-12 clnotes" *ngIf="giname" >
                                 <div class="row">
                                     <div class="col-10">
-                                        <p style="font-size: 14px;margin-bottom:5px" >{{giname}}</p>
+                                        <p style="font-size: 14px;margin-bottom:0px" ><i class="fa fa-caret-right"></i> {{giname}}</p>
                                     </div>
-                                    <div class="col-2 p-0" *ngIf="hideGeneral">
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="editGI(giname)">edit</mat-icon>
-                                        <mat-icon  style="font-size: 12px;cursor: default;" (click)="deletege(giname)">delete</mat-icon>
+                                    <div class="col-2 p-0">
+                                        <i class="fa fa-pencil mr-1" style="font-size: 14px;cursor: pointer;" (click)="editGI(giname)"></i>
+                                        <i class="fa fa-trash" style="font-size: 14px;cursor: pointer;" (click)="delGPF('gen')"></i>
                                     </div>
                                 </div>
 
@@ -986,15 +757,15 @@
                     <div class="class">
                       <div class="row">
                    
-                          <div class=" col-12" >
+                          <div class=" col-12" *ngIf="planInfo">
                             <div class="row">
                                 <div class="col-10">
-                                    <p style="font-size: 14px;margin-bottom:5px" >{{planInfo}}</p>
+                                    <p style="font-size: 14px;margin-bottom:0px" ><i class="fa fa-caret-right"></i> {{ planInfo }}</p>
                                 </div>
-                                <!-- <div class="col-2 p-0" *ngIf="showPlanN == true">
-                                    <mat-icon  style="font-size: 12px;cursor: default;" (click)="editPLAN(planInfo?.plan_notes,i)">edit</mat-icon>
-                                    <mat-icon  style="font-size: 12px;cursor: default;" (click)="deletePlan(planArray,i)">delete</mat-icon>
-                                </div> -->
+                                <div class="col-2 p-0">
+                                    <i class="fa fa-pencil mr-1" style="font-size: 14px;cursor: pointer;" (click)="editPlan(planInfo)"></i>
+                                    <i class="fa fa-trash"  style="font-size: 14px;cursor: pointer;" (click)="delGPF('plan')"></i>
+                                </div>
                             </div>
                           </div>
 
@@ -1002,16 +773,16 @@
                   </div>
                   <h6>FOLLOW-UP DATE</h6>
                   <div class="class">
-                    <div class="row">
+                    <div class="row" *ngIf="fudate">
                  
-                        <div class=" col-12 clnotes" >
-                            <div class="fdate" style="font-size:13px;"  [ngStyle]="(sunday == 0)?{'color':'red'}:{'color':'black'}" >
-                                 <!-- {{Day}} -->
-                                 {{ fudate }}
-                              </div>
-                            <!-- <span>{{follwupdate?.date}}</span> -->
-                       
-
+                        <div class=" col-10 clnotes">
+                            <div class="fdate" style="font-size:14px;"  [ngStyle]="(sunday == 0)?{'color':'red'}:{'color':'black'}" >
+                                 <i class="fa fa-caret-right"></i> {{ fudate }}
+                            </div>
+                        </div>
+                        <div class="col-2 p-0">
+                            <!-- <i class="fa fa-pencil mr-1" style="font-size: 14px;cursor: pointer;" (click)="editPLAN(planInfo?.plan_notes,i)"></i> -->
+                            <i class="fa fa-trash"  style="font-size: 14px;cursor: pointer;" (click)="delGPF('fu')"></i>
                         </div>
 
                    </div>
@@ -1020,7 +791,7 @@
                      <div class="mt-2" >
                         <div class="print">
                             <!-- <button mat-raised-button (click)="getPrint()" data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> PRINT </button> -->
-                            <button mat-raised-button *ngIf="AfterClick" (click)="getPrint()" data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> PRINT </button>
+                            <button mat-raised-button *ngIf="AfterClick" (click)="getPrint()" data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> {{ printBtnText }} </button>
                              
                             <button mat-raised-button *ngIf="BeforeClick" data-step="6" data-intro=" Click on print button to get sort summary of patients" data-position='right'> Loading Please Wait... </button>
                             <!-- <mat-progress-spinner mode="indeterminate"></mat-progress-spinner> -->
