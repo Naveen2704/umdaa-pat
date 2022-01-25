@@ -80,7 +80,8 @@
                         
                             <mat-autocomplete #auto1="matAutocomplete" >
                               <!-- <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option> -->
-                              <mat-option *ngFor="let option of options" [value]="option.investigation" (click)="getinvid(option.investigation_id);insearch(InForm.value,myforminv)">
+                              <!-- ,'myforminv' -->
+                              <mat-option *ngFor="let option of options" [value]="option.investigation" (click)="getinvid(option.investigation_id);insearch(InForm.value)">
                                 {{option.investigation}}
                               </mat-option>
                             </mat-autocomplete>
@@ -205,7 +206,8 @@
                          <!-- <mat-icon class="sufix" (click)="cdsearch(CdForm.value,myformcd)" matSuffix>search</mat-icon> -->
                    <mat-autocomplete #auto="matAutocomplete"  >
                      <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
-                       <mat-option *ngFor="let item of items | async " [value]="item.disease_name" (click)="getId(item.clinical_diagnosis_id,item.code);cdsearch(CdForm.value,myformcd)" >
+                     <!-- ,'myformcd' -->
+                       <mat-option *ngFor="let item of items | async " [value]="item.disease_name" (click)="getId(item.clinical_diagnosis_id,item.code);cdsearch(CdForm.value)" >
                          <span>{{item.disease_name}} ({{item.code}})</span>
                         </mat-option>
                    </mat-autocomplete>

@@ -18,24 +18,24 @@
 //   rural:'https://clinic.devumdaa.in/MobileApi',
 //   appVersion: require('../../package.json').version + '-dev',
 // };
-export const environment = {
-  production: false,
-  // baseUrl: 'https://devumdaa.in/dev/WebApi/V1' ,
-  baseUrl: 'https://procli.devumdaa.in/WebApi/V1' ,
-  Url:'https://procli.devumdaa.in/WebApi',
-  ipdUrl :'https://procli.devumdaa.in/WebApi/Ipd/',
-  rural:'https://procli.devumdaa.in/MobileApi',
-  appVersion: require('../../package.json').version + '-dev',
-};
-
 // export const environment = {
 //   production: false,
-//   baseUrl: 'https://clinic.umdaa.co/WebApi/V1' ,
-//   Url:'https://clinic.umdaa.co/WebApi',
-//   ipdUrl :'https://clinic.umdaa.co/WebApi/Ipd/',
-//   rural:'https://clinic.umdaa.co/MobileApi',
+//   // baseUrl: 'https://devumdaa.in/dev/WebApi/V1' ,
+//   baseUrl: 'https://procli.devumdaa.in/WebApi/V1' ,
+//   Url:'https://procli.devumdaa.in/WebApi',
+//   ipdUrl :'https://procli.devumdaa.in/WebApi/Ipd/',
+//   rural:'https://procli.devumdaa.in/MobileApi',
 //   appVersion: require('../../package.json').version + '-dev',
 // };
+
+export const environment = {
+  production: false,
+  baseUrl: 'https://clinic.umdaa.co/WebApi/V1' ,
+  Url:'https://clinic.umdaa.co/WebApi',
+  ipdUrl :'https://clinic.umdaa.co/WebApi/Ipd/',
+  rural:'https://clinic.umdaa.co/MobileApi',
+  appVersion: require('../../package.json').version + '-dev',
+};
 
 /*P
  * For easier debugging in development mode, you can import the following file

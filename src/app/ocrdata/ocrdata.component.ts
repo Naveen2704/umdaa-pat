@@ -558,8 +558,8 @@ editDrugss(i,name)
     console.log(event.checked);
     this.checkedInformation = event.checked;
   }
-
-  insearch(data,formDirective: FormGroupDirective){
+  // ,formDirective: FormGroupDirective
+  insearch(data){
     // console.log(clinic_lab_package_id);
     console.log(data.Inv_id)
     console.log(data,data.queryinvField)
@@ -578,7 +578,7 @@ editDrugss(i,name)
      console.log(this.inv);
      console.log(this.editinvId);
      this.inv[this.editinvId] = {investigation_name:data.queryinvField};
-     formDirective.resetForm();
+    //  formDirective.resetForm();
      this.showinvEdit = false;
    }
  }
@@ -611,8 +611,8 @@ editDrugss(i,name)
    }
    
  }
-
- cdsearch(data,formDirective: FormGroupDirective){
+//  ,formDirective: FormGroupDirective
+ cdsearch(data){
   console.log(data.cd_id,data.cd_code);
   // console.log(this.getlatestCds)
   console.log(data)
@@ -642,7 +642,7 @@ editDrugss(i,name)
     console.log(this.cd);
     console.log(this.editcdId);
     this.cd[this.editcdId] = {clinical_diagnosis_name:data.queryField};
-    formDirective.resetForm()
+    // formDirective.resetForm()
   }
   this.showcdEdit = false;
 }
